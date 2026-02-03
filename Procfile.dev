@@ -1,0 +1,16 @@
+web: bin/rails server
+
+# Use guard with "-p" to watch changes to CSS to workaround tailwindcss issues.
+#
+# The isssues:
+# * tailwindcss CLI supports specific OSes
+# * tailwindcss CLI for Linux is used on FreeBSD because FreeBSD is not
+# officially supported
+# * tailwindcss CLI uses a Linux system call that is not implemneted on
+# FreeBSD's Linux compatibility ABI ("-w" option fails)
+# * use guard to invoke the rebuild process by guard instead of tailwindcss:watch
+# * tailwindcss for Linux fails with "error: EMFILE: too many open files,
+# fcntl" when invoked from guard without "-p" (force polling).
+#
+# Set TAILWINDCSS_INSTALL_DIR where the linux binary resides
+css: TAILWINDCSS_INSTALL_DIR="/usr/local/bin" bundle exec guard -p
