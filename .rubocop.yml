@@ -31,12 +31,17 @@ Style/FrozenStringLiteralComment:
 Metrics/BlockLength:
   Exclude:
     - config/**/*
+    - db/**/*
   AllowedMethods: []
 
 Metrics/MethodLength:
   Exclude:
     - db/migrate/**/*
-
+  CountAsOne:
+    - array
+    - hash
+    - heredoc
+    - method_call
 Metrics/AbcSize:
   Exclude:
     - db/migrate/**/*

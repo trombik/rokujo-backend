@@ -7,3 +7,14 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+require "json"
+
+File.foreach("tmp/test.jsonl") do |line|
+  hash = JSON.parse(line)
+  begin
+    Article.import_from_hash!(hash)
+  rescue StandardError => e
+    Rails.logger.error "Failed to import_from_hash: #{hash}"
+    raise e
+  end
+end

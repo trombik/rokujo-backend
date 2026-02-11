@@ -1,0 +1,16 @@
+FactoryBot.define do
+  factory :article do
+    uuid { "MyString" }
+    url { "MyString" }
+    title { "MyString" }
+    description { "MyText" }
+    acquired_time { "2026-02-03 14:30:44" }
+    modified_time { "2026-02-03 14:30:44" }
+    published_time { "2026-02-03 14:30:44" }
+    site_name { "MyString" }
+    body { "MyText" }
+    raw_json { "" }
+    location { "MyString" }
+    author { "MyString" }
+  end
+end
