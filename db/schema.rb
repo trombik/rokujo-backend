@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_03_073044) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_11_154642) do
+  create_table "article_sources", force: :cascade do |t|
+    t.string "article_id", null: false
+    t.datetime "created_at", null: false
+    t.string "source_article_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id", "source_article_id"], name: "index_article_sources_on_article_id_and_source_article_id", unique: true
+  end
+
   create_table "articles", primary_key: "uuid", id: :string, force: :cascade do |t|
     t.datetime "acquired_time"
     t.string "author"
@@ -43,5 +51,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_03_073044) do
     t.index ["article_uuid"], name: "index_sentences_on_article_uuid"
   end
 
+  add_foreign_key "article_sources", "articles", column: "source_article_id", primary_key: "uuid"
+  add_foreign_key "article_sources", "articles", primary_key: "uuid"
   add_foreign_key "sentences", "articles", column: "article_uuid", primary_key: "uuid"
 end
