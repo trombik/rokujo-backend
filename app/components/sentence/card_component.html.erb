@@ -1,0 +1,14 @@
+<div class="card mb-2">
+  <div class="card-header">
+    <%= link_to article_title, article_path(article.uuid), class: "text-subtitle mb-2 text-body-secondary" %>
+  </div>
+  <div class="card-body">
+    <div class="card-text">
+      <%= decorated_text %>
+    </div>
+    <%= tag.p class: "card-text text-end" do %>
+      <%= link_to "Context", "#{article_path(article.uuid)}/#{sentence.line_number}", class: "btn btn-primary card-link" %>
+      (<%= link_to article_site_name, article.url %> <%= published_year %>)
+    <% end %>
+  </div>
+</div>
