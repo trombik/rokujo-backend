@@ -1,7 +1,8 @@
 <div class="container my-1 mx-1">
   <%= render SeachFormComponent.new %>
+  <%= render Pagination::InfoComponent.new(@pagy) if @pagy %>
   <% @sentences.each do |sentence| %>
     <%= render Sentence::CardComponent.new(sentence, @word) %>
   <% end %>
 </div>
-<%= render Pagination::NaviComponent.new(@pagy) %>
+<%= render Pagination::NaviComponent.new(@pagy) if @pagy %>
