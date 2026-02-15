@@ -48,6 +48,12 @@ gem "bootstrap", "~> 5.3"
 gem "dartsass-rails", "~> 0.5.1"
 gem "jquery-rails", "~> 4.6"
 
+# Use pagy for pagination
+gem "pagy", "~> 43.2"
+
+# Use ruby-spacy for NLP
+gem "ruby-spacy", "~> 0.3.0"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: [:mri, :windows], require: "debug/prelude"
