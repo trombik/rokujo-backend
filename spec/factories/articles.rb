@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :article do
-    uuid { "MyString" }
-    url { "MyString" }
+    uuid { SecureRandom.uuid_v7 }
+    url { "https://example.org/path/#{SecureRandom.uuid_v7}" }
     title { "MyString" }
     description { "MyText" }
     acquired_time { "2026-02-03 14:30:44" }

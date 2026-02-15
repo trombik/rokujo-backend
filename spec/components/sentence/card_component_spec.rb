@@ -34,7 +34,7 @@ RSpec.describe Sentence::CardComponent, type: :component do
       it "returns Unknown year" do
         article.published_time = ""
         article.acquired_time = ""
-        expect(component.published_year).to eq "Unknown year"
+        expect(component.published_year).to be false
       end
     end
   end
@@ -55,7 +55,7 @@ RSpec.describe Sentence::CardComponent, type: :component do
     context "when article does not have a site_name" do
       it "returns No site name" do
         article.site_name = ""
-        expect(component.article_site_name).to eq "No site name"
+        expect(component.article_site_name).to be false
       end
     end
   end

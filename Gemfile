@@ -43,6 +43,11 @@ gem "thruster", require: false
 # Use ViewComponent for UI components
 gem "view_component"
 
+# Use bootsnap for CSS
+gem "bootstrap", "~> 5.3"
+gem "dartsass-rails", "~> 0.5.1"
+gem "jquery-rails", "~> 4.6"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: [:mri, :windows], require: "debug/prelude"
@@ -98,6 +103,3 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-
-gem "bootstrap", "~> 5.3"
-gem "sassc-rails", "~> 2.1"

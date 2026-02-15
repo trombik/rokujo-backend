@@ -1,0 +1,3 @@
+# SentencesHelper
+module SentencesHelper
+end

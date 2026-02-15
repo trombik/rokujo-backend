@@ -1,0 +1,6 @@
+<div class="container my-1 mx-1">
+  <%= render SeachFormComponent.new %>
+  <% @sentences.each do |sentence| %>
+    <%= render Sentence::CardComponent.new(sentence, @word) %>
+  <% end %>
+</div>

@@ -1,0 +1,13 @@
+<%= form_with url: "/search", method: :get, class: "" do |form| %>
+  <div class="col-auto">
+    <%= form.label :word, t(".label_for_keyword"), class: "form-label" %>
+    <div class="input-group">
+
+      <%= form.text_field :word,
+                        value: params[:word],
+                        placeholder: t(".placeholder_for_keyword"),
+                        class: "form-control" %>
+      <%= form.submit t(".button_text_for_search"), name: nil, class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

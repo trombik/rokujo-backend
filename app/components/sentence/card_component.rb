@@ -19,17 +19,19 @@ class Sentence::CardComponent < ViewComponent::Base
     time = article.published_time.presence || article.acquired_time.presence
     time.in_time_zone.strftime("%Y")
   rescue StandardError
-    "Unknown year"
+    false
   end
 
   def article_title
-    title = article.title.presence || "No title"
-    title.truncate_bytes(80)
+    return if article.title.blank?
+
+    article.title.truncate_bytes(80)
   end
 
   def article_site_name
-    site_name = article.site_name.presence || "No site name"
-    site_name.truncate_bytes(30)
+    return false if article.site_name.blank?
+
+    article.site_name.truncate_bytes(30)
   end
 
   def decorated_text

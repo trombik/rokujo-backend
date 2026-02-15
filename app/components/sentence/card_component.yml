@@ -1,0 +1,10 @@
+---
+
+en:
+  default_title: No title
+  default_site_name: No site name
+  default_year: Unknown year
+ja:
+  default_title: タイトルなし
+  default_site_name: サイト名なし
+  default_year: 年不明

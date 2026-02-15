@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :sentence do
-    article_uuid { "MyString" }
+    article
     text { "MyText" }
-    line_number { 1 }
+    sequence(:line_number) { |n| n }
     analysis_data { "" }
     search_tokens { "MyText" }
   end
