@@ -1,12 +1,11 @@
-<h1><%= @noun %>と修飾語</h1>
-<% if @noun.present? %>
-  <p>Result: <%= results.count %>
-  <% end %>
+<% if noun.present? %>
+  <h1><%= noun %>と修飾語</h1>
   <% if results.present? %>
+    <p>Result: <%= results.count %></p>
     <ul>
       <% sorted_results.each do |(modifiers, noun), freq| %>
         <li><%= tag.strong modifiers %><%= noun %> (<%= freq %>)</li>
       <% end %>
     </ul>
-  <% else %>
   <% end %>
+<% end %>
