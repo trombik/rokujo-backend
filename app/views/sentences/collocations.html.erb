@@ -1,0 +1,9 @@
+<%= form_with url: collocations_path, method: :get, local: true do |f| %>
+  <%= f.label :noun, "名詞を入力:" %>
+  <%= f.text_field :noun, value: params[:noun] %>
+  <%= f.submit "検索" %>
+<% end %>
+<hr>
+
+<%= turbo_frame_tag "verb_collocations_by_noun", src: verb_collocations_by_noun_path(noun: @noun, format: :turbo_stream) %>
+<%= turbo_frame_tag "adjective_modifiers_by_noun", src: adjective_modifiers_by_noun_path(noun: @noun, format: :turbo_stream) %>

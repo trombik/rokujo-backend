@@ -1,0 +1,12 @@
+<h1><%= @noun %>と動詞</h1>
+<% if @noun.present? %>
+  <p>Result: <%= results.count %>
+  <% end %>
+  <% if results.present? %>
+    <ul>
+      <% sorted_results.each do |(particle, verb), freq| %>
+        <li><%= "#{noun}#{particle}" %><%= tag.strong "#{verb}" %> (<%= freq %>)</li>
+      <% end %>
+    </ul>
+  <% else %>
+  <% end %>

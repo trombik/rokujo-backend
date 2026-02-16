@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "verb_collocations_by_noun" do %>
+  <%= render Collocations::VerbWithNounComponent.new(@noun, @results) %>
+<% end %>

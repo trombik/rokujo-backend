@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "sentences#index"
   get "search" => "sentences#index"
+  get "collocations" => "sentences#collocations"
+  get "verb_collocations_by_noun" => "sentences#verb_collocations_by_noun"
+  get "adjective_modifiers_by_noun" => "sentences#adjective_modifiers_by_noun"
   get "articles/:uuid", to: "articles#show", as: "article"
   get "articles/:uuid/:line_number", to: "articles#context", as: "article_context"
 end

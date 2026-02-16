@@ -9,10 +9,15 @@
 #   end
 require "json"
 
+model = Spacy::Language.new("ja_ginza")
+
 File.foreach("tmp/test.jsonl") do |line|
   hash = JSON.parse(line)
   begin
-    Article.import_from_hash!(hash)
+    article = Article.import_from_hash!(hash)
+    article.sentences.each do |sentence|
+      sentence.analyze_and_store_pos!(model)
+    end
   rescue StandardError => e
     Rails.logger.error "Failed to import_from_hash: #{hash}"
     raise e

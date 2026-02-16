@@ -109,3 +109,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "activerecord-import", "~> 2.2"

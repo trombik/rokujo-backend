@@ -33,5 +33,7 @@ module RokujoBackend
 
     # use empty layout for component preview, app/views/layouts/empty.html.erb
     config.view_component.default_preview_layout = "empty"
+
+    config.i18n.default_locale = :en
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_11_154642) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_16_025314) do
   create_table "article_sources", force: :cascade do |t|
     t.string "article_id", null: false
     t.datetime "created_at", null: false
@@ -49,6 +49,25 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_11_154642) do
     t.text "text"
     t.datetime "updated_at", null: false
     t.index ["article_uuid"], name: "index_sentences_on_article_uuid"
+  end
+
+  create_table "token_analyses", force: :cascade do |t|
+    t.string "article_uuid", null: false
+    t.datetime "created_at", null: false
+    t.string "dep"
+    t.integer "end"
+    t.integer "head"
+    t.string "lemma"
+    t.integer "line_number", null: false
+    t.string "morph"
+    t.string "pos"
+    t.integer "start"
+    t.string "tag", null: false
+    t.string "text"
+    t.integer "token_id"
+    t.datetime "updated_at", null: false
+    t.index ["article_uuid", "line_number"], name: "index_token_analyses_on_article_uuid_and_line_number"
+    t.index ["lemma"], name: "index_token_analyses_on_lemma"
   end
 
   add_foreign_key "article_sources", "articles", column: "source_article_id", primary_key: "uuid"
