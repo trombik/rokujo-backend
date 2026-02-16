@@ -7,7 +7,7 @@
 class Sentence::CardComponent < ViewComponent::Base
   attr_reader :sentence, :word
 
-  def initialize(sentence, word)
+  def initialize(sentence, word = nil)
     @sentence = sentence
     @word = word
     super()

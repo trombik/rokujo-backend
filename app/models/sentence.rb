@@ -17,6 +17,25 @@ class Sentence < ApplicationRecord
       .order(:line_number)
   }
 
+  def self.find_sentences_with_particle_and_verb(noun, particle, verb)
+    joins(:token_analyses)
+      .where(token_analyses: { text: noun })
+      .joins("INNER JOIN token_analyses AS particles
+                ON token_analyses.token_id = particles.head
+               AND token_analyses.article_uuid = particles.article_uuid
+               AND token_analyses.line_number = particles.line_number")
+      .where(particles: { text: particle })
+      .joins("INNER JOIN token_analyses AS verbs
+               ON token_analyses.head = verbs.token_id
+              AND particles.article_uuid = verbs.article_uuid
+              AND particles.line_number = verbs.line_number")
+      .where(verbs: { lemma: verb })
+      .select("sentences.*, token_analyses.token_id AS noun_id, \
+                particles.token_id AS particle_id, \
+                verbs.token_id AS verb_id")
+      .distinct
+  end
+
   # rubocop:disable Metrics/AbcSize
   def analyze_and_store_pos!(model)
     doc = model.read(text)

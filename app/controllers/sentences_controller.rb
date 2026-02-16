@@ -32,4 +32,15 @@ class SentencesController < ApplicationController
       format.html
     end
   end
+
+  def show_sentences_with_particle_and_verb
+    @noun = params[:noun]
+    @particle = params[:particle]
+    @verb = params[:verb]
+    @sentences = Sentence.find_sentences_with_particle_and_verb(@noun, @particle, @verb)
+
+    respond_to do |format|
+      format.html
+    end
+  end
 end

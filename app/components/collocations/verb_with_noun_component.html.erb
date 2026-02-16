@@ -4,7 +4,11 @@
     <p>Result: <%= results.count %>
     <ul>
       <% sorted_results.each do |(particle, verb), freq| %>
-        <li><%= "#{noun}#{particle}" %><%= tag.strong "#{verb}" %> (<%= freq %>)</li>
+        <li>
+          <%= link_to "#{noun}#{particle}#{verb}",
+            show_sentences_with_particle_and_verb_path(noun: noun, verb: verb, particle: particle) %>
+          (<%= freq %>)
+        </li>
       <% end %>
     </ul>
   <% end %>

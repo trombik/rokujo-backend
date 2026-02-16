@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get "collocations" => "sentences#collocations"
   get "verb_collocations_by_noun" => "sentences#verb_collocations_by_noun"
   get "adjective_modifiers_by_noun" => "sentences#adjective_modifiers_by_noun"
+  get "show_sentences_with_particle_and_verb" => "sentences#show_sentences_with_particle_and_verb"
   get "articles/:uuid", to: "articles#show", as: "article"
   get "articles/:uuid/:line_number", to: "articles#context", as: "article_context"
 end
