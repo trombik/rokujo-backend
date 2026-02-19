@@ -2,6 +2,8 @@ require "pp"
 
 # Article is a series of sentences extracted from files and web pages.
 class Article < ApplicationRecord
+  before_validation :set_normalized_url
+
   self.primary_key = "uuid"
   has_many :sentences, foreign_key: "article_uuid", primary_key: "uuid", dependent: :destroy, inverse_of: :article
   has_many :article_sources, dependent: :destroy
@@ -12,7 +14,7 @@ class Article < ApplicationRecord
 
   validates :uuid, presence: true, uniqueness: true
 
-  scope :site_name_like, ->(word) { where("site_name LIKE ?", "%#{word}%") if word.present? }
+  scope :site_name_like, ->(word) { where("site_name LIKE ?", "#{Sentence.sanitize_sql_like(word)}%") if word.present? }
   # OR-ed version of site_name_like
   scope :site_names_like, lambda { |words|
     return all if words.blank?
@@ -26,7 +28,7 @@ class Article < ApplicationRecord
     end
   }
 
-  scope :url_like, ->(word) { where("url LIKE ?", "%#{word}%") if word.present? }
+  scope :url_like, ->(word) { where("normalized_url LIKE ?", "#{Article.sanitize_sql_like(word)}%") if word.present? }
   # OR-ed version of url_like
   scope :urls_like, lambda { |words|
     word_list = Array(words).compact.reject(&:empty?)
@@ -70,5 +72,18 @@ class Article < ApplicationRecord
 
     transformed_sources = new_sources.map { |source| Article.import_from_hash!(source) }
     self.sources = transformed_sources
+  end
+
+  private
+
+  def set_normalized_url
+    return if url.blank?
+
+    uri = URI.parse(url.strip)
+    path = uri.path == "/" ? "" : uri.path
+    self.normalized_url = "#{uri.host}#{path}"
+  rescue URI::InvalidURIError
+    Rails.logger.error "Failed to parse URL: #{url} | Error: #{e.message}"
+    self.normalized_url = ""
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_16_025314) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_19_131958) do
   create_table "article_sources", force: :cascade do |t|
     t.string "article_id", null: false
     t.datetime "created_at", null: false
@@ -31,12 +31,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_16_025314) do
     t.string "lang"
     t.string "location"
     t.datetime "modified_time"
+    t.string "normalized_url"
     t.datetime "published_time"
     t.json "raw_json"
     t.string "site_name"
     t.string "title"
     t.datetime "updated_at", null: false
     t.string "url"
+    t.index ["normalized_url"], name: "index_articles_on_normalized_url"
+    t.index ["site_name"], name: "index_articles_on_site_name"
     t.index ["url"], name: "index_articles_on_url", unique: true
   end
 
