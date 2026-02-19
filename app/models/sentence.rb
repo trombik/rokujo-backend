@@ -17,6 +17,15 @@ class Sentence < ApplicationRecord
       .order(:line_number)
   }
 
+  # Search word from Sentence with search operators
+  def self.search_with_operators(word, operators)
+    joins(:article)
+      .includes(:article)
+      .merge(Article.site_names_like(operators[:site_names]))
+      .merge(Article.urls_like(operators[:urls]))
+      .match(word)
+  end
+
   def self.find_sentences_with_particle_and_verb(noun, particle, verb)
     joins(:token_analyses)
       .where(token_analyses: { text: noun })

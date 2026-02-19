@@ -50,6 +50,11 @@ RSpec/ExampleLength:
   # features often require many steps
   Exclude:
     - spec/system/**/*
+  CountAsOne:
+    - array
+    - method_call
+    - heredoc
+
 RSpec/MultipleExpectations:
   Exclude:
     # component specs often require multipul expectations

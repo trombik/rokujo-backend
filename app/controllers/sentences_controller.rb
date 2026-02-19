@@ -1,9 +1,12 @@
 # SentencesController
 class SentencesController < ApplicationController
   def index
-    @word = params[:word]
+    @word = params[:word]&.split(/\s+/)&.first
+    operators = helpers.operators_from(params[:word])
     @pagy, @sentences = if @word
-                          pagy(:countish, Sentence.includes(:article).match(@word), items: 20)
+                          pagy(:countish,
+                               Sentence.search_with_operators(@word, operators),
+                               items: 20)
                         else
                           [nil, []]
                         end

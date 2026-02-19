@@ -44,7 +44,6 @@ RSpec.describe Article, type: :model do
     end
 
     context "when hash is empty" do
-      # rubocop:disable RSpec/ExampleLength
       it "deletes sentences" do
         article.sentences << create(:sentence, article_uuid: article.uuid)
         article.save!
@@ -54,13 +53,11 @@ RSpec.describe Article, type: :model do
           article.save!
         end.to change { article.sentences.count }.by(-1)
       end
-      # rubocop:enable RSpec/ExampleLength
     end
   end
 
   describe "#replace_sources_from_hash" do
     context "when given hash is empty" do
-      # rubocop:disable RSpec/ExampleLength
       it "deletes existing sources" do
         article.sources << source
         article.save!
@@ -70,7 +67,6 @@ RSpec.describe Article, type: :model do
           article.save!
         end.to change { article.sources.count }.by(-1)
       end
-      # rubocop:enable RSpec/ExampleLength
     end
 
     context "when a souce is given" do
