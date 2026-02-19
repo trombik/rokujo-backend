@@ -306,8 +306,9 @@ GEM
     numpy (0.4.0)
       pycall (>= 1.2.0.beta1)
     ostruct (0.6.3)
-    pagy (43.2.9)
+    pagy (43.2.10)
       json
+      uri
       yaml
     parallel (1.27.0)
     parser (3.3.10.1)
