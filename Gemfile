@@ -89,7 +89,7 @@ group :development do
 
   gem "guard", "~> 2.19"
   gem "guard-shell", "~> 0.7.2"
-  gem "rb-kqueue", ">= 0.2" if RbConfig::CONFIG["target_os"] =~ /(?i-mx:bsd|dragonfly)/
+  gem "rb-kqueue", ">= 0.2", install_if: -> { RbConfig::CONFIG["target_os"] =~ /bsd|dragonfly/i }
 
   # Use lookbook for UI development
   gem "lookbook", ">= 2.3.13"
