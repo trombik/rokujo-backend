@@ -12,6 +12,32 @@ class Article < ApplicationRecord
 
   validates :uuid, presence: true, uniqueness: true
 
+  scope :site_name_like, ->(word) { where("site_name LIKE ?", "%#{word}%") if word.present? }
+  # OR-ed version of site_name_like
+  scope :site_names_like, lambda { |words|
+    return all if words.blank?
+
+    word_list = Array(words).compact.reject(&:empty?)
+    return all if word_list.empty?
+
+    initial_scope = site_name_like(word_list.shift)
+    word_list.reduce(initial_scope) do |combined_scope, word|
+      combined_scope.or(url_like(word))
+    end
+  }
+
+  scope :url_like, ->(word) { where("url LIKE ?", "%#{word}%") if word.present? }
+  # OR-ed version of url_like
+  scope :urls_like, lambda { |words|
+    word_list = Array(words).compact.reject(&:empty?)
+    return all if word_list.empty?
+
+    initial_scope = url_like(word_list.shift)
+    word_list.reduce(initial_scope) do |combined_scope, word|
+      combined_scope.or(url_like(word))
+    end
+  }
+
   # rubocop:disable Metrics/MethodLength
   def self.import_from_hash!(hash)
     transaction do

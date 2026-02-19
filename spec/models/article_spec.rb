@@ -124,4 +124,108 @@ RSpec.describe Article, type: :model do
       end
     end
   end
+
+  describe "scopes" do
+    before do
+      1.upto(3) do |n|
+        create(:article, url: "https://example#{n}.org/", site_name: n.to_s)
+      end
+    end
+
+    describe ".site_names_like" do
+      context "when a word matches an article", :aggregate_failures do
+        it "returns the article" do
+          articles = described_class.site_names_like("1")
+          expect(articles.map(&:site_name)).to include("1")
+          expect(articles.count).to eq 1
+        end
+      end
+
+      context "when words is empty string" do
+        it "returns all" do
+          articles = described_class.site_names_like("")
+          expect(articles).to eq described_class.all
+        end
+      end
+
+      context "when words includes empty string and nil" do
+        it "ignores empty string and nil" do
+          articles = described_class.site_names_like(["1", "", nil])
+          expect(articles.map(&:site_name)).to contain_exactly("1")
+        end
+      end
+
+      context "when one keyword matches an article and another does not match anything at all" do
+        it "returns the matched article only" do
+          articles = described_class.site_names_like(%w[1 foo])
+          expect(articles.map(&:site_name)).to contain_exactly("1")
+        end
+      end
+
+      context "when keywords is an empty array" do
+        it "returns all" do
+          expect(described_class.site_names_like([])).to eq(described_class.all)
+        end
+      end
+
+      context "when nil is given" do
+        it "returns all" do
+          expect(described_class.site_names_like(nil)).to eq(described_class.all)
+        end
+      end
+    end
+
+    describe ".url_like" do
+      context "when word matches an Article" do
+        it "returns the matched article", :aggregate_failures do
+          articles = described_class.url_like("example1")
+          expect(articles.map(&:url)).to include("https://example1.org/")
+          expect(articles.count).to eq 1
+        end
+      end
+
+      context "when word is empty string" do
+        it "returns all" do
+          expect(described_class.url_like("").count).to eq(3)
+        end
+      end
+    end
+
+    describe ".urls_like" do
+      context "when words is an array of keywords" do
+        it "returns articles that matches any of keywords", :aggregate_failures do
+          articles = described_class.urls_like(%w[example1 example2])
+          urls = articles.map(&:url)
+          expect(urls).to include("https://example1.org/", "https://example2.org/")
+          expect(urls).not_to include("https://example3.org/")
+        end
+      end
+
+      context "when words includes empty string and nil" do
+        it "ignores empty string and nil" do
+          articles = described_class.urls_like(["example1", "", nil])
+          expect(articles.map(&:url)).to contain_exactly("https://example1.org/")
+        end
+      end
+
+      context "when one keyword matches an article and another does not match anything at all" do
+        it "returns the matched article only" do
+          articles = described_class.urls_like(%w[example1 nonexistent])
+          expect(articles.map(&:url)).to contain_exactly("https://example1.org/")
+        end
+      end
+
+      context "when keywords is an empty array" do
+        it "returns all" do
+          expect(described_class.urls_like([])).to eq(described_class.all)
+        end
+      end
+
+      context "when nil is given" do
+        it "returns all" do
+          expect(described_class.urls_like(nil)).to eq(described_class.all)
+        end
+      end
+    end
+  end
 end
