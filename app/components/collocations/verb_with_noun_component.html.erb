@@ -1,12 +1,12 @@
 <% if noun.present? %>
   <h1><%= noun %>と動詞</h1>
   <% if results.present? %>
-    <p>Result: <%= results.count %>
+    <p>Result: <%= results.count %></p>
     <ul>
       <% sorted_results.each do |(particle, verb), freq| %>
         <li>
           <%= link_to "#{noun}#{particle}#{verb}",
-            show_sentences_with_particle_and_verb_path(noun: noun, verb: verb, particle: particle) %>
+                      show_sentences_with_particle_and_verb_path(noun: noun, verb: verb, particle: particle) %>
           (<%= freq %>)
         </li>
       <% end %>
