@@ -32,7 +32,7 @@ class TokenAnalysis < ApplicationRecord
   }
 
   def self.find_verb_collocations_by_noun(noun)
-    where(text: noun)
+    where(text: noun, pos: "NOUN")
       .with_article
       .with_particles_noun_as_head
       # Filter by particle tag (e.g., starts with "助詞", but not "副助詞")
@@ -45,7 +45,7 @@ class TokenAnalysis < ApplicationRecord
   end
 
   def self.find_adjective_modifiers_by_noun(noun)
-    where(text: noun)
+    where(text: noun, pos: "NOUN")
       .with_article
       .with_modifiers_noun_as_head
       # Filter by modifier tag (e.g., starts with "形容詞")
