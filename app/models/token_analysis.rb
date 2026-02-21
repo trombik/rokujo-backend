@@ -22,15 +22,6 @@ class TokenAnalysis < ApplicationRecord
       .where(heads: { pos: "VERB" })
   }
 
-  # Find adjectives that have the noun as their head (for adjective modifiers)
-  scope :with_modifiers_noun_as_head, lambda {
-    joins("LEFT JOIN \
-          token_analyses AS modifiers ON token_analyses.token_id = modifiers.head \
-          AND token_analyses.article_uuid = modifiers.article_uuid \
-          AND token_analyses.line_number = modifiers.line_number")
-      .where(heads: { pos: "NOUN" })
-  }
-
   def self.find_verb_collocations_by_noun(noun)
     where(text: noun, pos: "NOUN")
       .with_article
@@ -47,9 +38,12 @@ class TokenAnalysis < ApplicationRecord
   def self.find_adjective_modifiers_by_noun(noun)
     where(text: noun, pos: "NOUN")
       .with_article
-      .with_modifiers_noun_as_head
-      # Filter by modifier tag (e.g., starts with "形容詞")
-      .where("modifiers.tag LIKE ?", "形容詞%")
+      .joins("LEFT JOIN \
+          token_analyses AS modifiers ON token_analyses.token_id = modifiers.head \
+          AND token_analyses.article_uuid = modifiers.article_uuid \
+          AND token_analyses.line_number = modifiers.line_number")
+      .where(heads: { pos: "NOUN", text: noun })
+      .where(modifiers: { pos: "ADJ" })
       # Group by modifier text and noun lemma
       .group("modifiers.text", "heads.lemma")
       .order(count_all: :desc)
