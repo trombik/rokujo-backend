@@ -6,7 +6,7 @@ RSpec.describe "TokenAnalysisManagers", type: :request do
       expect do
         post start_token_analysis_manager_path
       end.to have_enqueued_job(EnqueueTokenAnalysisJob)
-      expect(response).to have_http_status(:created)
+      expect(response).to have_http_status(:success)
     end
   end
 
@@ -21,7 +21,7 @@ RSpec.describe "TokenAnalysisManagers", type: :request do
 
       expect(SolidQueue::Job.where(class_name: "AnalyzeTokensJob").count).to eq(0)
       expect(Rails.cache.read("stop_analysis_enqueue")).to be true
-      expect(response).to have_http_status(:created)
+      expect(response).to have_http_status(:success)
     end
   end
 end
