@@ -1,2 +1,3 @@
 web: bin/rails server
 analyzer: cd vendor/rokujo-analyzer && uv run gunicorn main:app -c gunicorn_config.py
+worker: bundle exec rake solid_queue:start
