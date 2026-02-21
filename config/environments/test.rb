@@ -50,4 +50,11 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # Use Solid Queue in Test.
+  config.active_job.queue_adapter = :test
+  config.solid_queue.connects_to = { database: { writing: :queue } }
+
+  # Enable memory_store to test cache
+  config.cache_store = :memory_store
 end

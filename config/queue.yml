@@ -12,7 +12,7 @@ default: &default
         - analysis
       threads: 3
       processes: 1
-      polling_interval: <%= 0.1.second %>
+      polling_interval: 0.1
 
 development:
   <<: *default
