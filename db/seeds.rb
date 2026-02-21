@@ -14,7 +14,6 @@ File.foreach("tmp/test.jsonl") do |line|
   begin
     Article.import_from_hash!(hash)
   rescue StandardError => e
-    Rails.logger.error "Failed to import_from_hash: #{hash}"
-    raise e
+    Rails.logger.error "Failed to import_from_hash: #{hash}\n#{e.message}"
   end
 end

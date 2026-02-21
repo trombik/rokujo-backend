@@ -49,36 +49,25 @@ RSpec.describe Sentence, type: :model do
   describe "#analyze_and_store_pos!" do
     let(:article) { create(:article) }
     let(:sentence) { create(:sentence, article: article, text: "私は本を読む。") }
-    let(:mock_model) { instance_double(Spacy::Language) }
-
-    let(:tokens) do
-      # rubocop:disable RSpec/VerifiedDoubles
-      head = double(Spacy::Token, text: "読む", pos: "VERB")
-      # rubocop:enable RSpec/VerifiedDoubles
-      allow(head).to receive(:i).and_return(0)
-
-      [
-        { text: "私", lemma: "私", pos: "PRON", tag: "名詞-代名詞", head: head, dep: "nsubj" },
-        { text: "は", lemma: "は", pos: "ADP", tag: "助詞-係助詞", head: head, dep: "case" },
-        { text: "本", lemma: "本", pos: "NOUN", tag: "名詞-一般", head: head, dep: "obj" },
-        { text: "を", lemma: "を", pos: "ADP", tag: "助詞-格助詞", head: head, dep: "case" },
-        { text: "読む", lemma: "読む", pos: "VERB", tag: "動詞-一般", head: head, dep: "ROOT" }
-      ]
-    end
-
-    before do
-      mock_doc = tokens.map do |t|
-        # rubocop:disable RSpec/VerifiedDoubles
-        d = double(Spacy::Token, t)
-        # rubocop:enable RSpec/VerifiedDoubles
-        allow(d).to receive_messages(i: 0, morph: "", idx: 0)
-        d
-      end
-      allow(mock_model).to receive(:read).and_return(mock_doc)
-    end
 
     it "stores TokenAnalysis" do
-      expect { sentence.analyze_and_store_pos!(mock_model) }.to change(TokenAnalysis, :count).by(5)
+      analysis_results = [
+        { i: 0, text: "私", lemma: "私", pos: "PRON", tag: "代名詞", dep: "nsubj", head: 4,
+          morph: "Reading=ワタクシ", idx: 0 },
+        { i: 1, text: "は", lemma: "は", pos: "ADP", tag: "助詞-係助詞", dep: "case", head: 0,
+          morph: "Reading=ハ", idx: 1 },
+        { i: 2, text: "本", lemma: "本", pos: "NOUN", tag: "名詞-普通名詞-一般", dep: "obj", head: 4,
+          morph: "Reading=ホン", idx: 2 },
+        { i: 3, text: "を", lemma: "を", pos: "ADP", tag: "助詞-格助詞", dep: "case", head: 2,
+          morph: "Reading=ヲ", idx: 3 },
+        { i: 4, text: "読む", lemma: "読む", pos: "VERB", tag: "動詞-一般", dep: "ROOT", head: 4,
+          morph: "Inflection=五段-マ行;終止形-一般|Reading=ヨム", idx: 4 },
+        { i: 5, text: "。", lemma: "。", pos: "PUNCT", tag: "補助記号-句点", dep: "punct", head: 4,
+          morph: "Reading=。", idx: 6 }
+      ].map(&:stringify_keys)
+      allow(TextAnalysisService).to receive(:call).and_return(analysis_results)
+
+      expect { sentence.analyze_and_store_pos! }.to change(TokenAnalysis, :count).by(6)
     end
   end
 end

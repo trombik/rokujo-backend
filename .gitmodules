@@ -1,0 +1,6 @@
+[submodule "rokujo-analyzer"]
+	path = rokujo-analyzer
+	url = git@github.com:trombik/rokujo-analyzer.git
+[submodule "vendor/rokujo-analyzer"]
+	path = vendor/rokujo-analyzer
+	url = git@github.com:trombik/rokujo-analyzer.git

@@ -46,23 +46,25 @@ class Sentence < ApplicationRecord
   end
 
   # rubocop:disable Metrics/AbcSize
-  def analyze_and_store_pos!(model)
-    doc = model.read(text)
+  def analyze_and_store_pos!
     token_analyses.delete_all
-    token_data = doc.map do |token|
+    analysis_results = TextAnalysisService.call(text)
+    return unless analysis_results
+
+    token_data = analysis_results.map do |t|
       {
         article_uuid: article_uuid,
         line_number: line_number,
-        token_id: token.i,
-        text: token.text,
-        lemma: token.lemma,
-        pos: token.pos,
-        tag: token.tag,
-        head: token.head.i,
-        morph: token.morph.to_s,
-        start: token.idx,
-        end: token.idx + token.text.size,
-        dep: token.dep
+        token_id: t["i"],
+        text: t["text"],
+        lemma: t["lemma"],
+        pos: t["pos"],
+        tag: t["tag"],
+        head: t["head"],
+        morph: t["morph"],
+        start: t["idx"],
+        end: t["idx"] + t["text"].size,
+        dep: t["dep"]
       }
     end
     TokenAnalysis.import token_data, validate: true
