@@ -9,11 +9,13 @@
 #   end
 require "json"
 
-File.foreach("tmp/test.jsonl") do |line|
-  hash = JSON.parse(line)
-  begin
-    Article.import_from_hash!(hash)
-  rescue StandardError => e
-    Rails.logger.error "Failed to import_from_hash: #{hash}\n#{e.message}"
+if Rails.env.development?
+  File.foreach("tmp/test.jsonl") do |line|
+    hash = JSON.parse(line)
+    begin
+      Article.import_from_hash!(hash)
+    rescue StandardError => e
+      Rails.logger.error "Failed to import_from_hash: #{hash}\n#{e.message}"
+    end
   end
 end
