@@ -1,0 +1,3 @@
+<%= turbo_frame_tag "token_manager_status" do %>
+  <%= render TokenAnalysis::ManagerComponent.new(n_sentences: @n_sentences, n_sentences_without_tokens: @n_sentences_without_tokens, jobs_in_queue: @jobs_in_queue) %>
+<% end %>
