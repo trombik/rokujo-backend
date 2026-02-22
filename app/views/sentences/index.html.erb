@@ -1,5 +1,4 @@
 <div class="container my-1 mx-1">
-  <%= render SearchForm::FullTextComponent.new %>
   <%= render Pagination::InfoComponent.new(@pagy) if @pagy %>
   <% @sentences.each do |sentence| %>
     <%= render Sentence::CardComponent.new(sentence, @word) %>

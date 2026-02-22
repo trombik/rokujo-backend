@@ -1,0 +1,8 @@
+<%= tag.div class: "border rounded overflow-hidden" do %>
+  <%= tag.div class: "p-2 border-bottom" do %>
+    <%= render SearchForm::FullTextComponent.new %>
+  <% end %>
+  <%= tag.div class: "p-2" do %>
+    <%= render SearchForm::CollocationComponent.new %>
+  <% end %>
+<% end %>
