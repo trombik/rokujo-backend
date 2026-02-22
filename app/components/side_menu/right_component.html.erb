@@ -1,0 +1,17 @@
+<%= tag.div class: "offcanvas offcanvas-end #{klass}",
+  data: { bs_scrool: true, bs_backdrop: false },
+  tab_index: -1,
+  id: id do %>
+
+  <%= tag.div class: "offcanvas-header" do %>
+    <%= tag.h5 "System", class: "offcanvas-title" %>
+    <%= tag.button type: "button", class: "btn-close", data: { bs_dismiss: "offcanvas" }, aria: { label: "Close" } %>
+  <% end %>
+
+  <%= tag.div class: "offcanvas-body" do %>
+    <%= helpers.turbo_frame_tag "token_manager_status",
+      src: status_token_analysis_manager_path(format: :html),
+      data: { controller: "refresh", refresh_interval_value: 30 * 1000 }
+    %>
+  <% end %>
+<% end %>

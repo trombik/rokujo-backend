@@ -3,11 +3,12 @@
   <%= f.text_field :noun, value: params[:noun] %>
   <%= f.submit "検索" %>
 <% end %>
-<hr>
-
-<%= turbo_frame_tag "token_manager_status",
-  src: status_token_analysis_manager_path(format: :html),
-  data: { controller: "refresh", refresh_interval_value: 30 * 1000 }
+<%= tag.button "System",
+  class: "btn btn-primary",
+  type: "button",
+  data: { bs_toggle: "offcanvas", bs_target: "#" + SideMenu::RightComponent.id }
 %>
+<%= render SideMenu::RightComponent.new %>
+<hr>
 <%= turbo_frame_tag "verb_collocations_by_noun", src: verb_collocations_by_noun_path(noun: @noun, format: :turbo_stream) %>
 <%= turbo_frame_tag "adjective_modifiers_by_noun", src: adjective_modifiers_by_noun_path(noun: @noun, format: :turbo_stream) %>
