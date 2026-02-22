@@ -32,7 +32,7 @@ module RokujoBackend
     config.view_component.previews.paths << Rails.root.join("spec/components/previews")
 
     # use empty layout for component preview, app/views/layouts/empty.html.erb
-    config.view_component.default_preview_layout = "empty"
+    config.view_component.previews.default_layout = "empty"
 
     config.i18n.default_locale = :en
   end
