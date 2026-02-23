@@ -1,14 +1,20 @@
 <div class="card mb-2">
-  <div class="card-header">
-    <%= link_to article_title || t(".default_title"), article_path(article.uuid), class: "text-subtitle mb-2 text-body-secondary" %>
+  <div class="card-header d-flex justify-content-between align-items-center py-1">
+    <%= link_to article_title || t(".default_title"), article_path(article.uuid), class: "text-subtitle text-body-secondary small" %>
+    <%= link_to "#{article_path(article.uuid)}/#{sentence.line_number}", class: "text-decoration-none text-muted fw-bold small" do %>
+      <i class="bi bi-arrow-right-circle"></i> Context
+    <% end %>
   </div>
   <div class="card-body">
     <div class="card-text">
       <%= decorated_text %>
     </div>
-    <%= tag.p class: "card-text text-end" do %>
-      <%= link_to "Context", "#{article_path(article.uuid)}/#{sentence.line_number}", class: "btn btn-primary card-link" %>
-      (<%= link_to article_site_name || t(".default_site_name"), article.url %> <%= published_year || t(".default_year") %>)
-    <% end %>
+    <div class="card-text text-end small text-muted">
+      <%= link_to article.url, class: "text-muted" do %>
+        <%= published_year || t(".default_year") %>, <%= article_site_name || t(".default_site_name") %>
+      <% end %>
+      <br>
+      <%= article.uuid %>
+    </div>
   </div>
 </div>

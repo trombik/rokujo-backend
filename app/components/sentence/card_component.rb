@@ -25,13 +25,13 @@ class Sentence::CardComponent < ViewComponent::Base
   def article_title
     return if article.title.blank?
 
-    article.title.truncate_bytes(80)
+    article.title.truncate_bytes(96)
   end
 
   def article_site_name
     return false if article.site_name.blank?
 
-    article.site_name.truncate_bytes(30)
+    article.site_name.truncate_bytes(120)
   end
 
   def decorated_text
