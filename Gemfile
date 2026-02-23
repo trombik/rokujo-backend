@@ -49,7 +49,7 @@ gem "dartsass-rails", "~> 0.5.1"
 gem "jquery-rails", "~> 4.6"
 
 # Use pagy for pagination
-gem "pagy", "~> 43.2"
+gem "pagy", "~> 43.3"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
