@@ -303,7 +303,7 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     ostruct (0.6.3)
-    pagy (43.2.10)
+    pagy (43.3.0)
       json
       uri
       yaml
@@ -588,7 +588,7 @@ DEPENDENCIES
   kamal
   listen
   lookbook (>= 2.3.13)
-  pagy (~> 43.2)
+  pagy (~> 43.3)
   propshaft
   pry
   puma (>= 5.0)
