@@ -1,0 +1,11 @@
+<%= form_with url: token_analysis_analyzer_path, method: :get, local: true do |f| %>
+  <%= tag.div class: "col-auto" do %>
+    <%= tag.div class: "input-group" do %>
+      <%= tag.span class: "input-group-text" do %>
+        Token Analysis
+      <% end %>
+      <%= f.text_field :text, value: params[:text], class: "form-control", placeholder: "Type text..." %>
+      <%= f.submit "検索", name: nil, class: "btn btn-primary" %>
+    <% end %>
+  <% end %>
+<% end %>

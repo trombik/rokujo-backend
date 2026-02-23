@@ -26,4 +26,6 @@ Rails.application.routes.draw do
     post :start
     post :stop
   end
+
+  get "token_analysis_analyzer" => "token_analysis_analyzer#index"
 end

@@ -34,6 +34,13 @@ Metrics/BlockLength:
     - db/**/*
   AllowedMethods: []
 
+Metrics/ClassLength:
+  CountAsOne:
+    - array
+    - hash
+    - heredoc
+    - method_call
+
 Metrics/MethodLength:
   Exclude:
     - db/migrate/**/*

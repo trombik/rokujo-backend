@@ -1,0 +1,70 @@
+<div class="card shadow-sm border-0">
+  <div class="card-header bg-white border-bottom py-3">
+    <h5 class="card-title mb-0">
+      Token Analysis
+    </h5>
+    <p class="fs-4">
+      <% tokens.each do |token| %>
+        <span class="badge bg-<%= pos_color(token[:pos]) %> fw-nomal">
+          <%= token[:text] %>
+        </span>
+      <% end %>
+    </p>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-light">
+        <tr>
+          <th class="text-center">#</th>
+          <th>表記</th>
+          <th>依存関係</th>
+          <th>基本形</th>
+          <th>詳細</th>
+          <th>活用</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @tokens.each do |t| %>
+          <tr>
+            <td class="text-center text-muted">
+              <%= t[:i] %>
+            </td>
+            <td>
+              <div class="fw-bold">
+                <%= render Text::RubyComponent.new(t[:text], extract_reading(t[:morph])) %>
+              </div>
+              <span class="badge bg-<%= pos_color(t[:pos]) %> fw-normal">
+                <%= t[:pos] %>
+              </span>
+            </td>
+            <td>
+              <i class="bi bi-arrow-right-short"></i>
+              <%= head(t)[:text] %>
+              <span class="badge bg-<%= pos_color(head(t)[:pos]) %> fw-normal">
+                <%= head(t)[:pos] %>
+              </span>
+              <span class="badge rounded-pill border text-dark fw-normal bg-white">
+                <%= t[:dep] %>
+              </span>
+            </td>
+            <td>
+              <span class="text-muted small">
+                <%= t[:lemma] %>
+              </span>
+            </td>
+            <td>
+              <span class="text-muted small">
+                <%= t[:tag] %>
+              </span>
+            </td>
+            <td>
+              <div class="text-muted small">
+                <%= extract_inflection(t[:morph]) %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
