@@ -1,9 +1,17 @@
 # accept q query and displays token analysis of a sentence
 class TokenAnalysisAnalyzerController < ApplicationController
   def index
-    return unless params&.key?(:text)
+    @text = params[:text]&.strip
+    @tokens = @text.present? ? TextAnalysisService.call(@text) : []
 
-    @text = params[:text].strip
-    @tokens = TextAnalysisService.call(@text) if @text.present?
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          text: @text,
+          tokens: @tokens
+        }
+      end
+    end
   end
 end
