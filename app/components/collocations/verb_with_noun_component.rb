@@ -9,8 +9,4 @@ class Collocations::VerbWithNounComponent < ViewComponent::Base
     @results = results
     super()
   end
-
-  def sorted_results
-    results.sort_by { |(particle, verb), _count| [particle, verb] }
-  end
 end

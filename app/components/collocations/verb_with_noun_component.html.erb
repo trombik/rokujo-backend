@@ -1,15 +1,32 @@
-<% if noun.present? %>
-  <h1><%= noun %>と動詞</h1>
-  <% if results.present? %>
-    <p>Result: <%= results.count %></p>
-    <ul>
-      <% sorted_results.each do |(particle, verb), freq| %>
-        <li>
-          <%= link_to "#{noun}#{particle}#{verb}",
-                      show_sentences_with_particle_and_verb_path(noun: noun, verb: verb, particle: particle) %>
-          (<%= freq %>)
-        </li>
+<%= tag.div class: "row g-2" do %>
+  <%# sort by particle %>
+  <% grouped = results.group_by { |(particle, vverb), _| particle } %>
+  <%# sort by frequency %>
+  <% sorted_groups = grouped.sort_by { |particle, group| -group.count } %>
+
+  <% sorted_groups.each do |particle, group| %>
+    <%= tag.div class: "col-md-4 col-sm-6" do %>
+      <%= tag.div class: "card h-100 border-light-subtle shadow-sm" do %>
+        <%= tag.div class: "card-header py-1 px-2 bg-light d-flex justify-content-between align-items-center" do %>
+          <%= tag.strong do %>
+            <%= noun %> <%= particle %>
+          <% end %>
+          <%= tag.small class: "text-muted" do %>
+            <%= tag.i class: "bi bi-layers" %> <%= group.count %>
+          <% end %>
+        <% end %>
+        <%= tag.div class: "card-body p-2" do %>
+          <%= tag.div class: "d-flex flex-wrap gap-1" do %>
+            <% group.each do |(p, verb), freq| %>
+              <%= link_to show_sentences_with_particle_and_verb_path(noun: noun, verb: verb, particle: particle),
+                          class: "btn btn-sm border-1 border-light-subtle bg-light py-0 px-2",
+                          title: "Total: #{freq}" do %>
+                <%= verb %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
       <% end %>
-    </ul>
+    <% end %>
   <% end %>
 <% end %>
