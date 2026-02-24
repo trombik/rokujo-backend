@@ -4,6 +4,9 @@
     <%= link_to "#{article_path(article.uuid)}/#{sentence.line_number}", class: "text-decoration-none text-muted fw-bold small" do %>
       <i class="bi bi-arrow-right-circle"></i> Context
     <% end %>
+    <%= link_to token_analysis_analyzer_path(text: sentence.text), class: "text-decoration-none text-muted fw-bold small" do %>
+      <i class="bi bi-arrow-right-circle"></i> Analyze
+    <% end %>
   </div>
   <div class="card-body">
     <div class="card-text">
