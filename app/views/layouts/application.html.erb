@@ -25,6 +25,8 @@
 
   <body>
     <div class="container mt-5">
+      <%= render SideMenu::RightButtonComponent.new %>
+      <%= render SideMenu::RightComponent.new %>
       <%= render SearchForm::GroupComponent.new %>
       <%= yield %>
     </div>
