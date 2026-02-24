@@ -1,3 +1,3 @@
-<%= turbo_stream.replace "adjective_modifiers_by_noun" do %>
-<%= render Collocations::ModifierComponent.new(@noun, @results) %>
+<%= turbo_stream.replace "adjective_modifiers_by_noun_#{@type}" do %>
+<%= render Collocations::ModifierComponent.new(@noun, @patterns, @type) %>
 <% end %>

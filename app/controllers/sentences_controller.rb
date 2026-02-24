@@ -28,7 +28,8 @@ class SentencesController < ApplicationController
 
   def adjective_modifiers_by_noun
     @noun = params[:noun]
-    @results = @noun ? TokenAnalysis.find_adjective_modifiers_by_noun(@noun) : {}
+    @type = params[:type]
+    @patterns = @noun ? TokenAnalysis.find_modifier_patterns_for(@noun, by: params[:type]) : []
 
     respond_to do |format|
       format.turbo_stream
@@ -45,6 +46,21 @@ class SentencesController < ApplicationController
     respond_to do |format|
       format.html
     end
+  end
+
+  def by_noun_and_modifier
+    @noun = params[:noun]
+    @modifier = params[:modifier]
+    @token_analyses = TokenAnalysis.joins("INNER JOIN token_analyses AS modifiers ON
+                         modifiers.article_uuid = token_analyses.article_uuid AND
+                         modifiers.line_number  = token_analyses.line_number AND
+                         modifiers.head         = token_analyses.token_id")
+                                   .where(token_analyses: { lemma: @noun }, modifiers: { text: @modifier })
+                                   .select(:article_uuid, :line_number)
+                                   .includes(:sentence)
+                                   .distinct
+                                   .limit(20)
+    @sentences = @token_analyses.map(&:sentence)
   end
 
   def extract_word(word)

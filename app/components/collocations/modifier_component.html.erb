@@ -1,11 +1,23 @@
-<% if noun.present? %>
-  <h1><%= noun %>と修飾語</h1>
-  <% if results.present? %>
-    <p>Result: <%= results.count %></p>
-    <ul>
-      <% sorted_results.each do |(modifiers, noun), freq| %>
-        <li><%= tag.strong modifiers %><%= noun %> (<%= freq %>)</li>
+<%= tag.div class: "card h-100 border-light-subtle shadow-sm" do %>
+  <%= tag.div class: "card-header py-1 px-2 bg-light d-flex justify-content-between align-items-center" do %>
+    <%= tag.strong class: "small text-uppercase text-secondary" do %>
+      <%= type_name %>
+    <% end %>
+    <%= tag.small class: "text-muted", title: type_desc do %>
+      <%= tag.i class: "bi bi-info-circle" %>
+    <% end %>
+  <% end %>
+
+  <%= tag.div class: "card-body p-2" do %>
+    <%= tag.div class: "d-flex flex-wrap gap-1" do %>
+      <% patterns.each do |pattern| %>
+        <%= tag.div class: "btn btn-sm border-1 border-light-subtle bg-light py-0 px-2 d-flex align-items-center",
+                    title: "Total: #{pattern.count}" do %>
+          <%= tag.span pattern.phrase, class: "fw-bold" %>
+          <%= tag.span noun, class: "text-dark ms-1", style: "font-size: 0.85em;" %>
+          <%= tag.span pattern.count, class: "ms-2 text-muted small border-start ps-2", style: "font-size: 0.75em;" %>
+        <% end %>
       <% end %>
-    </ul>
+    <% end %>
   <% end %>
 <% end %>

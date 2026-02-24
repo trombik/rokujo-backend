@@ -49,4 +49,36 @@ class TokenAnalysis < ApplicationRecord
       .order(count_all: :desc)
       .count
   end
+
+  def self.find_modifier_patterns_for(noun, by: nil)
+    target_deps = by || %w[nmod acl compound amod nummod appos]
+
+    query = <<~SQL.squish
+      SELECT
+        (
+          SELECT GROUP_CONCAT(text, '')
+          FROM token_analyses AS sub
+          WHERE sub.article_uuid = token_analyses.article_uuid
+            AND sub.line_number = token_analyses.line_number
+            AND sub.token_id >= token_analyses.token_id
+            AND sub.token_id < token_analyses.head
+        ) AS phrase,
+        COUNT(*) AS count
+      FROM token_analyses
+      INNER JOIN token_analyses AS targets ON
+        token_analyses.article_uuid = targets.article_uuid AND
+        token_analyses.line_number  = targets.line_number AND
+        token_analyses.head         = targets.token_id
+      WHERE targets.lemma = :noun
+        AND targets.pos = 'NOUN'
+        AND token_analyses.start < targets.start
+        AND token_analyses.dep IN (:deps)
+        AND (targets.token_id - token_analyses.token_id) < 6
+      GROUP BY phrase
+      ORDER BY count DESC
+    SQL
+
+    from("(#{sanitize_sql_array([query, { noun: noun, deps: target_deps }])}) AS results")
+      .select("results.phrase, results.count")
+  end
 end

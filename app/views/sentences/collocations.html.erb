@@ -6,4 +6,20 @@
 <%= render SideMenu::RightComponent.new %>
 <hr>
 <%= turbo_frame_tag "verb_collocations_by_noun", src: verb_collocations_by_noun_path(noun: @noun, format: :turbo_stream) %>
-<%= turbo_frame_tag "adjective_modifiers_by_noun", src: adjective_modifiers_by_noun_path(noun: @noun, format: :turbo_stream) %>
+<div class="container-fluid modifier-dashboard mt-3">
+  <div class="row row-cols-1 row-cols-lg-3 g-3">
+    <% %w[nmod acl appos amod compound].each do |type| %>
+      <div class="col">
+        <section id="section-<%= type %>" class="h-100">
+          <%= turbo_frame_tag "adjective_modifiers_by_noun_#{type}",
+                               src: adjective_modifiers_by_noun_path(noun: @noun, type: type, format: :turbo_stream),
+                               loading: :lazy do %>
+            <div class="py-4 text-center">
+              <div class="spinner-border spinner-border-sm text-light"></div>
+            </div>
+          <% end %>
+        </section>
+      </div>
+    <% end %>
+  </div>
+</div>
