@@ -1,11 +1,13 @@
 <div class="card mb-2">
   <div class="card-header d-flex justify-content-between align-items-center py-1">
     <%= link_to article_title || t(".default_title"), article_path(article.uuid), class: "text-subtitle text-body-secondary small" %>
-    <%= link_to "#{article_path(article.uuid)}/#{sentence.line_number}", class: "text-decoration-none text-muted fw-bold small" do %>
-      <i class="bi bi-arrow-right-circle"></i> Context
-    <% end %>
-    <%= link_to token_analysis_analyzer_path(text: sentence.text), class: "text-decoration-none text-muted fw-bold small" do %>
-      <i class="bi bi-arrow-right-circle"></i> Analyze
+    <%= tag.div class: "d-flex gap-3" do %>
+      <%= link_to "#{article_path(article.uuid)}/#{sentence.line_number}", class: "text-decoration-none text-muted fw-bold small" do %>
+        <i class="bi bi-arrow-right-circle"></i> Context
+      <% end %>
+      <%= link_to token_analysis_analyzer_path(text: sentence.text), class: "text-decoration-none text-muted fw-bold small" do %>
+        <i class="bi bi-arrow-right-circle"></i> Analyze
+      <% end %>
     <% end %>
   </div>
   <div class="card-body">
