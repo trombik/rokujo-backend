@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_21_103620) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_25_101906) do
   create_table "article_sources", force: :cascade do |t|
     t.string "article_id", null: false
     t.datetime "created_at", null: false
@@ -52,6 +52,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_21_103620) do
     t.text "text"
     t.datetime "updated_at", null: false
     t.index ["article_uuid"], name: "index_sentences_on_article_uuid"
+  end
+
+  create_table "site_name_corrections", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "domain", null: false
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+    t.index ["domain"], name: "index_site_name_corrections_on_domain", unique: true
   end
 
   create_table "token_analyses", force: :cascade do |t|
