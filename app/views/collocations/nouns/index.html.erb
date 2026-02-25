@@ -1,6 +1,6 @@
 <%= turbo_frame_tag Collocations::VerbWithNounComponent.new(@lemma).frame_id,
   src: collocations_nouns_verbs_path(lemma: @lemma, format: :turbo_stream) do %>
-  <%= render SpinnerComponent.new %>
+  <%= render SpinnerComponent.new if @lemma %>
 <% end %>
 <div class="container-fluid modifier-dashboard mt-3">
   <div class="row row-cols-1 row-cols-lg-3 g-3">
@@ -10,7 +10,7 @@
           <%= turbo_frame_tag Collocations::ModifierComponent.new(type).frame_id,
                                src: collocations_nouns_adjectives_path(lemma: @lemma, type: type, format: :turbo_stream),
                                loading: :lazy do %>
-            <%= render SpinnerComponent.new %>
+            <%= render SpinnerComponent.new if @lemma %>
           <% end %>
         </section>
       </div>
