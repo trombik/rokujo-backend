@@ -1,73 +1,73 @@
 <%= tag.div class: "p-2 border-bottom" do %>
   <%= render SearchForm::TokenAnalysisComponent.new %>
 <% end %>
-<div class="card shadow-sm border-0">
-  <div class="card-header bg-white border-bottom py-3">
+<%= tag.div class: "card shadow-sm border-0" do %>
+  <%= tag.div class: "card-header bg-white border-bottom py-3" do %>
     <%= link_to token_analysis_analyzer_path(text: text, format: :json), class: "text-decoration-none text-muted fw-bold small" do %>
       <%= tag.i class: "bi bi-braces" %> JSON
     <% end %>
-    <p class="fs-4">
+    <%= tag.p class: "fs-4" do %>
       <% tokens.each do |token| %>
-        <span class="badge bg-<%= pos_color(token[:pos]) %> fw-nomal">
+        <%= tag.span class:"badge bg-#{pos_color(token[:pos])} fw-nomal" do %>
           <%= token[:text] %>
-        </span>
+        <% end %>
       <% end %>
-    </p>
-  </div>
-  <div class="table-responsive">
-    <table class="table table-hover align-middle mb-0">
-      <thead class="table-light">
-        <tr>
-          <th class="text-center">#</th>
-          <th>表記</th>
-          <th>依存関係</th>
-          <th>基本形</th>
-          <th>詳細</th>
-          <th>活用</th>
-        </tr>
-      </thead>
-      <tbody>
+      <% end %>
+  <% end %>
+  <%= tag.div class: "table-responsive" do %>
+    <%= tag.table class: "table table-hover align-middle mb-0" do %>
+      <%= tag.thead class: "table-light" do %>
+        <%= tag.tr do %>
+          <%= tag.th class: "text-center" do %>#<% end %>
+          <%= tag.th do %>表記<% end %>
+          <%= tag.th do %>依存関係<% end %>
+          <%= tag.th do %>基本形<% end %>
+          <%= tag.th do %>詳細<% end %>
+          <%= tag.th do %>活用<% end %>
+        <% end %>
+      <% end %>
+      <%= tag.tbody do %>
         <% @tokens.each do |t| %>
-          <tr>
-            <td class="text-center text-muted">
+          <%= tag.tr do %>
+            <%= tag.td class: "text-center text-muted" do %>
               <%= t[:i] %>
-            </td>
-            <td>
-              <div class="fw-bold">
+            <% end %>
+            <%= tag.td do %>
+              <%= tag.div class: "fw-bold" do %>
                 <%= render Text::RubyComponent.new(t[:text], extract_reading(t[:morph])) %>
-              </div>
-              <span class="badge bg-<%= pos_color(t[:pos]) %> fw-normal">
+              <% end %>
+              <%= tag.span class: "badge bg-#{pos_color(t[:pos])} fw-normal" do %>
                 <%= t[:pos] %>
-              </span>
-            </td>
-            <td>
+              <% end %>
+            <% end %>
+            <%= tag.td do %>
               <i class="bi bi-arrow-right-short"></i>
               <%= head(t)[:text] %>
-              <span class="badge bg-<%= pos_color(head(t)[:pos]) %> fw-normal">
+              <%= tag.span class: "badge bg-#{pos_color(head(t)[:pos])} fw-normal" do %>
                 <%= head(t)[:pos] %>
-              </span>
-              <span class="badge rounded-pill border text-dark fw-normal bg-white">
+              <% end %>
+              <%= tag.span class: "badge rounded-pill border text-dark fw-normal bg-white" do %>
                 <%= t[:dep] %>
-              </span>
-            </td>
-            <td>
-              <span class="text-muted small">
+              <% end %>
+            <% end %>
+            <%= tag.td do %>
+              <%= tag.span class: "text-muted small" do %>
                 <%= t[:lemma] %>
-              </span>
-            </td>
-            <td>
-              <span class="text-muted small">
+              <% end %>
+            <% end %>
+            <%= tag.td do %>
+              <%= tag.span class: "text-muted small" do %>
                 <%= t[:tag] %>
-              </span>
-            </td>
-            <td>
-              <div class="text-muted small">
+              <% end %>
+            <% end %>
+            <%= tag.td do %>
+              <%= tag.div class: "text-muted small" do %>
                 <%= extract_inflection(t[:morph]) %>
-              </div>
-            </td>
-          </tr>
+              <% end %>
+            <% end %>
+          <% end %>
         <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

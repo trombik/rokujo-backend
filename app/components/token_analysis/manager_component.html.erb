@@ -1,14 +1,14 @@
-<div class="card w-auto text-bg-light mb-3">
-  <div class="card-header">TokenAnalysis</div>
-  <div class="card-body">
-    <p class="card-text">Sentences without tokens: <%= n_sentences_without_tokens %> (<%= percent_of_sentences_without_tokens %>% of <%= n_sentences %>)</p>
-    <div class="progress" role="progressbar">
-      <div class="progress-bar" style="width: <%= 100 - percent_of_sentences_without_tokens %>%"></div>
-    </div>
-    <p class="card-text">Jobs in queue: <%= jobs_in_queue %></p>
-    <div class="d-flex gap-2">
-      <%= button_to "Start", start_token_analysis_manager_path, method: :post, class: "btn btn-primary #{button_state_start}" %>
-      <%= button_to "Stop", stop_token_analysis_manager_path, method: :post, class: "btn btn-primary #{button_state_stop}" %>
-    </div>
-  </div>
-</div>
+<%= tag.div class: 'card w-auto text-bg-light mb-3' do %>
+  <%= tag.div 'TokenAnalysis', class: 'card-header' %>
+  <%= tag.div class: 'card-body' do %>
+    <%= tag.p "Sentences without tokens: #{n_sentences_without_tokens} (#{percent_of_sentences_without_tokens}% of #{n_sentences})", class: 'card-text' %>
+    <%= tag.div class: 'progress', role: 'progressbar' do %>
+      <%= tag.div '', class: 'progress-bar', style: "width: #{100 - percent_of_sentences_without_tokens}%" %>
+    <% end %>
+    <%= tag.p "Jobs in queue: #{jobs_in_queue}", class: 'card-text' %>
+    <%= tag.div class: 'd-flex gap-2' do %>
+      <%= button_to 'Start', start_token_analysis_manager_path, method: :post, class: "btn btn-primary #{button_state_start}" %>
+      <%= button_to 'Stop', stop_token_analysis_manager_path, method: :post, class: "btn btn-primary #{button_state_stop}" %>
+    <% end %>
+  <% end %>
+<% end %>

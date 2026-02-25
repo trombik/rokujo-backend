@@ -1,7 +1,13 @@
 <%= tag.button class: "btn btn-sm btn-outline-secondary border-light-subtle bg-white shadow-sm d-inline-flex align-items-center gap-2 py-1 px-3 mb-3",
                type: "button",
                data: { bs_toggle: "offcanvas", bs_target: "#" + SideMenu::RightComponent.id } do %>
-  <i class="bi bi-gear-wide-connected text-secondary"></i>
-  <span class="fw-semibold small" style="letter-spacing: 0.05rem;">SYSTEM</span>
-  <span class="badge rounded-circle bg-success p-1" style="width: 6px; height: 6px;"><span class="visually-hidden">Active</span></span>
+  <%= tag.i class: "bi bi-gear-wide-connected text-secondary" %>
+  <%= tag.span class: "fw-semibold small", style: "letter-spacing: 0.05rem;" do %>
+    SYSTEM
+  <% end %>
+  <%= tag.span class: "badge rounded-circle bg-success p-1", style: "width: 6px; height: 6px;" do %>
+    <%= tag.span class: "visually-hidden" do %>
+      Active
+    <% end %>
+  <% end %>
 <% end %>

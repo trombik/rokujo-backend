@@ -1,22 +1,24 @@
-<div class="container mt-4">
-  <div class="card mt-3">
-    <div class="card-body">
-      <div class="card-title">
-        <h5>
+<%= tag.div class: "container mt-4" do %>
+  <%= tag.div class: "card mt-3" do %>
+    <%= tag.div class: "card-body" do %>
+      <%= tag.div class: "card-title" do %>
+        <%= tag.h5 do %>
           <%= link_to target_sentence.article.title, article_path(target_sentence.article.uuid), class: "link-offset-1" %>
-        </h5>
-      </div>
-      <% context_sentences.each do |sentence| %>
-        <% if sentence.line_number == target_sentence.line_number %>
-          <div class="bg-warning text-dark p-2 rounded">
-            <strong><%= sentence.text %></strong>
-          </div>
-        <% else %>
-          <div class="p-2">
-            <%= sentence.text %>
-          </div>
         <% end %>
       <% end %>
-    </div>
-  </div>
-</div>
+      <% context_sentences.each do |sentence| %>
+        <% if sentence.line_number == target_sentence.line_number %>
+          <%= tag.div class: "bg-warning text-dark p-2 rounded" do %>
+            <%= tag.strong do %>
+              <%= sentence.text %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <%= tag.div class: "p-2" do %>
+            <%= sentence.text %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
