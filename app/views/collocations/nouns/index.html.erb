@@ -1,5 +1,7 @@
 <%= turbo_frame_tag Collocations::VerbWithNounComponent.new(@lemma).frame_id,
-                    src: collocations_nouns_verbs_path(lemma: @lemma, format: :turbo_stream) %>
+  src: collocations_nouns_verbs_path(lemma: @lemma, format: :turbo_stream) do %>
+  <%= render SpinnerComponent.new %>
+<% end %>
 <div class="container-fluid modifier-dashboard mt-3">
   <div class="row row-cols-1 row-cols-lg-3 g-3">
     <% %w[nmod acl appos amod compound].each do |type| %>
@@ -8,9 +10,7 @@
           <%= turbo_frame_tag Collocations::ModifierComponent.new(type).frame_id,
                                src: collocations_nouns_adjectives_path(lemma: @lemma, type: type, format: :turbo_stream),
                                loading: :lazy do %>
-            <div class="py-4 text-center">
-              <div class="spinner-border spinner-border-sm text-light"></div>
-            </div>
+            <%= render SpinnerComponent.new %>
           <% end %>
         </section>
       </div>
