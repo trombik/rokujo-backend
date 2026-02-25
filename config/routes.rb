@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  # root "sentences#index"
+  root "root#index"
+
   get "search" => "sentences#index"
   get "show_sentences_with_particle_and_verb" => "sentences#show_sentences_with_particle_and_verb"
   get "articles/:uuid", to: "articles#show", as: "article"
