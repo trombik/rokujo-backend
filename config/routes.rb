@@ -14,9 +14,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "sentences#index"
   get "search" => "sentences#index"
-  get "collocations" => "sentences#collocations"
-  get "verb_collocations_by_noun" => "sentences#verb_collocations_by_noun"
-  get "adjective_modifiers_by_noun/:type" => "sentences#adjective_modifiers_by_noun", as: "adjective_modifiers_by_noun"
   get "show_sentences_with_particle_and_verb" => "sentences#show_sentences_with_particle_and_verb"
   get "articles/:uuid", to: "articles#show", as: "article"
   get "articles/:uuid/:line_number", to: "articles#context", as: "article_context"
@@ -25,6 +22,14 @@ Rails.application.routes.draw do
     get :status
     post :start
     post :stop
+  end
+
+  namespace :collocations do
+    scope controller: :nouns, path: :nouns, as: :nouns do
+      get :index, path: "/"
+      get :verbs
+      get :adjectives
+    end
   end
 
   get "token_analysis_analyzer" => "token_analysis_analyzer#index"

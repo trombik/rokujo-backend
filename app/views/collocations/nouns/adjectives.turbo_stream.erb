@@ -1,0 +1,4 @@
+<% component = Collocations::ModifierComponent.new(@type, @lemma, @results) %>
+<%= turbo_stream.replace component.frame_id do %>
+  <%= render component %>
+<% end %>

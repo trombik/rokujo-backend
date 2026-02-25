@@ -1,10 +1,10 @@
-<%= form_with url: collocations_path, method: :get, local: true do |f| %>
+<%= form_with url: collocations_nouns_index_path, method: :get, local: true do |f| %>
   <%= tag.div class: "col-auto" do %>
     <%= tag.div class: "input-group" do %>
       <%= tag.span class: "input-group-text" do %>
         コロケーション検索
       <% end %>
-      <%= f.text_field :noun, value: params[:noun], class: "form-control", placeholder: "名詞" %>
+      <%= f.text_field :lemma, value: params[:lemma], class: "form-control", placeholder: "名詞" %>
       <%= f.submit "検索", name: nil, class: "btn btn-primary" %>
     <% end %>
   <% end %>

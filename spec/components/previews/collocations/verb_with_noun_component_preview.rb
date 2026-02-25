@@ -2,6 +2,8 @@
 
 class Collocations::VerbWithNounComponentPreview < ViewComponent::Preview
   def default
-    render(Collocations::VerbWithNounComponent.new)
+    noun = "データ"
+    results = TokenAnalysis.find_verb_collocations_by_noun(noun)
+    render Collocations::VerbWithNounComponent.new(noun, results)
   end
 end

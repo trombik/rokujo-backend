@@ -4,7 +4,7 @@
 class Collocations::ModifierComponent < ViewComponent::Base
   attr_reader :noun, :patterns, :type
 
-  def initialize(noun, patterns, type)
+  def initialize(type, noun = nil, patterns = [])
     @noun = noun
     @patterns = patterns || []
     @type = type
@@ -46,4 +46,8 @@ class Collocations::ModifierComponent < ViewComponent::Base
     end
   end
   # rubocop:enable Metrics/MethodLength
+
+  def frame_id
+    "#{self.class.name.underscore.parameterize}_#{type}"
+  end
 end

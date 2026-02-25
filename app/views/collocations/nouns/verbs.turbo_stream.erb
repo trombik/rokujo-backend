@@ -1,0 +1,4 @@
+<% component = Collocations::VerbWithNounComponent.new(@lemma, @results) %>
+<%= turbo_stream.replace component.frame_id do %>
+  <%= render component %>
+<% end %>
