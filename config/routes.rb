@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :site_name_corrections
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   mount Lookbook::Engine, at: "/lookbook" if Rails.env.development?

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :site_name_correction do
-    domain { "example.org" }
-    name { "Example" }
+    sequence(:domain) { |n| "#{n}.example.org" }
+    name { "Corrected name" }
   end
 end

@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Site name corrections" %>
+
+<h1>Site name corrections</h1>
+
+<div id="site_name_corrections">
+  <% @site_name_corrections.each do |site_name_correction| %>
+    <%= render site_name_correction %>
+    <p>
+      <%= link_to "Show this site name correction", site_name_correction %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New site name correction", new_site_name_correction_path %>
