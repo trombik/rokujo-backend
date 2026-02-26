@@ -12,18 +12,18 @@ RSpec.describe IconComponent, type: :component do
   end
 
   it "has the base class name for the icon set" do
-    expect(rendered_content).to have_tag("i", with: { class: icon_set_name })
+    expect(page).to have_css("i.#{icon_set_name}")
   end
 
   it "has the class name for the icon" do
-    expect(rendered_content).to have_tag("i", with: { class: "#{icon_set_name}-#{name}" })
+    expect(page).to have_css("i.#{icon_set_name}-#{name}")
   end
 
   context "when optional klass is given" do
     let(:icon) { described_class.new(name, klass: "foo") }
 
     it "includes the klass in the class attribute" do
-      expect(rendered_content).to have_tag("i", with: { class: "foo" })
+      expect(page).to have_css("i.foo")
     end
   end
 end
