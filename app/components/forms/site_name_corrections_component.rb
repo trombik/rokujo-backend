@@ -8,4 +8,9 @@ class Forms::SiteNameCorrectionsComponent < ViewComponent::Base
     @site_name_correction = site_name_correction
     super()
   end
+
+  def title_string
+    mode = site_name_correction.persisted? ? "edit" : "create"
+    t(".title.#{mode}", model_name: site_name_correction.model_name.human)
+  end
 end

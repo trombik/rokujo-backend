@@ -39,3 +39,6 @@ en:
   activerecord:
     models:
       site_name_corrections: site name correction
+    attributes:
+      domain: Domain
+      name: Name

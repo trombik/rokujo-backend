@@ -1,31 +1,32 @@
-<%= form_with(model: site_name_correction) do |form| %>
-  <% if site_name_correction.errors.any? %>
-    <%= tag.div(style: "color: red") do %>
-      <%= tag.h2 do %>
-        <%= t(".err_msg.validation_failed", count: site_name_correction.errors.count) %>
-      <% end %>
+<%= tag.h1 do %>
+  <%= title_string %>
+<% end %>
 
-      <%= tag.ul do %>
+<%= form_with(model: site_name_correction) do |form| %>
+
+  <% if site_name_correction.errors.any? %>
+    <%= tag.div class: "alert alert-danger shadow-sm", role: "alert" do %>
+      <%= tag.h5 t(".err_msg.validation_failed", count: site_name_correction.errors.count), class: "alert-heading" %>
+      <%= tag.ul class: "mb-0" do %>
         <% site_name_correction.errors.each do |error| %>
-          <%= tag.li do %>
-            <%= error.full_message %>
-          <% end %>
+          <%= tag.li error.full_message %>
         <% end %>
       <% end %>
     <% end %>
   <% end %>
 
-  <%= tag.div do %>
-    <%= form.label :domain, style: "display: block" %>
-    <%= form.text_field :domain %>
+  <%= tag.div class: "mb-3" do %>
+    <%= form.label :domain, class: "form-label fw-semibold" %>
+    <%= form.text_field :domain, class: "form-control", placeholder: t(".placeholder.domain") %>
   <% end %>
 
-  <%= tag.div do %>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <%= tag.div class: "mb-3" do %>
+    <%= form.label :name, class: "form-label fw-semibold" %>
+    <%= form.text_field :name, class: "form-control", placeholder: t(".placeholder.name") %>
   <% end %>
 
-  <%= tag.div do %>
-    <%= form.submit %>
+  <%= tag.div class: "mt-4" do %>
+    <%= form.submit class: "btn btn-primary px-4" %>
+    <%= link_to "Cancel", site_name_corrections_path, class: "btn btn-link text-decoration-none" %>
   <% end %>
 <% end %>

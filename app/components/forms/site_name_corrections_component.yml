@@ -1,12 +1,25 @@
 ---
 
 en:
+  title:
+    create: "Creating %{model_name}"
+    edit: "Editing %{model_name}"
   err_msg:
     validation_failed:
       one: "The input has an error. The change has not been saved."
       other: "The input has %{count} errors. The change has not been saved."
+  placeholder:
+    name: A new site name to rewrite
+    domain: A pattern to match
+
 ja:
+  title:
+    create: "%{model_name}を作成する"
+    edit: "%{model_name}を更新する"
   err_msg:
     validation_failed:
       one: "入力に1個のエラーがあります。変更はまだ保存されていません。"
       other: "入力に%{count}個のエラーがあります。変更はまだ保存されていません。"
+  placeholder:
+    name: 書き換える新しいサイト名
+    domain: マッチさせるパターン
