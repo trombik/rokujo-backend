@@ -12,4 +12,8 @@ class ResourceCard::SiteNameCorrectionComponent < ViewComponent::Base
   def render?
     site_name_correction.present?
   end
+
+  def card_wrapper_classes
+    "card border rounded-3 mb-3 shadow-sm bg-light"
+  end
 end

@@ -2,6 +2,8 @@
 en:
   pattern: Pattern
   corrected: Corrected site name
+  confirm_deletion: Are you really sure to delete? You cannot undo it.
 ja:
   pattern: パターン
   corrected: 修正後のサイト名
+  confirm_deletion: 本当に削除しますか?(やり直しはできません)
