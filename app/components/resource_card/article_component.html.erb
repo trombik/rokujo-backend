@@ -1,0 +1,45 @@
+<%= tag.div class: "card h-100 border border-1 border-secondary-subtle shadow-sm bg-white" do %>
+  <%= tag.div class: "card-body d-flex flex-column p-4" do %>
+    <%= tag.div class: "d-flex justify-content-between align-items-start mb-2" do %>
+      <%= tag.h5 class: "card-title mb-0 fw-bold" do %>
+        <%= link_to truncated_title,
+                    article_path(article.uuid),
+                    class: "text-decoration-none text-dark",
+                    title: article.title %>
+      <% end %>
+    <% end %>
+
+    <% if article.description.present? %>
+      <%= tag.p class: "card-text small text-muted mb-4" do %>
+        <%= truncated_description %>
+      <% end %>
+    <% end %>
+
+    <%= tag.div class: "mt-auto pt-3 border-top border-1" do %>
+      <%= tag.div class: "d-flex align-items-center gap-3 small text-secondary overflow-hidden" do %>
+        <%= tag.span class: "text-truncate" do %>
+          <%= render IconComponent.new("building", klass: "me-1") %><%= article.site_name %>
+        <% end %>
+
+        <%= tag.span class: "text-truncate d-none d-sm-inline" do %>
+          <%= render IconComponent.new("globe", klass: "me-1") %><%= domain %>
+        <% end %>
+
+        <% if source? %>
+          <%= render IconComponent.new("link-45deg", klass:"me-1") %><%= t(".has_source") %>
+        <% end %>
+
+        <%= tag.div class: "ms-auto d-flex align-items-center gap-3 flex-shrink-0" do %>
+          <% if display_year %>
+            <%= tag.span do %>
+              <%= render IconComponent.new("calendar3", klass: "me-1") %><%= display_year %>
+            <% end %>
+          <% end %>
+          <%= tag.span class: "fw-bold text-dark" do %>
+            <%= render IconComponent.new("text-paragraph", klass: "me-1") %><%= article.sentences.count %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

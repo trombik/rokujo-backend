@@ -1,5 +1,11 @@
 # A controller for Articles
 class ArticlesController < ApplicationController
+  def index
+    @pagy, @articles = pagy(:countish,
+                            Article.all,
+                            items: 20)
+  end
+
   # Shows an article by uuid.
   def show
     @article = Article.find_by(uuid: params[:uuid])

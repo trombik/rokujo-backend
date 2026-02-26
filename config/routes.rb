@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get "show_sentences_with_particle_and_verb" => "sentences#show_sentences_with_particle_and_verb"
   get "articles/:uuid", to: "articles#show", as: "article"
   get "articles/:uuid/:line_number", to: "articles#context", as: "article_context"
+  get "articles", to: "articles#index"
 
   resource :token_analysis_manager do
     get :status

@@ -12,5 +12,10 @@ FactoryBot.define do
     raw_json { "" }
     location { "MyString" }
     author { "MyString" }
+    trait :with_sources do
+      after(:build) do |article|
+        article.sources << build(:article)
+      end
+    end
   end
 end

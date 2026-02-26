@@ -1,0 +1,12 @@
+<%# index.html.erb %>
+<div class="list-group list-group-flush border-top border-bottom">
+  <% @articles.each do |article| %>
+    <div class="list-group-item px-0 py-3">
+      <%= render ResourceCard::ArticleComponent.new(article) %>
+    </div>
+  <% end %>
+</div>
+
+<div class="mt-4 d-flex justify-content-center">
+  <%= render Pagination::NaviComponent.new(@pagy) %>
+</div>
