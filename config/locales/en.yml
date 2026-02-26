@@ -36,3 +36,6 @@ en:
       success: Site name correction was successfully updated.
     destroy:
       success: Site name correction was successfully destroyed.
+  activerecord:
+    models:
+      site_name_corrections: site name correction

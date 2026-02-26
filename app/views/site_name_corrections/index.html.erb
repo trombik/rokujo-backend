@@ -6,7 +6,7 @@
 
 <div id="site_name_corrections">
   <% @site_name_corrections.each do |site_name_correction| %>
-    <%= render site_name_correction %>
+    <%= render ResourceCard::SiteNameCorrectionComponent.new(site_name_correction) %>
     <p>
       <%= link_to "Show this site name correction", site_name_correction %>
     </p>

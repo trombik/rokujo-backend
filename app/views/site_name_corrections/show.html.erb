@@ -1,6 +1,6 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @site_name_correction %>
+<%= render ResourceCard::SiteNameCorrectionComponent.new(@site_name_correction) %>
 
 <div>
   <%= link_to "Edit this site name correction", edit_site_name_correction_path(@site_name_correction) %> |

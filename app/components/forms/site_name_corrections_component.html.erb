@@ -1,0 +1,31 @@
+<%= form_with(model: site_name_correction) do |form| %>
+  <% if site_name_correction.errors.any? %>
+    <%= tag.div(style: "color: red") do %>
+      <%= tag.h2 do %>
+        <%= t(".err_msg.validation_failed", count: site_name_correction.errors.count) %>
+      <% end %>
+
+      <%= tag.ul do %>
+        <% site_name_correction.errors.each do |error| %>
+          <%= tag.li do %>
+            <%= error.full_message %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= tag.div do %>
+    <%= form.label :domain, style: "display: block" %>
+    <%= form.text_field :domain %>
+  <% end %>
+
+  <%= tag.div do %>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  <% end %>
+
+  <%= tag.div do %>
+    <%= form.submit %>
+  <% end %>
+<% end %>

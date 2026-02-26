@@ -55,7 +55,6 @@ class SiteNameCorrectionsController < ApplicationController
         redirect_to site_name_corrections_path, notice: t(".success"),
                                                 status: :see_other
       end
-      format.json { head :no_content }
     end
   end
 

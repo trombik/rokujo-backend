@@ -1,0 +1,25 @@
+<%= tag.div id: dom_id(site_name_correction), class: "border rounded-3 p-3 bg-light mb-2" do %>
+  <%= tag.div class: "row g-0 align-items-center" do %>
+
+    <%= tag.div class: "col-md-5" do %>
+      <%= tag.small t(".pattern"), class: "text-uppercase text-muted fw-semibold d-block", style: "font-size: 0.7rem;" %>
+      <%= tag.div class: "d-flex align-items-center mt-1" do %>
+        <%= tag.i class: "bi bi-globe2 text-secondary me-2" %>
+        <%= tag.code site_name_correction.domain, class: "px-2 py-1 bg-white border rounded text-dark user-select-all" %>
+      <% end %>
+    <% end %>
+
+    <%= tag.div class: "col-md-1 text-center d-none d-md-block" do %>
+      <%= tag.i class: "bi bi-arrow-right text-muted" %>
+    <% end %>
+
+    <%= tag.div class: "col-md-6 mt-2 mt-md-0" do %>
+      <%= tag.small t(".corrected"), class: "text-uppercase text-muted fw-semibold d-block", style: "font-size: 0.7rem;" %>
+      <%= tag.div class: "d-flex align-items-center mt-1" do %>
+        <%= tag.i class: "bi bi-check-circle-fill text-success me-2" %>
+        <%= tag.span site_name_correction.name, class: "fs-5 fw-bold text-dark" %>
+      <% end %>
+    <% end %>
+
+  <% end %>
+<% end %>
