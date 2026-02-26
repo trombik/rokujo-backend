@@ -13,7 +13,7 @@
               <%= noun %> <%= particle %>
             <% end %>
             <%= tag.small class: "text-muted" do %>
-              <%= tag.i class: "bi bi-layers" %> <%= group.count %>
+              <%= render IconComponent.new("layers") %> <%= group.count %>
             <% end %>
           <% end %>
           <%= tag.div class: "card-body p-2" do %>

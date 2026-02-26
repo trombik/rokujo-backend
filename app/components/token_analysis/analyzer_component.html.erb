@@ -4,7 +4,7 @@
 <%= tag.div class: "card shadow-sm border-0" do %>
   <%= tag.div class: "card-header bg-white border-bottom py-3" do %>
     <%= link_to token_analysis_analyzer_path(text: text, format: :json), class: "text-decoration-none text-muted fw-bold small" do %>
-      <%= tag.i class: "bi bi-braces" %> JSON
+      <%= render IconComponent.new("braces") %> JSON
     <% end %>
     <%= tag.p class: "fs-4" do %>
       <% tokens.each do |token| %>
@@ -41,7 +41,7 @@
               <% end %>
             <% end %>
             <%= tag.td do %>
-              <i class="bi bi-arrow-right-short"></i>
+              <%= render IconComponent.new("arrow-right-short") %>
               <%= head(t)[:text] %>
               <%= tag.span class: "badge bg-#{pos_color(head(t)[:pos])} fw-normal" do %>
                 <%= head(t)[:pos] %>

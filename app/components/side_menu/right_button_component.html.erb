@@ -1,7 +1,7 @@
 <%= tag.button class: "btn btn-sm btn-outline-secondary border-light-subtle bg-white shadow-sm d-inline-flex align-items-center gap-2 py-1 px-3 mb-3",
                type: "button",
                data: { bs_toggle: "offcanvas", bs_target: "#" + SideMenu::RightComponent.id } do %>
-  <%= tag.i class: "bi bi-gear-wide-connected text-secondary" %>
+  <%= render IconComponent.new("gear-wide-connected", klass: "text-secondary") %>
   <%= tag.span class: "fw-semibold small", style: "letter-spacing: 0.05rem;" do %>
     SYSTEM
   <% end %>

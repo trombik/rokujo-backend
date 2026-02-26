@@ -3,10 +3,10 @@
     <%= link_to article_title || t(".default_title"), article_path(article.uuid), class: "text-subtitle text-body-secondary small" %>
     <%= tag.div class: "d-flex gap-3" do %>
       <%= link_to "#{article_path(article.uuid)}/#{sentence.line_number}", class: "text-decoration-none text-muted fw-bold small" do %>
-        <i class="bi bi-arrow-right-circle"></i> Context
+        <%= render IconComponent.new("arrow-right-circle") %> Context
       <% end %>
       <%= link_to token_analysis_analyzer_path(text: sentence.text), class: "text-decoration-none text-muted fw-bold small" do %>
-        <i class="bi bi-arrow-right-circle"></i> Analyze
+        <%= render IconComponent.new("arrow-right-circle") %> Analyze
       <% end %>
     <% end %>
   <% end %>

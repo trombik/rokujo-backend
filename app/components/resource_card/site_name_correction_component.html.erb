@@ -4,11 +4,11 @@
     <%= tag.div class: "row g-3 align-items-center flex-grow-1" do %>
       <%= tag.div class: "col-md-5" do %>
         <%= tag.small t(".pattern"), class: "text-muted d-block fw-semibold mb-1" %>
-        <%= tag.i class: "bi bi-globe2 text-secondary me-2" %>
+        <%= render IconComponent.new("globe2", klass: "text-secondary me-2") %>
         <%= tag.code site_name_correction.domain, class: "bg-white border rounded px-2 py-1 text-dark user-select-all" %>
       <% end %>
       <%= tag.div class: "col-md-1 text-center d-none d-md-block" do %>
-        <%= tag.i class: "bi bi-arrow-right text-muted fs-4" %>
+        <%= render IconComponent.new("arrow-right", klass: "text-muted fs-4") %>
       <% end %>
 
       <%= tag.div class: "col-md-6" do %>
@@ -19,12 +19,12 @@
 
     <%= tag.div class: "ms-4 d-flex gap-2" do %>
       <%= link_to edit_site_name_correction_path(site_name_correction), class: "btn btn-sm btn-outline-secondary" do %>
-        <%= tag.i class: "bi bi-pencil" %>
+        <%= render IconComponent.new("pencil") %>
       <% end %>
       <%= link_to site_name_correction_path(site_name_correction),
                   class: "btn btn-sm btn-outline-danger",
                   data: { turbo_method: :delete, turbo_confirm: t(".confirm_deletion") } do %>
-        <%= tag.i class: "bi bi-trash" %>
+        <%= render IconComponent.new("trash") %>
       <% end %>
     <% end %>
 
