@@ -3,8 +3,5 @@
 <%= render ResourceCard::SiteNameCorrectionComponent.new(@site_name_correction) %>
 
 <div>
-  <%= link_to "Edit this site name correction", edit_site_name_correction_path(@site_name_correction) %> |
   <%= link_to "Back to site name corrections", site_name_corrections_path %>
-
-  <%= button_to "Destroy this site name correction", @site_name_correction, method: :delete %>
 </div>
