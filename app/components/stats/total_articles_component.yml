@@ -1,0 +1,13 @@
+---
+en:
+  title: Total number of articles
+  unit:
+    zero: article
+    one: article
+    other: articles
+ja:
+  title: 合計記事数
+  unit:
+    zero: 件
+    one: 件
+    other: 件
