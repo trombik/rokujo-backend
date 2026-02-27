@@ -5,5 +5,5 @@ class ArticleCollection < ApplicationRecord
   has_many :collection_tags, through: :article_collection_taggings
 
   validates :key, presence: true
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
 end

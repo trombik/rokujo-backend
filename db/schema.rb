@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_27_075909) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_27_082220) do
   create_table "article_collection_taggings", force: :cascade do |t|
     t.integer "article_collection_id", null: false
     t.integer "collection_tag_id", null: false
@@ -26,6 +26,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_27_075909) do
     t.string "name"
     t.datetime "updated_at", null: false
     t.index ["key"], name: "index_article_collections_on_key"
+    t.index ["name"], name: "index_article_collections_on_name", unique: true
   end
 
   create_table "article_sources", force: :cascade do |t|
