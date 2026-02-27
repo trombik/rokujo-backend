@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_25_101906) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_27_075909) do
+  create_table "article_collection_taggings", force: :cascade do |t|
+    t.integer "article_collection_id", null: false
+    t.integer "collection_tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_collection_id"], name: "index_article_collection_taggings_on_article_collection_id"
+    t.index ["collection_tag_id"], name: "index_article_collection_taggings_on_collection_tag_id"
+  end
+
+  create_table "article_collections", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "key"
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_article_collections_on_key"
+  end
+
   create_table "article_sources", force: :cascade do |t|
     t.string "article_id", null: false
     t.datetime "created_at", null: false
@@ -21,6 +38,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_25_101906) do
 
   create_table "articles", primary_key: "uuid", id: :string, force: :cascade do |t|
     t.datetime "acquired_time"
+    t.integer "article_collection_id"
     t.string "author"
     t.text "body"
     t.integer "character_count"
@@ -38,12 +56,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_25_101906) do
     t.string "title"
     t.datetime "updated_at", null: false
     t.string "url"
+    t.index ["article_collection_id"], name: "index_articles_on_article_collection_id"
     t.index ["normalized_url"], name: "index_articles_on_normalized_url"
     t.index ["site_name"], name: "index_articles_on_site_name"
     t.index ["url"], name: "index_articles_on_url", unique: true
   end
 
-  create_table "sentences", force: :cascade do |t|
+  create_table "collection_tags", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_collection_tags_on_name", unique: true
+  end
+
+  create_table "sentences", primary_key: "[:article_uuid, :line_number]", force: :cascade do |t|
     t.json "analysis_data"
     t.string "article_uuid", null: false
     t.datetime "created_at", null: false
@@ -83,7 +109,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_25_101906) do
     t.index ["text"], name: "index_token_analyses_on_text"
   end
 
+  add_foreign_key "article_collection_taggings", "article_collections"
+  add_foreign_key "article_collection_taggings", "collection_tags"
   add_foreign_key "article_sources", "articles", column: "source_article_id", primary_key: "uuid"
   add_foreign_key "article_sources", "articles", primary_key: "uuid"
+  add_foreign_key "articles", "article_collections"
   add_foreign_key "sentences", "articles", column: "article_uuid", primary_key: "uuid"
 end

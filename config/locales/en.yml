@@ -36,6 +36,21 @@ en:
       success: Site name correction was successfully updated.
     destroy:
       success: Site name correction was successfully destroyed.
+  article_collections:
+    create:
+      success: Article collection was successfully created.
+    update:
+      success: Article collection was successfully updated.
+    destroy:
+      success: Article collection was successfully destroyed.
+  collection_tags:
+    create:
+      success: Collection tag was successfully created.
+    update:
+      success: Collection tag was successfully updated.
+    destroy:
+      success: Collection tag was successfully destroyed.
+
   activerecord:
     models:
       site_name_corrections: site name correction

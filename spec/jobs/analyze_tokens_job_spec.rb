@@ -31,7 +31,7 @@ RSpec.describe AnalyzeTokensJob, type: :job do
     allow(TextAnalysisService).to receive(:call).and_return(mocked_results)
 
     expect do
-      described_class.perform_now(sentence.id)
+      described_class.perform_now([sentence.article_uuid, sentence.line_number])
     end.to change(TokenAnalysis, :count).by_at_least(1)
 
     expect(sentence.token_analyses.first.text).to be_present

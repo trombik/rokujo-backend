@@ -5,12 +5,11 @@ class EnqueueTokenAnalysisJob < ApplicationJob
   def perform
     Rails.cache.delete("stop_analysis_enqueue")
     sentences = Sentence.where.missing(:token_analyses).distinct
-    sentences.in_batches(of: 200) do |relation|
+    sentences.each do |sentence|
       break if Rails.cache.read("stop_analysis_enqueue")
 
-      jobs = relation.pluck(:id).map { |id| AnalyzeTokensJob.new(id) }
-      ActiveJob.perform_all_later(jobs)
-      sleep 0.1
+      job = AnalyzeTokensJob.new([sentence.article_uuid, sentence.line_number])
+      ActiveJob.perform_all_later(job)
     end
   end
 end

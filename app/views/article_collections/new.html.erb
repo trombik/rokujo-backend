@@ -1,0 +1,11 @@
+<% content_for :title, "New article collection" %>
+
+<h1>New article collection</h1>
+
+<%= render "form", article_collection: @article_collection %>
+
+<br>
+
+<div>
+  <%= link_to "Back to article collections", article_collections_path %>
+</div>

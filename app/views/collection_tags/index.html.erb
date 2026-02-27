@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Collection tags" %>
+
+<h1>Collection tags</h1>
+
+<div id="collection_tags">
+  <% @collection_tags.each do |collection_tag| %>
+    <%= render collection_tag %>
+    <p>
+      <%= link_to "Show this collection tag", collection_tag %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New collection tag", new_collection_tag_path %>

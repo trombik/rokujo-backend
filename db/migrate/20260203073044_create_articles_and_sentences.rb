@@ -22,7 +22,7 @@ class CreateArticlesAndSentences < ActiveRecord::Migration[8.1]
       t.timestamps
     end
 
-    create_table :sentences do |t|
+    create_table :sentences, id: false do |t|
       t.column :article_uuid, id_type, null: false
       t.text :text
       t.integer :line_number, null: false

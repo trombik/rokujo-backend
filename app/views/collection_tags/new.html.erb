@@ -1,0 +1,11 @@
+<% content_for :title, "New collection tag" %>
+
+<h1>New collection tag</h1>
+
+<%= render "form", collection_tag: @collection_tag %>
+
+<br>
+
+<div>
+  <%= link_to "Back to collection tags", collection_tags_path %>
+</div>
