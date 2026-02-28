@@ -40,6 +40,11 @@ class Article < ApplicationRecord
     end
   }
 
+  def self.sentences_per_article
+    n_article = Article.count
+    n_article.zero? ? 0 : Sentence.count / n_article
+  end
+
   # rubocop:disable Metrics/MethodLength
   def self.import_from_hash!(hash)
     transaction do

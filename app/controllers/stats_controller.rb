@@ -18,4 +18,8 @@ class StatsController < ApplicationController
     percentage = Sentence.analysis_ratio * 100
     render Stats::SentenceAnalysisRatioComponent.new(percentage)
   end
+
+  def sentences_per_article
+    render Stats::SentencesPerArticleComponent.new(Article.sentences_per_article)
+  end
 end

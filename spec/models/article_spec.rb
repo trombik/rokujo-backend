@@ -224,4 +224,20 @@ RSpec.describe Article, type: :model do
       end
     end
   end
+
+  describe ".sentences_per_article" do
+    it "returns the number of sentences per article" do
+      create_list(:sentence, 2, article: article)
+
+      expect(described_class.sentences_per_article).to eq 2
+    end
+
+    context "when number of articles is zero" do
+      it "returns zero" do
+        described_class.delete_all
+
+        expect(described_class.sentences_per_article).to eq 0
+      end
+    end
+  end
 end

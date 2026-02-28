@@ -42,6 +42,7 @@ Rails.application.routes.draw do
     get :total_sentences
     get :total_token_analyses
     get :sentence_analysis_ratio
+    get :sentences_per_article
   end
 
   get "token_analysis_analyzer" => "token_analysis_analyzer#index"

@@ -1,0 +1,13 @@
+---
+en:
+  title: Number of sentences per article
+  unit:
+    zero: sentence
+    one: sentence
+    other: sentences
+ja:
+  title: 合計記事数
+  unit:
+    zero: 文
+    one: 文
+    other: 文
