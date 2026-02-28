@@ -1,29 +1,52 @@
 # A controller to route request for stats.
 class StatsController < ApplicationController
-  layout "empty"
+  layout :choose_layout
+
+  def index
+    respond_to :html
+  end
 
   def total_articles
-    render Stats::TotalArticlesComponent.new(Article.count)
+    count = Article.count
+    respond_to :html, :turbo_stream
+    render Stats::TotalArticlesComponent.new(count)
   end
 
   def total_sentences
-    render Stats::TotalSentencesComponent.new(Sentence.count)
+    count = Sentence.count
+    respond_to :html, :turbo_stream
+    render Stats::TotalSentencesComponent.new(count)
   end
 
   def total_token_analyses
-    render Stats::TotalTokenAnalysesComponent.new(TokenAnalysis.count)
+    count = TokenAnalysis.count
+    respond_to :html, :turbo_stream
+    render Stats::TotalTokenAnalysesComponent.new(count)
   end
 
   def sentence_analysis_ratio
     percentage = Sentence.analysis_ratio * 100
+    respond_to :html, :turbo_stream
     render Stats::SentenceAnalysisRatioComponent.new(percentage)
   end
 
   def sentences_per_article
-    render Stats::SentencesPerArticleComponent.new(Article.sentences_per_article)
+    count = Article.sentences_per_article
+    respond_to :html, :turbo_stream
+    render Stats::SentencesPerArticleComponent.new(count)
   end
 
   def tokens_per_sentence
-    render Stats::TokensPerSentenceComponent.new(Sentence.tokens_per_sentence)
+    count = Sentence.tokens_per_sentence
+    respond_to :html, :turbo_stream
+    render Stats::TokensPerSentenceComponent.new(count)
+  end
+
+  private
+
+  def choose_layout
+    return "empty" if action_name == "index"
+
+    false
   end
 end

@@ -1,0 +1,42 @@
+<%= tag.div class: "container py-4" do %>
+  <%= tag.header class: "mb-5 text-center text-md-start" do %>
+    <%= tag.h1 class: "h2 fw-bold text-dark" do %><%= t(".title", default: "Corpus Dashboard") %><% end %>
+    <%= tag.p class: "text-secondary small" do %><%= Time.zone.now.strftime("%Y-%m-%d %H:%M") %><% end %>
+  <% end %>
+
+  <%= tag.section class: "mb-5" do %>
+    <%= tag.div class: "d-flex align-items-center mb-3" do %>
+      <%= tag.h2 class: "h5 mb-0 text-primary fw-bold" do %>Overall Volume<% end %>
+      <%= tag.hr class: "flex-grow-1 ms-3 opacity-25" %>
+    <% end %>
+    <%= tag.div class: "row g-4" do %>
+      <%= tag.div class: "col-md-4" do %>
+        <%= render Stats::TotalArticlesComponent.new %>
+      <% end %>
+      <%= tag.div class: "col-md-4" do %>
+        <%= render Stats::TotalSentencesComponent.new %>
+      <% end %>
+      <%= tag.div class: "col-md-4" do %>
+        <%= render Stats::TotalTokenAnalysesComponent.new %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= tag.section do %>
+    <%= tag.div class: "d-flex align-items-center mb-3" do %>
+      <%= tag.h2 class: "h5 mb-0 text-success fw-bold" do %>Analysis & Quality<% end %>
+      <%= tag.hr class: "flex-grow-1 ms-3 opacity-25" %>
+    <% end %>
+    <%= tag.div class: "row g-4" do %>
+      <%= tag.div class: "col-md-4" do %>
+        <%= render Stats::SentenceAnalysisRatioComponent.new %>
+      <% end %>
+      <%= tag.div class: "col-md-4" do %>
+        <%= render Stats::SentencesPerArticleComponent.new %>
+      <% end %>
+      <%= tag.div class: "col-md-4" do %>
+        <%= render Stats::TokensPerSentenceComponent.new %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

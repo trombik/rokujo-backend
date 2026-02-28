@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   end
 
   namespace :stats do
+    get :index, path: "/"
     get :total_articles
     get :total_sentences
     get :total_token_analyses
