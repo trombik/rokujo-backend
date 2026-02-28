@@ -23,6 +23,12 @@ class Sentence < ApplicationRecord
     all.zero? ? 0 : (with_token_analysis / all.to_f)
   end
 
+  def self.tokens_per_sentence
+    all = Sentence.count
+    tokens = TokenAnalysis.count
+    all.zero? ? 0 : (tokens / all)
+  end
+
   # Search word from Sentence with search operators
   def self.search_with_operators(word, operators)
     joins(:article)

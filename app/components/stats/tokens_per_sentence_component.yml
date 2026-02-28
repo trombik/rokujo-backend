@@ -1,0 +1,13 @@
+---
+en:
+  title: Tokens per sentence
+  unit:
+    zero: token
+    one: token
+    other: tokens
+ja:
+  title: 文章あたりのトークン数
+  unit:
+    zero: 個
+    one: 個
+    other: 個

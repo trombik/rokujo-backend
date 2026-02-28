@@ -90,4 +90,20 @@ RSpec.describe Sentence, type: :model do
       end
     end
   end
+
+  describe ".tokens_per_sentence" do
+    it "returns tokens per sentence" do
+      article = create(:article)
+      sentence = create(:sentence, article: article)
+      create_list(:token_analysis, 6, sentence: sentence)
+
+      expect(described_class.tokens_per_sentence).to eq 6
+    end
+
+    context "when the number of sentence is zero" do
+      it "returns zero" do
+        expect(described_class.tokens_per_sentence).to eq 0
+      end
+    end
+  end
 end
