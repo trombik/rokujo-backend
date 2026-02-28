@@ -1,0 +1,13 @@
+---
+en:
+  title: Total number of sentences
+  unit:
+    zero: sentence
+    one: sentence
+    other: sentences
+ja:
+  title: 合計文数
+  unit:
+    zero: 文
+    one: 文
+    other: 文

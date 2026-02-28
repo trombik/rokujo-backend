@@ -5,4 +5,8 @@ class StatsController < ApplicationController
   def total_articles
     render Stats::TotalArticlesComponent.new(Article.count)
   end
+
+  def total_sentences
+    render Stats::TotalSentencesComponent.new(Sentence.count)
+  end
 end
