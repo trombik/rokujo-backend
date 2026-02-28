@@ -9,4 +9,8 @@ class StatsController < ApplicationController
   def total_sentences
     render Stats::TotalSentencesComponent.new(Sentence.count)
   end
+
+  def total_token_analyses
+    render Stats::TotalTokenAnalysesComponent.new(TokenAnalysis.count)
+  end
 end

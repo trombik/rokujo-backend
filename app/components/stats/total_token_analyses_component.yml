@@ -1,0 +1,13 @@
+---
+en:
+  title: Total number of token analysis
+  unit:
+    zero: token
+    one: tokens
+    other: tokens
+ja:
+  title: 合計トークン解析数
+  unit:
+    zero: 個
+    one: 個
+    other: 個

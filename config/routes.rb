@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   namespace :stats do
     get :total_articles
     get :total_sentences
+    get :total_token_analyses
   end
 
   get "token_analysis_analyzer" => "token_analysis_analyzer#index"
