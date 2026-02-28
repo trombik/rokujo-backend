@@ -70,4 +70,24 @@ RSpec.describe Sentence, type: :model do
       expect { sentence.analyze_and_store_pos! }.to change(TokenAnalysis, :count).by(6)
     end
   end
+
+  describe ".analysis_ratio" do
+    it "calcurate the ratio" do
+      article = create(:article)
+      # create two sentences
+      sentence = create(:sentence, article: article)
+      create(:sentence, article: article)
+
+      # create token_analysis for one sentence but not the other
+      create_list(:token_analysis, 6, sentence: sentence)
+
+      expect(described_class.analysis_ratio).to eq 0.5
+    end
+
+    context "when the count of sentences is zero" do
+      it "returns zero" do
+        expect(described_class.analysis_ratio).to eq 0
+      end
+    end
+  end
 end

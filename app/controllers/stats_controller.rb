@@ -13,4 +13,9 @@ class StatsController < ApplicationController
   def total_token_analyses
     render Stats::TotalTokenAnalysesComponent.new(TokenAnalysis.count)
   end
+
+  def sentence_analysis_ratio
+    percentage = Sentence.analysis_ratio * 100
+    render Stats::SentenceAnalysisRatioComponent.new(percentage)
+  end
 end

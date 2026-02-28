@@ -17,6 +17,12 @@ class Sentence < ApplicationRecord
       .order(:line_number)
   }
 
+  def self.analysis_ratio
+    all = Sentence.count
+    with_token_analysis = Sentence.joins(:token_analyses).distinct.count
+    all.zero? ? 0 : (with_token_analysis / all.to_f)
+  end
+
   # Search word from Sentence with search operators
   def self.search_with_operators(word, operators)
     joins(:article)

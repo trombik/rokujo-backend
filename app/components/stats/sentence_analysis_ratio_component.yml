@@ -1,0 +1,13 @@
+---
+en:
+  title: Ratio of analyzed sentences
+  unit:
+    zero: "%"
+    one: "%"
+    other: "%"
+ja:
+  title: 解析済み文の割合
+  unit:
+    zero: "%"
+    one: "%"
+    other: "%"
