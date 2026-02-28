@@ -21,6 +21,10 @@ class Stats::TotalArticlesComponentPreview < ViewComponent::Preview
   def negative
     render Stats::TotalArticlesComponent.new(-1)
   end
+
+  def float
+    render Stats::TotalArticlesComponent.new(1.2345)
+  end
   # @!endgroup
 
   def frame

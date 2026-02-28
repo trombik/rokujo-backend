@@ -18,10 +18,10 @@ RSpec.describe Stats::TotalSentencesComponent, type: :component do
   end
 
   context "when the number is negative" do
-    it "renders ? as the number" do
+    it "renders the negative number" do
       render_inline described_class.new(-1)
 
-      expect(page).to have_content("?")
+      expect(page).to have_content("-1")
     end
   end
 end
