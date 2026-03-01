@@ -1,0 +1,18 @@
+<%= tag.section id: id, class: "stats-breakdown border rounded p-3 bg-white shadow-sm", data: { testid: "section" } do %>
+  <%= tag.header class: "mb-3" do %>
+    <%= tag.h6 class: "fw-bold text-dark m-0", data: { testid: "header" } do %>
+      <%= title_text %>
+    <% end %>
+    <%= tag.hr class: "my-2" %>
+    <%= tag.div class: "d-flex justify-content-between small text-muted px-1" do %>
+      <%= tag.span dimension %>
+      <%= tag.span metric %>
+    <% end %>
+  <% end %>
+
+  <%= tag.div class: "breakdown-list", data: { testid: "rows" } do %>
+    <% rows.each do |row| %>
+      <%= render row %>
+    <% end %>
+  <% end %>
+<% end %>

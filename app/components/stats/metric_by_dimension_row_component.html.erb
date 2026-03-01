@@ -1,0 +1,11 @@
+<%= tag.div class: "d-flex justify-content-between align-items-center py-2 border-bottom" do %>
+  <%= tag.span class: "text-truncate me-3", title: label_text do %>
+    <%= label_text %>
+  <% end %>
+  <%= tag.span class: "fw-bold #{'font-monospace text-end' if numeric_value?}" do %>
+    <%= value_text %>
+    <%= tag.span class: "fw-light text-muted" do %>
+      <%= percent_text %>
+    <% end %>
+  <% end %>
+<% end %>
