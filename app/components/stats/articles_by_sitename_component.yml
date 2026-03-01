@@ -1,0 +1,10 @@
+---
+
+en:
+  dimension: Site name
+  metric: Article
+  title: Articles grouped by site name
+ja:
+  dimension: サイト名
+  metric: 記事
+  title: サイト名ごとの記事

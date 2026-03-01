@@ -1,0 +1,20 @@
+<%= helpers.turbo_frame_tag(frame_id, src: (frame_url unless data), loading: :lazy, data: { testid: "frame" }) do %>
+  <%= render Stats::MetricByDimensionComponent.new(
+    id: id,
+    dimension: t(".dimension"),
+    metric: t(".metric"),
+    title: t(".title")
+  ) do |c| %>
+    <% if data %>
+      <% data.each do |site_name, count| %>
+        <% c.with_row(
+          label: site_name,
+          value: count,
+          total: total
+        ) %>
+      <% end %>
+    <% else %>
+      <% c.with_row(label: "Loading...", value: "-") %>
+    <% end %>
+  <% end %>
+<% end %>
