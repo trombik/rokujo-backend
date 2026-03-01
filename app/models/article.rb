@@ -45,6 +45,10 @@ class Article < ApplicationRecord
     n_article.zero? ? 0 : Sentence.count / n_article
   end
 
+  def self.count_by_site_name(limit: 10)
+    group(:site_name).limit(limit).order(count_all: :desc).count
+  end
+
   # rubocop:disable Metrics/MethodLength
   def self.import_from_hash!(hash)
     transaction do

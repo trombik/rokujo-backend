@@ -27,31 +27,43 @@ RSpec.describe "Stats", type: :request do
 
   describe "GET /total_articles" do
     let(:path) { stats_total_articles_path }
+
     it_behaves_like "a turbo_stream stats endpoint"
   end
 
   describe "GET /total_sentences" do
     let(:path) { stats_total_sentences_path }
+
     it_behaves_like "a turbo_stream stats endpoint"
   end
 
   describe "GET /total_token_analyses" do
     let(:path) { stats_total_token_analyses_path }
+
     it_behaves_like "a turbo_stream stats endpoint"
   end
 
   describe "GET /sentence_analysis_ratio" do
     let(:path) { stats_sentence_analysis_ratio_path }
+
     it_behaves_like "a turbo_stream stats endpoint"
   end
 
   describe "GET /sentences_per_article" do
     let(:path) { stats_sentences_per_article_path }
+
     it_behaves_like "a turbo_stream stats endpoint"
   end
 
   describe "GET /tokens_per_sentence" do
     let(:path) { stats_tokens_per_sentence_path }
+
+    it_behaves_like "a turbo_stream stats endpoint"
+  end
+
+  describe "GET /articles_by_site_name" do
+    let(:path) { stats_articles_by_site_name_path }
+
     it_behaves_like "a turbo_stream stats endpoint"
   end
 end

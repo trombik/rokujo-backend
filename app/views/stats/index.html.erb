@@ -22,7 +22,7 @@
     <% end %>
   <% end %>
 
-  <%= tag.section do %>
+  <%= tag.section class: "mb-5" do %>
     <%= tag.div class: "d-flex align-items-center mb-3" do %>
       <%= tag.h2 class: "h5 mb-0 text-success fw-bold" do %>Analysis & Quality<% end %>
       <%= tag.hr class: "flex-grow-1 ms-3 opacity-25" %>
@@ -36,6 +36,18 @@
       <% end %>
       <%= tag.div class: "col-md-4" do %>
         <%= render Stats::TokensPerSentenceComponent.new %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= tag.section class: "mb-5" do %>
+    <%= tag.div class: "d-flex align-items-center mb-3" do %>
+      <%= tag.h2 class: "h5 mb-0 text-success fw-bold" do %>Metrics<% end %>
+      <%= tag.hr class: "flex-grow-1 ms-3 opacity-25" %>
+    <% end %>
+    <%= tag.div class: "row g-4" do %>
+      <%= tag.div class: "col-md-4" do %>
+        <%= render Stats::ArticlesBySitenameComponent.new %>
       <% end %>
     <% end %>
   <% end %>
