@@ -46,6 +46,7 @@ Rails.application.routes.draw do
     get :sentences_per_article
     get :tokens_per_sentence
     get :articles_by_site_name
+    get :sentences_by_site_name
   end
 
   get "token_analysis_analyzer" => "token_analysis_analyzer#index"

@@ -46,8 +46,11 @@
       <%= tag.hr class: "flex-grow-1 ms-3 opacity-25" %>
     <% end %>
     <%= tag.div class: "row g-4" do %>
-      <%= tag.div class: "col-md-4" do %>
+      <%= tag.div class: "col-md-6" do %>
         <%= render Stats::ArticlesBySitenameComponent.new %>
+      <% end %>
+      <%= tag.div class: "col-md-6" do %>
+        <%= render Stats::SentencesBySitenameComponent.new %>
       <% end %>
     <% end %>
   <% end %>

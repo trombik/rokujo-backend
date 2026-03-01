@@ -49,6 +49,13 @@ class StatsController < ApplicationController
     render Stats::ArticlesBySitenameComponent.new(data, total: total)
   end
 
+  def sentences_by_site_name
+    data = Sentence.count_by_site_name
+    total = Sentence.count
+    respond_to :html, :turbo_stream
+    render Stats::SentencesBySitenameComponent.new(data, total: total)
+  end
+
   private
 
   def choose_layout

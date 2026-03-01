@@ -1,0 +1,10 @@
+---
+
+en:
+  dimension: Site name
+  metric: Sentence
+  title: Sentences grouped by site name
+ja:
+  dimension: サイト名
+  metric: 文章
+  title: サイト名ごとの文章

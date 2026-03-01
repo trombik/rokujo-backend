@@ -17,6 +17,10 @@ class Sentence < ApplicationRecord
       .order(:line_number)
   }
 
+  def self.count_by_site_name(limit: 10)
+    joins(:article).group(article: :site_name).limit(limit).order(count_all: :desc).count
+  end
+
   def self.analysis_ratio
     all = Sentence.count
     with_token_analysis = Sentence.joins(:token_analyses).distinct.count
