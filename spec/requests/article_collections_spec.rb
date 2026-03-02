@@ -13,6 +13,9 @@ require "rails_helper"
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/article_collections", type: :request do
+  let(:article) { create(:article, site_name: "Example site", title: "Example article") }
+  let(:article_collection) { create(:article_collection, key: "site_name", value: "Example site") }
+
   # This should return the minimal set of attributes required to create a valid
   # ArticleCollection. As you add validations to ArticleCollection, be sure to
   # adjust the attributes here as well.
@@ -125,6 +128,20 @@ RSpec.describe "/article_collections", type: :request do
       article_collection = ArticleCollection.create! valid_attributes
       delete article_collection_url(article_collection)
       expect(response).to redirect_to(article_collections_url)
+    end
+  end
+
+  describe "GET /article_collections/:id/articles" do
+    it "shows articles in the article collection" do
+      get articles_article_collection_path(article_collection)
+      expect(response).to be_successful
+    end
+
+    context "when the article_collection does not exist" do
+      it "returns not_found" do
+        get articles_article_collection_path(id: 9999)
+        expect(response).to have_http_status(:not_found)
+      end
     end
   end
 end

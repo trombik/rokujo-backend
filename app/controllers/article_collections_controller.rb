@@ -58,6 +58,14 @@ class ArticleCollectionsController < ApplicationController
     end
   end
 
+  def articles
+    article_collection = ArticleCollection.find(params[:id])
+    @pagy, @articles = pagy(:countish,
+                            article_collection.associated_articles,
+                            items: 20)
+    render "articles/index"
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

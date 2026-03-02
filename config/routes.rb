@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :article_collections
+  resources :article_collections do
+    member do
+      get :articles
+    end
+  end
   resources :collection_tags
   resources :site_name_corrections
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

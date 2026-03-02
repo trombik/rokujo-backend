@@ -3,6 +3,7 @@
 <%= render @article_collection %>
 
 <div>
+  <%= link_to "View all the articles belong to this article collection", articles_article_collection_path(@article_collection) %>
   <%= link_to "Edit this article collection", edit_article_collection_path(@article_collection) %> |
   <%= link_to "Back to article collections", article_collections_path %>
 
