@@ -139,7 +139,10 @@ RSpec.describe "/article_collections", type: :request do
 
     context "when the article_collection does not exist" do
       it "returns not_found" do
-        get articles_article_collection_path(id: 9999)
+        non_existent_id = article_collection.id
+        article_collection.destroy
+
+        get articles_article_collection_path(id: non_existent_id)
         expect(response).to have_http_status(:not_found)
       end
     end
