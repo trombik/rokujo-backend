@@ -1,4 +1,5 @@
-<%# index.html.erb %>
+<%= render SearchForm::FullTextComponent.new %>
+
 <div class="list-group list-group-flush border-top border-bottom">
   <% @articles.each do |article| %>
     <div class="list-group-item px-0 py-3">
