@@ -57,3 +57,13 @@ en:
     attributes:
       domain: Domain
       name: Name
+
+  form:
+    msg:
+      confirm: Are you sure?
+    button:
+      edit: Edit
+      create: Create
+      delete: Delete
+      view: View
+      update: Update

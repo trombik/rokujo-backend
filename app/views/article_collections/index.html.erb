@@ -6,10 +6,7 @@
 
 <div id="article_collections">
   <% @article_collections.each do |article_collection| %>
-    <%= render article_collection %>
-    <p>
-      <%= link_to "Show this article collection", article_collection %>
-    </p>
+    <%= render ResourceCard::ArticleCollectionComponent.new(article_collection) %>
   <% end %>
 </div>
 
