@@ -1,0 +1,8 @@
+<h1>Sites#index</h1>
+<ul>
+  <% @sites.each do |site| %>
+    <li>
+      <%= link_to site[:name], "/sites/show/#{site[:name]}" %> (<%= site[:count] %>)
+    </li>
+  <% end %>
+</ul>

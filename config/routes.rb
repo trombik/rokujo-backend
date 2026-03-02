@@ -49,5 +49,8 @@ Rails.application.routes.draw do
     get :sentences_by_site_name
   end
 
+  get "sites/", to: "sites#index"
+  get "sites/show/:site_name", to: "sites#show"
+
   get "token_analysis_analyzer" => "token_analysis_analyzer#index"
 end

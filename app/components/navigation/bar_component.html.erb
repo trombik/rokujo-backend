@@ -9,7 +9,9 @@
           items = [
             { label: "Articles", path: articles_path },
             { label: "Token analysis", path: token_analysis_analyzer_path },
-            { label: "Stats", path: stats_index_path }
+            { label: "Collections", path: article_collections_path },
+            { label: "Stats", path: stats_index_path },
+            { label: "Sites", path: sites_path }
           ]
         %>
         <%= render DropDownComponent.new(label: "Menu") do |c| %>
