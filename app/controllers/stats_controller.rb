@@ -59,7 +59,7 @@ class StatsController < ApplicationController
   private
 
   def choose_layout
-    return "empty" if action_name == "index"
+    return "application" if action_name == "index"
 
     false
   end

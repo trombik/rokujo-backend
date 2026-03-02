@@ -1,7 +1,5 @@
 # Controller for ArticleCollection
 class ArticleCollectionsController < ApplicationController
-  layout "empty"
-
   before_action :set_article_collection, only: [:show, :edit, :update, :destroy]
 
   # GET /article_collections

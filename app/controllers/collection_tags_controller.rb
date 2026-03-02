@@ -2,8 +2,6 @@
 class CollectionTagsController < ApplicationController
   before_action :set_collection_tag, only: [:show, :edit, :update, :destroy]
 
-  layout "empty"
-
   # GET /collection_tags
   def index
     @collection_tags = CollectionTag.all

@@ -1,7 +1,6 @@
 # Controller for SiteNameCorrection
 class SiteNameCorrectionsController < ApplicationController
   before_action :set_site_name_correction, only: [:show, :edit, :update, :destroy]
-  layout "empty"
 
   # GET /site_name_corrections
   def index
