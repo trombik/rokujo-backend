@@ -3,17 +3,7 @@
 <% end %>
 
 <%= form_with(model: site_name_correction) do |form| %>
-
-  <% if site_name_correction.errors.any? %>
-    <%= tag.div class: "alert alert-danger shadow-sm", role: "alert" do %>
-      <%= tag.h5 t(".err_msg.validation_failed", count: site_name_correction.errors.count), class: "alert-heading" %>
-      <%= tag.ul class: "mb-0" do %>
-        <% site_name_correction.errors.each do |error| %>
-          <%= tag.li error.full_message %>
-        <% end %>
-      <% end %>
-    <% end %>
-  <% end %>
+  <%= render Forms::ValidationErrorComponent.new(site_name_correction) %>
 
   <%= tag.div class: "mb-3" do %>
     <%= form.label :domain, class: "form-label fw-semibold" %>
