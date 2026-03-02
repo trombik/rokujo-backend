@@ -67,6 +67,6 @@ class ArticleCollectionsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def article_collection_params
-    params.expect(article_collection: [:name, :key])
+    params.expect(article_collection: [:name, :key, :value])
   end
 end

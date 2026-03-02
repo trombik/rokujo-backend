@@ -4,7 +4,8 @@ RSpec.describe "article_collections/edit", type: :view do
   let(:article_collection) do
     ArticleCollection.create!(
       name: "MyString",
-      key: "MyString"
+      key: "site_name",
+      value: "Value"
     )
   end
 

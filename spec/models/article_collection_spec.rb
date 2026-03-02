@@ -5,6 +5,7 @@ RSpec.describe ArticleCollection, type: :model do
     it { is_expected.to validate_presence_of :key }
     it { is_expected.to validate_presence_of :name }
     it { is_expected.to validate_uniqueness_of :name }
+    it { is_expected.to validate_inclusion_of(:key).in_array(%w[site_name normalized_url]) }
   end
 
   describe "assertion" do

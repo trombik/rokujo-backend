@@ -17,11 +17,11 @@ RSpec.describe "/article_collections", type: :request do
   # ArticleCollection. As you add validations to ArticleCollection, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    { name: "Name", key: "domain" }
+    { name: "Name", key: "site_name", value: "Value" }
   end
 
   let(:invalid_attributes) do
-    { name: nil, key: nil }
+    { name: nil, key: nil, value: nil }
   end
 
   describe "GET /index" do
@@ -86,7 +86,7 @@ RSpec.describe "/article_collections", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       let(:new_attributes) do
-        { name: "New name", key: "domain" }
+        { name: "New name", key: "site_name", value: "Value" }
       end
 
       it "updates the requested article_collection" do

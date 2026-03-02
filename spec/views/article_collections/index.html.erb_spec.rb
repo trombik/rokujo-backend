@@ -5,11 +5,13 @@ RSpec.describe "article_collections/index", type: :view do
     assign(:article_collections, [
              ArticleCollection.create!(
                name: "foo",
-               key: "key1"
+               key: "site_name",
+               value: "value1"
              ),
              ArticleCollection.create!(
                name: "bar",
-               key: "key2"
+               key: "site_name",
+               value: "value2"
              )
            ])
     render

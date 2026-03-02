@@ -2,7 +2,6 @@
   <% if article_collection.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(article_collection.errors.count, "error") %> prohibited this article_collection from being saved:</h2>
-
       <ul>
         <% article_collection.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -12,16 +11,27 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label :name, "Collection Name", style: "display: block" %>
     <%= form.text_field :name %>
   </div>
 
-  <div>
-    <%= form.label :key, style: "display: block" %>
-    <%= form.text_field :key %>
+  <div style="margin-top: 20px;">
+    <label style="display: block; font-weight: bold;">Filter Key</label>
+
+    <% ArticleCollection.valid_keys.each do |key| %>
+      <div>
+        <%= form.radio_button :key, key, checked: key == "site_name" || article_collection.key.nil? %>
+        <%= form.label "key_#{key}", key.humanize %>
+      </div>
+    <% end %>
   </div>
 
   <div>
+    <%= form.label :value, "Value", style: "display: block" %>
+    <%= form.text_field :value %>
+  </div>
+
+  <div style="margin-top: 20px;">
     <%= form.submit %>
   </div>
 <% end %>
