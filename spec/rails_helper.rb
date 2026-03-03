@@ -79,6 +79,13 @@ RSpec.configure do |config|
   config.include ViewComponent::TestHelpers, type: :component
   config.include ViewComponent::SystemTestHelpers, type: :component
   config.include Capybara::RSpecMatchers, type: :component
+
+  # Start Spacy ananlyzer if required by the spec file
+  needs_api = RSpec.world.filtered_examples.values.flatten.any? do |example|
+    example.metadata[:api_server]
+  end
+
+  ApiServerRunner.start if needs_api
 end
 
 Shoulda::Matchers.configure do |config|
