@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "TokenAnalysisAnalyzers", type: :request do
+RSpec.describe "TokenAnalysisAnalyzers", api_server: true, type: :request do
   let(:path) { token_analysis_analyzer_path }
 
   describe "GET /index" do
