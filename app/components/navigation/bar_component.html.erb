@@ -20,7 +20,7 @@
           <% end %>
         <% end %>
       <% end %>
-      <%= render SearchForm::CollocationComponent.new %>
+      <%= render SearchForm::CollocationComponent.new unless current_path_is_root? %>
     <% end %>
   <% end %>
 <% end %>

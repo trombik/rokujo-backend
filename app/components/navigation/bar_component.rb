@@ -7,6 +7,12 @@ class Navigation::BarComponent < ViewComponent::Base
     super()
   end
 
+  private
+
+  def current_path_is_root?
+    helpers.request.path == root_path
+  end
+
   def navbar_content_id
     "navbarSupportedContent"
   end
