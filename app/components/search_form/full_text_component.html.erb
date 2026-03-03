@@ -1,11 +1,14 @@
 <%= form_with url: search_path, method: :get, local: true do |f| %>
+  <% help = Forms::CollapsibleHelpComponent.new("full_text_component", help_class: "card card-body shadow-sm") %>
   <%= tag.div class: "col-auto" do %>
     <%= tag.div class: "input-group" do %>
       <%= tag.span class: "input-group-text" do %>
-        正規表現全文検索
+        <%= t(".name") %>
+        <%= render help.button_component %>
       <% end %>
-      <%= f.text_field :word, value: params[:word], class: "form-control", placeholder: "正規表現" %>
-      <%= f.submit "検索", name: nil, class: "btn btn-primary" %>
+      <%= f.text_field :word, value: params[:word], class: "form-control", placeholder: t(".placeholder") %>
+      <%= f.submit t(".submit"), name: nil, class: "btn btn-primary" %>
     <% end %>
   <% end %>
+  <%= render help %>
 <% end %>

@@ -1,0 +1,9 @@
+---
+en:
+  name: Regexp search
+  placeholder: Regular expression
+  submit: Search
+ja:
+  name: 正規表現検索
+  placeholder: 正規表現
+  submit: 検索
