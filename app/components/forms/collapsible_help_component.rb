@@ -50,6 +50,24 @@ class Forms::CollapsibleHelpComponent < ViewComponent::Base
     @help_file_path = path
   end
 
+  # A button to close the help
+  class CloseButtonComponent < ViewComponent::Base
+    attr_reader :id
+
+    def initialize(id:)
+      @id = id
+      super()
+    end
+
+    def call
+      tag.button type: "button",
+                 class: "btn-close position-absolute top-0 end-0 p-2 m-2 border rounded-circle",
+                 style: "z-index: 1;", # XXX set z-index to draw the button. `z-index auto` might hide the button.
+                 data: { bs_toggle: "collapse", bs_target: "##{id}" },
+                 aria: { label: t("form.button.close") }
+    end
+  end
+
   # The button to open the help
   class ButtonComponent < ViewComponent::Base
     attr_reader :id, :klass
