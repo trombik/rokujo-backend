@@ -1,0 +1,9 @@
+---
+en:
+  name: Collocation search
+  submit: Search
+  placeholder: Type noun here
+ja:
+  name: コロケーション検索
+  submit: 検索
+  placeholder: ここに名詞を入力します
