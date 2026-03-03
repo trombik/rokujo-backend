@@ -41,7 +41,7 @@ module ColorPalletGeneratorHelper
 
   def color_names(except: [])
     color_table.keys.map { |key| key.split("-").first }
-               .reject { |key| except.include? key }
+                    .reject { |key| except.include? key }
   end
 
   def color_table
