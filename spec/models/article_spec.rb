@@ -15,15 +15,6 @@ RSpec.describe Article, type: :model do
     }
   end
 
-  let(:sentence_hash) do
-    {
-      text: "Text",
-      meta: {
-        line_number: 1
-      }
-    }
-  end
-
   describe "associattion" do
     it { is_expected.to have_many :sentences }
   end
@@ -38,6 +29,12 @@ RSpec.describe Article, type: :model do
   describe "#replace_sentences_with_hash" do
     it "replaces sentences" do
       expect do
+        sentence_hash = {
+          text: "Text",
+          meta: {
+            line_number: 1
+          }
+        }
         article.replace_sentences_with_hash([sentence_hash])
         article.save!
       end.to change { article.sentences.count }.by(1)
