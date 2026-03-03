@@ -5,17 +5,8 @@
     <%= render CollapsableContentComponent.new(id: navbar_content_id) do %>
       <%= tag.ul class: "navbar-nav me-auto mb-2 mb-lg-0" do %>
         <%= render LinkComponent.new(label: "Home", path: root_path, active: true) %>
-        <%
-          items = [
-            { label: "Articles", path: articles_path },
-            { label: "Token analysis", path: token_analysis_analyzer_path },
-            { label: "Collections", path: article_collections_path },
-            { label: "Stats", path: stats_index_path },
-            { label: "Sites", path: sites_path }
-          ]
-        %>
         <%= render DropDownComponent.new(label: "Menu") do |c| %>
-          <% items.each do |item | %>
+          <% links.each do |item | %>
             <% c.with_item(**item) %>
           <% end %>
         <% end %>

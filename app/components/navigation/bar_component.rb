@@ -17,6 +17,16 @@ class Navigation::BarComponent < ViewComponent::Base
     "navbarSupportedContent"
   end
 
+  def links
+    [
+      { label: "Articles", path: articles_path },
+      { label: "Token analysis", path: token_analysis_analyzer_path },
+      { label: "Article collections", path: article_collections_path },
+      { label: "Corpus Dashboard", path: stats_index_path },
+      { label: "Sites", path: sites_path }
+    ]
+  end
+
   # Link in the navbar
   class LinkComponent < ViewComponent::Base
     attr_reader :label, :path, :active, :disabled
