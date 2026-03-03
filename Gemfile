@@ -48,6 +48,10 @@ gem "bootstrap", "~> 5.3"
 gem "dartsass-rails", "~> 0.5.1"
 gem "jquery-rails", "~> 4.6"
 
+# Use kramdown for markdown parser
+gem "kramdown"
+gem "kramdown-parser-gfm", "~> 1.1"
+
 # Use pagy for pagination
 gem "pagy", "~> 43.3"
 
