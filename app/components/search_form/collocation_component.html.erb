@@ -1,11 +1,14 @@
 <%= form_with url: collocations_nouns_index_path, method: :get, local: true do |f| %>
+  <% help = Forms::CollapsibleHelpComponent.new("collocation_search", help_class: "card card-body shadow-sm") %>
   <%= tag.div class: "col-auto" do %>
     <%= tag.div class: "input-group" do %>
       <%= tag.span class: "input-group-text" do %>
         <%= t(".name") %>
+        <%= render help.button_component %>
       <% end %>
       <%= f.text_field :lemma, value: params[:lemma], class: "form-control", placeholder: t(".placeholder") %>
       <%= f.submit t(".submit"), name: nil, class: "btn btn-primary" %>
     <% end %>
   <% end %>
+  <%= render help %>
 <% end %>
