@@ -24,7 +24,7 @@ class Article < ApplicationRecord
 
     initial_scope = site_name_like(word_list.shift)
     word_list.reduce(initial_scope) do |combined_scope, word|
-      combined_scope.or(url_like(word))
+      combined_scope.or(site_name_like(word))
     end
   }
 

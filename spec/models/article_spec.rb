@@ -121,16 +121,23 @@ RSpec.describe Article, type: :model do
   describe "scopes" do
     before do
       1.upto(3) do |n|
-        create(:article, url: "https://example#{n}.org/", site_name: n.to_s)
+        create(:article, url: "https://example#{n}.org/", site_name: "Example #{n}")
       end
     end
 
     describe ".site_names_like" do
       context "when a word matches an article", :aggregate_failures do
         it "returns the article" do
-          articles = described_class.site_names_like("1")
-          expect(articles.map(&:site_name)).to include("1")
+          articles = described_class.site_names_like("Example 1")
+          expect(articles.map(&:site_name)).to include("Example 1")
           expect(articles.count).to eq 1
+        end
+      end
+
+      context "when the words matches just two articles" do
+        it "returns all two articles" do
+          articles = described_class.site_names_like(["Example 1", "Example 2"])
+          expect(articles.count).to eq 2
         end
       end
 
@@ -143,15 +150,15 @@ RSpec.describe Article, type: :model do
 
       context "when words includes empty string and nil" do
         it "ignores empty string and nil" do
-          articles = described_class.site_names_like(["1", "", nil])
-          expect(articles.map(&:site_name)).to contain_exactly("1")
+          articles = described_class.site_names_like(["Example 1", "", nil])
+          expect(articles.map(&:site_name)).to contain_exactly("Example 1")
         end
       end
 
       context "when one keyword matches an article and another does not match anything at all" do
         it "returns the matched article only" do
-          articles = described_class.site_names_like(%w[1 foo])
-          expect(articles.map(&:site_name)).to contain_exactly("1")
+          articles = described_class.site_names_like(["Example 1", "foo"])
+          expect(articles.map(&:site_name)).to contain_exactly("Example 1")
         end
       end
 
