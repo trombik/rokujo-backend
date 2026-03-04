@@ -40,6 +40,17 @@ class Article < ApplicationRecord
     end
   }
 
+  # @return [<ArticleCollection>]
+  #   An array of {ArticleCollection} records that match the article's attributes
+  #   based on the keys defined in {ArticleCollection}
+  #
+  # @example Get all collections for an article
+  #   article.associated_collections
+  #
+  def article_collections
+    ArticleCollection.matches_for(self)
+  end
+
   def self.sentences_per_article
     n_article = Article.count
     n_article.zero? ? 0 : Sentence.count / n_article

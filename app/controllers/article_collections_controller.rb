@@ -59,7 +59,7 @@ class ArticleCollectionsController < ApplicationController
   def articles
     article_collection = ArticleCollection.find(params[:id])
     @pagy, @articles = pagy(:countish,
-                            article_collection.associated_articles,
+                            article_collection.articles,
                             items: 20)
     render "articles/index"
   end
