@@ -1,0 +1,22 @@
+<%= tag.button class: "btn btn-primary", type: "button", data: { bs_toggle: "collapse", bs_target: "##{id}" }, aria: { expanded: false, controls: id } do %>
+  <%= t(".button_text") %>
+<% end %>
+<%= tag.div class: "collapse", id: id do %>
+  <%= form_with(model: article_collection, local: true) do |f| %>
+    <%= tag.div class: "mb-3" do %>
+      <%= tag.label class: "form-label d-block" do %><%= t(".title") %><% end %>
+      <%= tag.div class: "d-flex flex-wrap gap-2" do %>
+        <%= f.collection_check_boxes :collection_tag_ids, all_tags, :id, :name do |b| %>
+          <%= tag.div class: "form-check form-check-inline rounded p-2 px-3 bg-light" do %>
+            <%= b.check_box class: "form-check-input" %>
+            <%= b.label class: "form-check-label ms-1" %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <%= f.submit t("form.button.update"), class: "btn btn-primary" %>
+    <%= tag.button type: "button", class: "btn btn-outline-secondary", data: { bs_toggle: "collapse", bs_target: "##{id}" }, aria: { expanded: true, label: t("form.button.cancel") } do %>
+      <%= t("form.button.cancel") %>
+    <% end %>
+  <% end %>
+<% end %>
