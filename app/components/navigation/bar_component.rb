@@ -23,6 +23,7 @@ class Navigation::BarComponent < ViewComponent::Base
       { label: "Token analysis", path: token_analysis_analyzer_path },
       { label: "Article collections", path: article_collections_path },
       { label: "Corpus Dashboard", path: stats_index_path },
+      { label: "Collection tags", path: collection_tags_path },
       { label: "Sites", path: sites_path }
     ]
   end
