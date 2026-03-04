@@ -4,6 +4,7 @@ module SearchHelper
   def operators_from(word)
     word ||= ""
     {
+      tags: word.scan(/tag:\s*(?:"([^"]+)"|(\S+))/).map { |m| m[0] || m[1] },
       site_names: word.scan(/site_name:\s*(?:"([^"]+)"|(\S+))/).map { |m| m[0] || m[1] },
       urls: word.scan(/url:\s*(\S+)/).flatten
     }

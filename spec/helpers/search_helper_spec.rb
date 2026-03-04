@@ -4,14 +4,14 @@ RSpec.describe SearchHelper, type: :helper do
   describe "#operators_from" do
     context "when nil is given" do
       it "returns empty result" do
-        expect(helper.operators_from(nil)).to eq({ site_names: [], urls: [] })
+        expect(helper.operators_from(nil)).to eq({ site_names: [], urls: [], tags: [] })
       end
     end
 
     context "when no operator is found in word" do
       it "returns empty result" do
         word = "foo"
-        expect(helper.operators_from(word)).to eq({ site_names: [], urls: [] })
+        expect(helper.operators_from(word)).to eq({ site_names: [], urls: [], tags: [] })
       end
     end
 
@@ -64,9 +64,37 @@ RSpec.describe SearchHelper, type: :helper do
       end
     end
 
+    context "when a tag is given" do
+      it "returns a tag" do
+        word = "foo tag:bar"
+        expect(helper.operators_from(word)[:tags]).to eq(%w[bar])
+      end
+    end
+
+    context "when tags are given" do
+      it "returns the tags" do
+        word = "foo tag:foo tag:bar tag:buz"
+        expect(helper.operators_from(word)[:tags]).to eq(%w[foo bar buz])
+      end
+    end
+
+    context "when a tag is quoted" do
+      it "returns the tags" do
+        word = "foo tag:\"foo\" tag:bar"
+        expect(helper.operators_from(word)[:tags]).to eq(%w[foo bar])
+      end
+    end
+
+    context "when two tags are quoted" do
+      it "returns the tags" do
+        word = "foo tag:\"foo\" tag:\"bar\""
+        expect(helper.operators_from(word)[:tags]).to eq(%w[foo bar])
+      end
+    end
+
     it "extracts operators" do
       word = "foo site_name: site1 site_name: \"site 2\" url: url1 url: url2"
-      expected = { site_names: ["site1", "site 2"], urls: %w[url1 url2] }
+      expected = { site_names: ["site1", "site 2"], urls: %w[url1 url2], tags: [] }
       expect(helper.operators_from(word)).to eq expected
     end
   end
