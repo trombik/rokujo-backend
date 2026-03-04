@@ -1,22 +1,35 @@
-<%= tag.button class: "btn btn-primary", type: "button", data: { bs_toggle: "collapse", bs_target: "##{id}" }, aria: { expanded: false, controls: id } do %>
-  <%= t(".button_text") %>
-<% end %>
-<%= tag.div class: "collapse", id: id do %>
-  <%= form_with(model: article_collection, local: true) do |f| %>
-    <%= tag.div class: "mb-3" do %>
-      <%= tag.label class: "form-label d-block" do %><%= t(".title") %><% end %>
-      <%= tag.div class: "d-flex flex-wrap gap-2" do %>
-        <%= f.collection_check_boxes :collection_tag_ids, all_tags, :id, :name do |b| %>
-          <%= tag.div class: "form-check form-check-inline rounded p-2 px-3 bg-light" do %>
-            <%= b.check_box class: "form-check-input" %>
-            <%= b.label class: "form-check-label ms-1" %>
+<%= tag.div class: "dropdown d-inline-block" do %>
+  <%= tag.button class: "btn btn-sm btn-outline-secondary rounded-pill px-2 dropdown-toggle border-0",
+                 type: "button",
+                 id: "dropdown-#{id}",
+                 data: { bs_toggle: "dropdown", bs_auto_close: "outside" },
+                 aria: { expanded: false } do %>
+    <%= render IconComponent.new("plus-lg", klass: "me-1") %>
+    <%= t(".button_text") %>
+  <% end %>
+
+  <%= tag.div class: "dropdown-menu p-3 shadow-lg border-1", aria: { labelledby: "dropdown-#{id}" }, style: "min-width: 320px;" do %>
+    <%= form_with(model: article_collection, local: true) do |f| %>
+      <%= tag.div class: "mb-3" do %>
+        <%= tag.label class: "form-label fw-bold small border-bottom w-100 pb-1 mb-2" do %>
+          <%= t(".title") %>
+        <% end %>
+
+        <%= tag.div class: "d-flex flex-wrap gap-2 mb-3", style: "max-height: 650px; overflow-y: auto;" do %>
+          <%= f.collection_check_boxes :collection_tag_ids, all_tags, :id, :name do |b| %>
+            <%= tag.div class: "form-check form-check-inline align-items-center" do %>
+              <%= b.check_box class: "form-check-input" %>
+              <%= b.label class: "form-check-label cursor-pointer" do %>
+                <%= render Bagde::CollectionTagComponent.new(b.object, link: false) %>
+              <% end %>
+            <% end %>
           <% end %>
         <% end %>
+
+        <%= tag.div class: "d-flex justify-content-between gap-2 border-top pt-2" do %>
+          <%= f.submit t("form.button.update"), class: "btn btn-sm btn-primary flex-grow-1" %>
+        <% end %>
       <% end %>
-    <% end %>
-    <%= f.submit t("form.button.update"), class: "btn btn-primary" %>
-    <%= tag.button type: "button", class: "btn btn-outline-secondary", data: { bs_toggle: "collapse", bs_target: "##{id}" }, aria: { expanded: true, label: t("form.button.cancel") } do %>
-      <%= t("form.button.cancel") %>
     <% end %>
   <% end %>
 <% end %>

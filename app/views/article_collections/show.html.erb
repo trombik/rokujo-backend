@@ -1,10 +1,6 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render ResourceCard::ArticleCollectionComponent.new(@article_collection) %>
-<% @article_collection.collection_tags.each do |tag| %>
-  <%= render Bagde::CollectionTagComponent.new(tag) %>
-<% end %>
-<%= render Forms::CollectionTagSelectorComponent.new(@article_collection) %>
 <div>
   <%= link_to "Back to article collections", article_collections_path %>
 </div>

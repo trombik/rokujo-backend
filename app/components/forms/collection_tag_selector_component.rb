@@ -14,6 +14,6 @@ class Forms::CollectionTagSelectorComponent < ViewComponent::Base
   end
 
   def id
-    self.class.name.underscore.gsub("/", "_")
+    "#{self.class.name.underscore.gsub("/", "_")}-#{article_collection.id}"
   end
 end

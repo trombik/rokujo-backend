@@ -14,4 +14,15 @@ class ResourceCard::ArticleCollectionComponent < ViewComponent::Base
   def articles_link
     articles_article_collection_path(article_collection)
   end
+
+  def key_badge_class
+    case article_collection.key
+    when "site_name"
+      "bg-info-subtle text-info-emphasis"
+    when "normalized_url"
+      "bg-warning-subtle text-warning-emphasis"
+    else
+      "bg-error-subtle text-warning-emphasis"
+    end
+  end
 end
