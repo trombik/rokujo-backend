@@ -21,12 +21,27 @@ RSpec.describe "ArticleCollections", type: :request do
         article_collection.reload
       end
 
-      it "updates the collection and redirects" do
+      it "updates the collection" do
         expect(article_collection.collection_tag_ids).to contain_exactly(ruby_tag.id, rails_tag.id)
       end
 
       it "redirects with :see_other" do
         expect(response).to redirect_to(article_collection_path(article_collection))
+      end
+    end
+
+    context "with valid params as turbo_stream" do
+      before do
+        patch article_collection_path(article_collection), params: params, as: :turbo_stream
+        article_collection.reload
+      end
+
+      it "updates the collection" do
+        expect(article_collection.collection_tag_ids).to contain_exactly(ruby_tag.id, rails_tag.id)
+      end
+
+      it "returns :success" do
+        expect(response).to have_http_status(:success)
       end
     end
 

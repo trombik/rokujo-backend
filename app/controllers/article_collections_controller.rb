@@ -38,6 +38,7 @@ class ArticleCollectionsController < ApplicationController
         format.html do
           redirect_to @article_collection, notice: t(".success"), status: :see_other
         end
+        format.turbo_stream
       else
         format.html { render :edit, status: :unprocessable_content }
       end
