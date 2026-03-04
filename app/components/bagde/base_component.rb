@@ -31,14 +31,12 @@ class Bagde::BaseComponent < ViewComponent::Base
     if link
       link_to link_path, class: "badge rounded-pill text-decoration-none shadow-sm",
                          style: badge_style do
-                           concat(tag.i(class: "bi bi-#{icon_name} me-1"))
-                           concat(resource.name)
+                           badge_content
                          end
     else
       tag.div class: "badge rounded-pill text-decoration-none shadow-sm",
               style: badge_style do
-                concat(tag.i(class: "bi bi-#{icon_name} me-1"))
-                concat(resource.name)
+                badge_content
               end
     end
   end
@@ -48,6 +46,11 @@ class Bagde::BaseComponent < ViewComponent::Base
   end
 
   private
+
+  def badge_content
+    concat(tag.i(class: "bi bi-#{icon_name} me-1"))
+    concat(resource.name)
+  end
 
   def color_hex
     seed = Digest::MD5.hexdigest(resource.name).to_i(16)
