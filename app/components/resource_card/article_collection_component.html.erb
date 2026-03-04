@@ -3,7 +3,9 @@
     <div class="row align-items-center g-3 g-md-4">
 
       <div class="col-12 col-md-3">
-        <span class="fw-bold text-dark d-block text-truncate"><%= article_collection.name %></span>
+        <%= link_to articles_link, class: "text-decoration-none" do %>
+          <span class="fw-bold text-dark d-block text-truncate"><%= article_collection.name %></span>
+        <% end %>
       </div>
 
       <div class="col-6 col-md-auto">

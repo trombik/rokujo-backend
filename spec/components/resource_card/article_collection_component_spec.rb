@@ -13,4 +13,10 @@ RSpec.describe ResourceCard::ArticleCollectionComponent, type: :component do
       .and have_text(article_collection.key)
       .and have_text(article_collection.value)
   end
+
+  it "has a link to view all the artciles of the collection" do
+    render_inline component
+
+    expect(page).to have_link(href: articles_article_collection_path(article_collection))
+  end
 end
