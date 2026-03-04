@@ -2,7 +2,7 @@
 
 # the base class for badges
 class Bagde::BaseComponent < ViewComponent::Base
-  attr_reader :resource
+  attr_reader :resource, :link
 
   include ColorPalletGeneratorHelper
 
@@ -11,8 +11,9 @@ class Bagde::BaseComponent < ViewComponent::Base
     red orange amber emerald teal cyan sky
   ].freeze
 
-  def initialize(resource)
+  def initialize(resource, link: true)
     @resource = resource
+    @link = link
     super()
   end
 
@@ -27,11 +28,19 @@ class Bagde::BaseComponent < ViewComponent::Base
   end
 
   def call
-    link_to link_path, class: "badge rounded-pill text-decoration-none shadow-sm",
-                       style: badge_style do
-                         concat(tag.i(class: "bi bi-#{icon_name} me-1"))
-                         concat(resource.name)
-                       end
+    if link
+      link_to link_path, class: "badge rounded-pill text-decoration-none shadow-sm",
+                         style: badge_style do
+                           concat(tag.i(class: "bi bi-#{icon_name} me-1"))
+                           concat(resource.name)
+                         end
+    else
+      tag.div class: "badge rounded-pill text-decoration-none shadow-sm",
+              style: badge_style do
+                concat(tag.i(class: "bi bi-#{icon_name} me-1"))
+                concat(resource.name)
+              end
+    end
   end
 
   def render?

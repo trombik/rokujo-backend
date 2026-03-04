@@ -37,4 +37,12 @@ RSpec.describe Bagde::BaseComponent, type: :component do
       expect(rendered_content).to eq ""
     end
   end
+
+  context "when link: false is given" do
+    let(:component) { described_class.new(resource, link: false) }
+
+    it "has no link to the resouce" do
+      expect(page).to have_no_link
+    end
+  end
 end
