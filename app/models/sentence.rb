@@ -35,11 +35,18 @@ class Sentence < ApplicationRecord
 
   # Search word from Sentence with search operators
   def self.search_with_operators(word, operators)
-    joins(:article)
-      .includes(:article)
-      .merge(Article.site_names_like(operators[:site_names]))
-      .merge(Article.urls_like(operators[:urls]))
-      .match(word)
+    query = joins(:article).includes(:article)
+
+    query = if operators[:tags].present?
+              # When any tags are given, ignore other operators.
+              apply_tag_filters(query, operators[:tags])
+            else
+              # Otherwise, filter articles with AND-ed operators
+              query.merge(Article.site_names_like(operators[:site_names]))
+                   .merge(Article.urls_like(operators[:urls]))
+            end
+
+    query.match(word).distinct
   end
 
   def self.find_sentences_with_particle_and_verb(noun, particle, verb)
@@ -86,4 +93,34 @@ class Sentence < ApplicationRecord
     TokenAnalysis.import token_data, validate: true
   end
   # rubocop:enable Metrics/AbcSize
+
+  # Apply tag-based filters by merging Article criteria into the Sentence query.
+  #
+  # This method prioritizes tags over individual operators by converting
+  # collection metadata (site_name, normalized_url) into a combined OR-clause.
+  #
+  # @param query [ActiveRecord::Relation] The current Sentence query scope.
+  # @param tag_names [Array<String>] List of tag names to filter by.
+  #
+  # @return [ActiveRecord::Relation]
+  #   The updated query merged with Article conditions, or a NullRelation if
+  #   no criteria are found.
+  #
+  # @example
+  #   apply_tag_filters(Sentence.all, ["Ruby"])
+  #   # => Generates: ... WHERE articles.site_name = 'Ruby Official' OR articles.normalized_url LIKE 'ruby-lang.org%'
+  def self.apply_tag_filters(query, tag_names)
+    criteria = Article.criteria_from_tags(tag_names)
+    return query.none if criteria.empty?
+
+    scope = Article.where(site_name: criteria["site_name"])
+
+    criteria["normalized_url"].each do |url|
+      scope = scope.or(Article.where("normalized_url LIKE ?", "#{ArticleCollection.sanitize_sql_like(url)}%"))
+    end
+
+    query.merge(scope)
+  end
+
+  private_class_method :apply_tag_filters
 end

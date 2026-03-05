@@ -94,6 +94,39 @@ class Article < ApplicationRecord
     self.sources = transformed_sources
   end
 
+  # Extract and categorize search criteria from ArticleCollection based on tag names.
+  #
+  # @param tag_names [Array<String>] List of collection tag names to search for.
+  #
+  # @return [Hash{String => Array<String>}]
+  #   A hash where keys are metadata types (e.g., 'site_name', 'normalized_url')
+  #   and values are arrays of corresponding criteria values.
+  #
+  # @example
+  #   Article.criteria_from_tags(["Ruby"])
+  #   # => { "site_name" => ["Ruby Official"], "normalized_url" => ["ruby-lang.org"] }
+  def self.criteria_from_tags(tag_names)
+    pairs = ArticleCollection.joins(:collection_tags)
+                             .where(collection_tags: { name: tag_names })
+                             .distinct.pluck(:key, :value)
+    # [
+    #   ["site_name", "Site A"],
+    #   ["normalized_url", "exmaple.org"],
+    #   ["normalized_url", "example.org/path"],
+    #   ...
+    # ]
+
+    # Initialize hash with guaranteed keys
+    initial_criteria = ArticleCollection::VALID_KEYS.index_with { |_k| [] }
+    pairs.each_with_object(initial_criteria) do |(key, value), hash|
+      hash[key] << value if hash.key?(key)
+    end
+    # {
+    #   "site_name" => ["Site A", "Site B", ... ],
+    #   "normalized_url" => ["example.org", "example.org/path"]
+    # }
+  end
+
   private
 
   def set_normalized_url

@@ -106,4 +106,21 @@ RSpec.describe Sentence, type: :model do
       end
     end
   end
+
+  describe ".search_with_operators" do
+    # XXX more tests can be found in features/search_spec.rb
+    it "finds sentences associated with specific collection tags" do
+      article = create(:article, site_name: "Site 1")
+      create(:article_collection, key: "site_name",
+                                  value: "Site 1",
+                                  collection_tags: [
+                                    create(:collection_tag, name: "ruby")
+                                  ])
+      target_sentence = create(:sentence, article: article, text: "Hello Ruby")
+
+      results = described_class.search_with_operators("Ruby", { tags: ["ruby"] })
+
+      expect(results).to contain_exactly(target_sentence)
+    end
+  end
 end
