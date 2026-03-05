@@ -6,7 +6,11 @@ TARGET_SITE_NAME = "Site 1".freeze
 TARGET_NORMALIZED_URL = "example.org/path".freeze
 
 RSpec.describe "Search features", type: :feature do
-  let(:article) { create(:article, site_name: TARGET_SITE_NAME) }
+  let(:article) do
+    create(:article, site_name: TARGET_SITE_NAME,
+                     url: "http://example.org/path")
+  end
+
   let!(:target_sentence) do
     create(:sentence, article: article, text: "Hello #{TARGET_WORD}")
   end
@@ -74,19 +78,78 @@ RSpec.describe "Search features", type: :feature do
   end
 
   describe "site_name operator" do
-    context "when searching by site_name" do
-      let(:operators) { { site_names: [TARGET_SITE_NAME] } }
+    let(:operators) { { site_names: [TARGET_SITE_NAME] } }
 
-      it "finds the sentence with matching site_name" do
-        results = Sentence.search_with_operators(TARGET_WORD, operators)
-        expect(results).to include(target_sentence)
-      end
+    it "finds the sentence with matching site_name" do
+      results = Sentence.search_with_operators(TARGET_WORD, operators)
+      expect(results).to include(target_sentence)
+    end
 
-      it "does not find sentences from other sites" do
+    it "does not find sentences from other sites" do
+      other_article = create(:article, site_name: "Other Site")
+      other_sentence = create(:sentence, article: other_article, text: TARGET_WORD)
+      results = Sentence.search_with_operators(TARGET_WORD, operators)
+
+      expect(results).not_to include(other_sentence)
+    end
+
+    context "when two site_names are combined" do
+      let(:operators) { { site_names: [TARGET_SITE_NAME, "Other site"] } }
+
+      specify "two site_names are OR-ed" do
         other_article = create(:article, site_name: "Other Site")
         other_sentence = create(:sentence, article: other_article, text: TARGET_WORD)
-
         results = Sentence.search_with_operators(TARGET_WORD, operators)
+
+        expect(results).to contain_exactly(target_sentence, other_sentence)
+      end
+    end
+  end
+
+  describe "url operator" do
+    let(:operators) { { urls: [TARGET_NORMALIZED_URL] } }
+
+    it "finds the sentence from a site that matches url" do
+      results = Sentence.search_with_operators(TARGET_WORD, operators)
+
+      expect(results).to contain_exactly(target_sentence)
+    end
+
+    context "when other url has a sentence that includes the word" do
+      it "does not find the sentence from other site" do
+        other_article = create(:article, url: "http://example.net/path")
+        create(:sentence, article: other_article, text: TARGET_WORD)
+        results = Sentence.search_with_operators(TARGET_WORD, operators)
+
+        expect(results).to contain_exactly(target_sentence)
+      end
+    end
+
+    context "when multiple url operators are combined" do
+      let(:operators) { { urls: [TARGET_NORMALIZED_URL, "example.net"] } }
+
+      it "finds sentences from matched urls" do
+        other_article = create(:article, url: "http://example.net/path")
+        other_sentence = create(:sentence, article: other_article, text: TARGET_WORD)
+        results = Sentence.search_with_operators(TARGET_WORD, operators)
+
+        expect(results).to contain_exactly(target_sentence, other_sentence)
+      end
+    end
+
+    context "when url operator and tag operator are combined" do
+      let(:operators) { { urls: ["example.net/path"], tags: [TARGET_TAG] } }
+
+      before do
+        tag_ruby = create(:collection_tag, name: TARGET_TAG)
+        create(:article_collection, key: "site_name", value: TARGET_SITE_NAME, collection_tags: [tag_ruby])
+      end
+
+      it "ignores a sentence of other site" do
+        other_article = create(:article, url: "http://example.net/path", site_name: "Other site")
+        other_sentence = create(:sentence, article: other_article, text: TARGET_WORD)
+        results = Sentence.search_with_operators(TARGET_WORD, operators)
+
         expect(results).not_to include(other_sentence)
       end
     end
