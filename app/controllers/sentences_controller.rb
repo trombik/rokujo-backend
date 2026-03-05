@@ -3,7 +3,7 @@ class SentencesController < ApplicationController
   def index
     @word = helpers.extract_word(params[:word])
     operators = helpers.operators_from(params[:word])
-    @pagy, @sentences = if @word
+    @pagy, @sentences = if @word.present?
                           pagy(:countish,
                                Sentence.search_with_operators(@word, operators),
                                items: 20)

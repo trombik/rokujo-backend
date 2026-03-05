@@ -19,6 +19,7 @@ class Navigation::BarComponent < ViewComponent::Base
 
   def links
     [
+      { label: "Search", path: search_path },
       { label: "Articles", path: articles_path },
       { label: "Token analysis", path: token_analysis_analyzer_path },
       { label: "Article collections", path: article_collections_path },
