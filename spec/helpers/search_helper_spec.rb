@@ -1,6 +1,76 @@
 require "rails_helper"
 
 RSpec.describe SearchHelper, type: :helper do
+  describe "#extract_word" do
+    subject { helper.extract_word(word) }
+
+    let(:word) { nil }
+
+    context "when nil is given" do
+      it { is_expected.to eq "" }
+    end
+
+    context "when empty string is given" do
+      let(:word) { "" }
+
+      it { is_expected.to eq "" }
+    end
+
+    context "when a string is given" do
+      let(:word) { "foo" }
+
+      it { is_expected.to eq "foo" }
+    end
+
+    context "when multiple strings are given" do
+      let(:word) { "first last" }
+
+      it { is_expected.to eq "first" }
+    end
+
+    context "when mixed with an operator" do
+      let(:word) { "foo site_name:bar" }
+
+      it { is_expected.to eq "foo" }
+    end
+
+    context "when mixed with operators" do
+      let(:word) { "foo site_name:bar site_name:buz" }
+
+      it { is_expected.to eq "foo" }
+    end
+
+    context "when mixed with all the operators" do
+      let(:word) { "foo site_name:bar url:buz tag:somethingelse" }
+
+      it { is_expected.to eq "foo" }
+    end
+
+    context "when mixed with a quoted operator" do
+      let(:word) { 'foo site_name:"foo bar"' }
+
+      it { is_expected.to eq "foo" }
+    end
+
+    context "when the word is at the end" do
+      let(:word) { 'site_name:"foo bar" foo' }
+
+      it { is_expected.to eq "foo" }
+    end
+
+    context "when multiple words at the end" do
+      let(:word) { 'site_name:"foo bar" foo bar' }
+
+      it { is_expected.to eq "foo" }
+    end
+
+    context "when multiple words at the beginning" do
+      let(:word) { 'foo bar site_name:"foo bar"' }
+
+      it { is_expected.to eq "foo" }
+    end
+  end
+
   describe "#operators_from" do
     context "when nil is given" do
       it "returns empty result" do

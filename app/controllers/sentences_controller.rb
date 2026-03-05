@@ -1,7 +1,7 @@
 # SentencesController
 class SentencesController < ApplicationController
   def index
-    @word = extract_word(params[:word])
+    @word = helpers.extract_word(params[:word])
     operators = helpers.operators_from(params[:word])
     @pagy, @sentences = if @word
                           pagy(:countish,
@@ -21,9 +21,5 @@ class SentencesController < ApplicationController
     respond_to do |format|
       format.html
     end
-  end
-
-  def extract_word(word)
-    params[:word].strip.split(/\s+/).first if word
   end
 end
