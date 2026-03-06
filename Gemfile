@@ -55,6 +55,9 @@ gem "kramdown-parser-gfm", "~> 1.1"
 # Use pagy for pagination
 gem "pagy", "~> 43.3"
 
+# Use mission_control for job management
+gem "mission_control-jobs", "~> 1.1"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: [:mri, :windows], require: "debug/prelude"
