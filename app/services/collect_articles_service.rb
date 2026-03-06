@@ -19,6 +19,8 @@ class CollectArticlesService < ApplicationService
   # format of the output file.
   OUTPUT_FORMAT = "jsonl".freeze
 
+  attr_reader :stdout, :stderr
+
   # Initializes a new instance of CollectArticlesService
   #
   # @param spider_name [String] the name of the spider to run
@@ -70,24 +72,13 @@ class CollectArticlesService < ApplicationService
   def run
     Rails.logger.debug { "cmd: #{build_cmd}" }
 
-    out, err, status = Dir.chdir(WORK_DIR) { Open3.capture3(*build_cmd) }
-    log_result(out, err, status)
+    @stdout, @stderr, status = Dir.chdir(WORK_DIR) { Open3.capture3(*build_cmd) }
     if status.success?
       FileUtils.mv(@tmp_file.path, output_file)
       [output_file, status]
     else
       [nil, status]
     end
-  end
-
-  # Logs the output and error of the scrapy command
-  #
-  # @param out [String] the standard output of the command
-  # @param err [String] the standard error of the command
-  # @param status [Process::Status] the status of the command
-  def log_result(out, err, status)
-    Rails.logger.info(out)
-    Rails.logger.error(err) unless status.success?
   end
 
   def build_cmd
@@ -121,7 +112,7 @@ class CollectArticlesService < ApplicationService
 
   def prepare
     FileUtils.mkdir_p output_dir
-    raise RuntimeError, "#{output_dir} is not writable." unless output_dir.writable?
-    raise RuntimeError, "required scrapy repository cannot be found: #{WORK_DIR}" unless WORK_DIR.exist?
+    raise "#{output_dir} is not writable." unless output_dir.writable?
+    raise "required scrapy repository cannot be found: #{WORK_DIR}" unless WORK_DIR.exist?
   end
 end

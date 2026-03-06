@@ -20,7 +20,6 @@ RSpec.describe CollectArticlesService do
     FileUtils.rm_rf output_dir
   end
 
-
   describe "#call" do
     context "when the process successfully exits" do
       before do

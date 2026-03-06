@@ -55,6 +55,8 @@ Rails.application.routes.draw do
     get :sentences_by_site_name
   end
 
+  resources :collect_articles, only: [:index, :new, :create]
+
   get "sites/", to: "sites#index"
   get "sites/show/:site_name", to: "sites#show"
 

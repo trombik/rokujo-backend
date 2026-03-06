@@ -50,6 +50,12 @@ en:
       success: Collection tag was successfully updated.
     destroy:
       success: Collection tag was successfully destroyed.
+  collect_articles:
+    new:
+      invalid: Invalid spider name.
+    create:
+      invalid: Invalid spider name.
+      success: Job queued.
 
   activerecord:
     models:
