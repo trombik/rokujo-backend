@@ -1,0 +1,15 @@
+<div class="container py-5">
+  <h1 class="mb-4">Select a Spider to Run</h1>
+  <div class="list-group">
+    <% @spiders.each do |spider| %>
+      <%= link_to new_collect_article_path(spider: spider),
+                  class: "list-group-item list-group-item-action d-flex justify-content-between align-items-center" do %>
+        <div>
+          <strong class="text-primary"><%= spider.titleize %></strong>
+          <div class="text-muted small">Configure and queue a collection job.</div>
+        </div>
+        <i class="bi bi-chevron-right"></i>
+      <% end %>
+    <% end %>
+  </div>
+</div>

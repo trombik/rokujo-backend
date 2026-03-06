@@ -4,3 +4,6 @@
 [submodule "vendor/rokujo-analyzer"]
 	path = vendor/rokujo-analyzer
 	url = git@github.com:trombik/rokujo-analyzer.git
+[submodule "vendor/rokujo-collector-scrapy-generic"]
+	path = vendor/rokujo-collector-scrapy-generic
+	url = git@github.com:trombik/rokujo-collector-scrapy-generic.git

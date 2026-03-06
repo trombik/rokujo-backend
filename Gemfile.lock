@@ -273,6 +273,16 @@ GEM
     minitest (6.0.2)
       drb (~> 2.0)
       prism (~> 1.5)
+    mission_control-jobs (1.1.0)
+      actioncable (>= 7.1)
+      actionpack (>= 7.1)
+      activejob (>= 7.1)
+      activerecord (>= 7.1)
+      importmap-rails (>= 1.2.1)
+      irb (~> 1.13)
+      railties (>= 7.1)
+      stimulus-rails
+      turbo-rails
     msgpack (1.8.0)
     nenv (0.3.0)
     net-imap (0.6.3)
@@ -602,6 +612,7 @@ DEPENDENCIES
   kramdown-parser-gfm (~> 1.1)
   listen
   lookbook (>= 2.3.13)
+  mission_control-jobs (~> 1.1)
   pagy (~> 43.3)
   propshaft
   pry

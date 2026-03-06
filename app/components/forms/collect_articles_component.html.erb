@@ -1,0 +1,24 @@
+<%= form_with url: collect_articles_path, class: "container mt-4" do |f| %>
+  <%= f.hidden_field :spider, value: spider_name %>
+  <%= tag.div class: "card shadow-sm max-w-xl mx-auto" do %>
+    <%= tag.div class: "card-header bg-primary-subtle " do %>
+      <%= tag.h5 class: "mb-0" do %>
+        <%= t(".form_title") %>: <%= spider_name %>
+      <% end %>
+    <% end %>
+
+    <%= tag.div class: "card-body" do %>
+      <% args.each do |arg| %>
+        <%= tag.div class: "mb-4" do %>
+          <%= f.label arg[:name], arg[:name], class: "form-label fw-bold" %><%= render arg[:help_component].button_component %>
+          <%= render arg[:help_component] %>
+          <%= f.text_field arg[:name], class: "form-control" %>
+        <% end %>
+      <% end %>
+      <%= tag.div class: "mx-auto" do %>
+        <%= f.submit t("form.button.add"), class: "btn btn-primary shadow-sm" %>
+      <% end %>
+    <% end %>
+
+  <% end %>
+<% end %>
