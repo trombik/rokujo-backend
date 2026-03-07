@@ -58,6 +58,9 @@ gem "pagy", "~> 43.3"
 # Use mission_control for job management
 gem "mission_control-jobs", "~> 1.1"
 
+# import rokujo-extractor
+gem "rokujo-extractor", github: "trombik/rokujo-extractor", branch: "remote_api"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: [:mri, :windows], require: "debug/prelude"
