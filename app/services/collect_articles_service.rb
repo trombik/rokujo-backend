@@ -95,7 +95,10 @@ class CollectArticlesService < ApplicationService
   end
 
   def spider_args
-    args.map { |k, v| "#{k}=#{v}" }.map { |arg| ["-a", arg] }.flatten
+    args.compact_blank
+        .map { |k, v| "#{k}=#{v}" }
+        .map { |arg| ["-a", arg] }
+        .flatten
   end
 
   def output_file
