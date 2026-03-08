@@ -35,5 +35,7 @@ module RokujoBackend
     config.view_component.previews.default_layout = "empty"
 
     config.i18n.default_locale = :en
+
+    config.enhanced_sqlite3.isolate_connection_pools
   end
 end

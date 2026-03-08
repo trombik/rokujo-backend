@@ -64,6 +64,11 @@ gem "rokujo-extractor", github: "trombik/rokujo-extractor", branch: "remote_api"
 # use sqlite3_ar_regexp for regexp in sqlite3 [https://github.com/AaronLasseigne/sqlite3_ar_regexp/}
 gem "sqlite3_ar_regexp"
 
+# Use enhancedsqlite3-adapter for separating read and write connection pools
+# in Rails 8
+# https://github.com/fractaledmind/activerecord-enhancedsqlite3-adapter/issues/23
+gem "activerecord-enhancedsqlite3-adapter", "~> 0.8.0"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: [:mri, :windows], require: "debug/prelude"

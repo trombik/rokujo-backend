@@ -79,6 +79,9 @@ GEM
       activemodel (= 8.1.2)
       activesupport (= 8.1.2)
       timeout (>= 0.4.0)
+    activerecord-enhancedsqlite3-adapter (0.8.0)
+      activerecord (>= 7.1)
+      sqlite3 (>= 1.6)
     activerecord-import (2.2.0)
       activerecord (>= 4.2)
     activestorage (8.1.2)
@@ -648,6 +651,7 @@ PLATFORMS
 
 DEPENDENCIES
   actioncable
+  activerecord-enhancedsqlite3-adapter (~> 0.8.0)
   activerecord-import (~> 2.2)
   bootsnap
   bootstrap (~> 5.3)
