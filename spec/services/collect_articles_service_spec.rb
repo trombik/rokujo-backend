@@ -37,6 +37,34 @@ RSpec.describe CollectArticlesService do
 
         expect(file).to exist
       end
+
+      it "calls Open3.capture3 with correct scrapy arguments", :aggregate_failures do
+        service.call
+
+        expect(Open3).to have_received(:capture3) do |*cmds|
+          expect(cmds).to include("urls=#{args[:urls]}", "read_next=#{args[:read_next]}")
+        end
+      end
+    end
+
+    context "when an argument is omitted" do
+      let(:args) do
+        {
+          urls: "http://example.org/path",
+          read_next: ""
+        }
+      end
+
+      before do
+        allow(status_double).to receive(:success?).and_return(true)
+      end
+
+      it "does not append the ommitted argument", :aggregate_failures do
+        service.call
+        expect(Open3).to have_received(:capture3) do |*cmds|
+          expect(cmds).not_to include("read_next=")
+        end
+      end
     end
 
     context "when the process fails" do

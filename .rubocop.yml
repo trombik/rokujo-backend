@@ -35,6 +35,8 @@ Metrics/BlockLength:
   AllowedMethods: []
 
 Metrics/ClassLength:
+  Exclude:
+    - db/migrate/**/*
   CountAsOne:
     - array
     - hash
