@@ -35,10 +35,10 @@ RSpec.describe ExtractArticlesJob, type: :job do
         allow(parser).to receive(:extract_sentences).and_raise(StandardError)
       end
 
-      it "raises ParserError" do
+      it "re-raises the error" do
         expect do
           described_class.perform_now("/path/to/file")
-        end.to raise_error ExtractArticlesJob::ParserError
+        end.to raise_error StandardError
       end
     end
 

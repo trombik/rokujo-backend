@@ -7,7 +7,6 @@ require "timeout"
 class ExtractArticlesJob < ApplicationJob
   class FileNotFoundError < StandardError; end
   class EmptyFileError < StandardError; end
-  class ParserError < StandardError; end
   class EnqueueError < StandardError; end
 
   queue_as :analysis
@@ -41,8 +40,6 @@ class ExtractArticlesJob < ApplicationJob
   rescue Timeout::Error
     Rails.logger.error { "extract_sentences timed out" }
     nil
-  rescue StandardError
-    raise ParserError
   end
 
   def raise_if_file_has_issues(file)
