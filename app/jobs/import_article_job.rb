@@ -1,4 +1,5 @@
-# Job to import an article as a hash
+# Job to import an article as a hash. The job imports an article and enqueuea
+# multiple AnalyzeTokensJob for its sentences.
 class ImportArticleJob < ApplicationJob
   class EnqueueError < StandardError; end
 
