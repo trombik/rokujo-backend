@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/trombik/rokujo-extractor.git
-  revision: 2a6c5388a13a77f88a96e8ef54d9868b3fa7ee0e
+  revision: 42269138c222c46ed1cbc09f88b08930df02312e
   branch: remote_api
   specs:
     rokujo-extractor (0.1.0)
