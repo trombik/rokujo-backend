@@ -61,6 +61,9 @@ gem "mission_control-jobs", "~> 1.1"
 # import rokujo-extractor
 gem "rokujo-extractor", github: "trombik/rokujo-extractor", branch: "remote_api"
 
+# use sqlite3_ar_regexp for regexp in sqlite3 [https://github.com/AaronLasseigne/sqlite3_ar_regexp/}
+gem "sqlite3_ar_regexp"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: [:mri, :windows], require: "debug/prelude"
