@@ -1,6 +1,6 @@
 # A job to enqueue AnalyzeTokensJob in batches
 class EnqueueTokenAnalysisJob < ApplicationJob
-  limits_concurrency to: 1, key: -> { "enqueue_token_analysis" }, duration: 5.minutes
+  queue_as :default
 
   def perform
     Rails.cache.delete("stop_analysis_enqueue")

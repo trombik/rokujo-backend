@@ -2,14 +2,15 @@ require "rokujo/extractor"
 require "timeout"
 
 # Job to extract articles from a JSONL file, filter sentences in the article,
-# and enqueue the result.
+# and enqueue the result. The job is queued in analysis queue because
+# Rokujo::Extractor::Parsers::Article calls the remote spacy analysis server.
 class ExtractArticlesJob < ApplicationJob
   class FileNotFoundError < StandardError; end
   class EmptyFileError < StandardError; end
   class ParserError < StandardError; end
   class EnqueueError < StandardError; end
 
-  queue_as :default
+  queue_as :analysis
 
   rescue_from(Exception) do |exception|
     Rails.error.report(exception)
