@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.describe AnalyzeTokensJob, type: :job do
-  let(:sentence) { create(:sentence, text: "こんにちは。") }
-
-  it "creates token_analyses records", :aggregate_failures do
-    mocked_results = [
+  let(:article) { create(:article) }
+  let(:sentence) { create(:sentence, text: "こんにちは。", article: article) }
+  let(:mocked_results) do
+    [
       {
         "i" => 0,
         "text" => "こんにちは",
@@ -28,20 +28,25 @@ RSpec.describe AnalyzeTokensJob, type: :job do
         "idx" => 5
       }
     ]
-    allow(TextAnalysisService).to receive(:call).and_return(mocked_results)
+  end
 
+  before do
+    allow(TextAnalysisService).to receive(:call).and_return(mocked_results)
+  end
+
+  it "creates token_analyses records", :aggregate_failures do
     expect do
       described_class.perform_now([sentence.article_uuid, sentence.line_number])
     end.to change(TokenAnalysis, :count).by_at_least(1)
 
-    expect(sentence.token_analyses.first.text).to be_present
+    expect(sentence.token_analyses.first.text).to eq "こんにちは"
   end
 
   it "is idempotent" do
-    described_class.perform_now(sentence.id)
+    described_class.perform_now([sentence.article_uuid, sentence.line_number])
 
     expect do
-      described_class.perform_now(sentence.id)
+      described_class.perform_now([sentence.article_uuid, sentence.line_number])
     end.not_to change(TokenAnalysis, :count)
   end
 end

@@ -20,8 +20,8 @@ class AnalyzeTokensJob < ApplicationJob
     results
   end
 
+  # rubocop:disable Metrics/AbcSize
   def analyze_and_store_pos(sentence)
-    # ActiveRecord::Base.connection_pool.release_connection
     results = analysis_results(sentence.text)
     token_data = results.map do |t|
       {
@@ -44,4 +44,5 @@ class AnalyzeTokensJob < ApplicationJob
       TokenAnalysis.import! token_data, validate: true
     end
   end
+  # rubocop:enable Metrics/AbcSize
 end
