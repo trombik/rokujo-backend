@@ -19,7 +19,6 @@ class ExtractArticlesJob < ApplicationJob
 
   # @param file [String] Path to the file
   def perform(file)
-    # ActiveRecord::Base.connection_pool.release_connection
     raise_if_file_has_issues(file)
     File.foreach(file).with_index do |line, index|
       Rails.logger.info "Processing line #{index}" if (index % 10).zero?
@@ -34,12 +33,9 @@ class ExtractArticlesJob < ApplicationJob
   private
 
   def extract_hashed_item_from_line(line)
-    # ActiveRecord::Base.connection_pool.release_connection
     parser = Rokujo::Extractor::Parsers::Article.new(line, widget_enable: false)
-    Rails.logger.info { "extract_sentences" }
     Timeout.timeout(300) do
       parser.extract_sentences
-      Rails.logger.info { "extract_sentences finished" }
     end
     parser.item.to_h
   rescue Timeout::Error
