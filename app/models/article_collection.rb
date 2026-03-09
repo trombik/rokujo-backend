@@ -95,6 +95,16 @@ class ArticleCollection < ApplicationRecord
     all.select { |ac| ac.include_article?(article) }
   end
 
+  # Returns array of ArticleCollection that covers normalized_url.
+  #
+  # @param normalized_url [String] Normalized URL. Use NormalizeUrlService to generate a normalized_url from a URL.
+  # @return [Array<ArticleCollection>]
+  def self.covering_collections(normalized_url)
+    return [] if normalized_url.blank?
+
+    where(key: "normalized_url").select { |el| normalized_url.start_with?(el.value) }
+  end
+
   def self.valid_keys
     VALID_KEYS
   end
