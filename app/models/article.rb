@@ -134,11 +134,6 @@ class Article < ApplicationRecord
   def set_normalized_url
     return if url.blank?
 
-    uri = URI.parse(url.strip)
-    path = uri.path == "/" ? "" : uri.path
-    self.normalized_url = "#{uri.host}#{path}"
-  rescue URI::InvalidURIError
-    Rails.logger.error "Failed to parse URL: #{url} | Error: #{e.message}"
-    self.normalized_url = ""
+    self.normalized_url = NormalizeUrlService.call(url)
   end
 end
