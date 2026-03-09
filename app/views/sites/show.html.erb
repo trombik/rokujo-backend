@@ -1,5 +1,6 @@
 <h1><%= @site_name %></h1>
-
+<% keyword = "site_name:\"#{@site_name}\"" %>
+<%= render SearchForm::FullTextComponent.new(keyword: keyword) %>
 <%= tag.div class: "container py-4" do %>
   <%= tag.section class: "mb-5" do %>
     <%= tag.div class: "d-flex align-items-center mb-3" do %>
