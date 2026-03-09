@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # the base class for badges
-class Bagde::BaseComponent < ViewComponent::Base
+class Badge::BaseComponent < ViewComponent::Base
   attr_reader :resource, :link
 
   include ColorPalletGeneratorHelper

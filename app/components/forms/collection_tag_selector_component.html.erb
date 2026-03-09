@@ -20,7 +20,7 @@
             <%= tag.div class: "form-check form-check-inline align-items-center" do %>
               <%= b.check_box class: "form-check-input" %>
               <%= b.label class: "form-check-label cursor-pointer" do %>
-                <%= render Bagde::CollectionTagComponent.new(b.object, link: false) %>
+                <%= render Badge::CollectionTagComponent.new(b.object, link: false) %>
               <% end %>
             <% end %>
           <% end %>
