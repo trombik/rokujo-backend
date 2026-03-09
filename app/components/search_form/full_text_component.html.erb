@@ -6,7 +6,7 @@
         <%= t(".name") %>
         <%= render help.button_component %>
       <% end %>
-      <%= f.text_field :word, value: params[:word], class: "form-control", placeholder: t(".placeholder") %>
+      <%= f.text_field :word, value: keyword, class: "form-control", placeholder: t(".placeholder") %>
       <%= f.submit t(".submit"), name: nil, class: "btn btn-primary" %>
     <% end %>
   <% end %>
