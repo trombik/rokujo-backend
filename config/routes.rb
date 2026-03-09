@@ -57,8 +57,13 @@ Rails.application.routes.draw do
 
   resources :collect_articles, only: [:index, :new, :create]
 
-  get "sites/", to: "sites#index"
-  get "sites/show/:site_name", to: "sites#show"
+  namespace :sites do
+    get :index, path: "/"
+    get :total_articles, path: "/total_articles/:site_name"
+    get :total_sentences, path: "/total_sentences/:site_name"
+    get :total_token_analyses, path: "/total_token_analyses/:site_name"
+    get :show, path: "/show/:site_name"
+  end
 
   get "token_analysis_analyzer" => "token_analysis_analyzer#index"
 end

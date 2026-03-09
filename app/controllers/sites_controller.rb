@@ -7,7 +7,25 @@ class SitesController < ApplicationController
 
   def show
     @site_name = params[:site_name]
-    @article_count = Article.where(site_name: @site_name).count
-    @sentence_count = Sentence.joins(:article).where(article: { site_name: @site_name }).count
+  end
+
+  def total_articles
+    @site_name = params[:site_name]
+    count = Article.by_site_name(@site_name).count
+    respond_to :html, :turbo_stream
+    render Stats::TotalArticlesComponent.new(count)
+  end
+
+  def total_sentences
+    @site_name = params[:site_name]
+    count = Sentence.by_site_name(@site_name).count
+    respond_to :html, :turbo_stream
+    render Stats::TotalSentencesComponent.new(count)
+  end
+
+  def total_token_analyses
+    @site_name = params[:site_name]
+    count = Article.joins(sentences: :token_analyses).where(site_name: @site_name).count
+    render Stats::TotalTokenAnalysesComponent.new(count)
   end
 end
