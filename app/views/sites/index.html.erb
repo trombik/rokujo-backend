@@ -5,6 +5,7 @@
       <%= link_to site[:name], "/sites/show/#{site[:name]}" %> (<%= site[:count] %>)
       <%= render Article::CollectionBadgeComponent.new(site[:collection]) %>
       <%= render Badge::CollectionTagGroupComponent.new(site[:collection]) %>
+      <%= render Forms::ArticleCollectionButtonComponent.new(ArticleCollection.new(name: site[:name], key: "site_name", value: site[:name])) %>
     </li>
   <% end %>
 </ul>
