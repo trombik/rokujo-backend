@@ -7,22 +7,22 @@
   <% end %>
 
   <%= tag.div class: "mb-3" do %>
-    <%= form.label :key, "Filter key", class: "form-label fw-semibold" %>
+    <%= form.label :key, class: "form-label fw-semibold" %>
 
     <% ArticleCollection.valid_keys.each do |key| %>
-      <%= tag.div do %>
-        <%= form.radio_button :key, key, checked: key == "site_name" && article_collection.key.nil? %>
+      <%= tag.div class: "form-check" do %>
+        <%= form.radio_button :key, key, class: "form-check-input", checked: key == article_collection.key %>
         <%= form.label "key_#{key}", key.humanize, class: "form-check-label" %>
       <% end %>
     <% end %>
   <% end %>
 
   <%= tag.div class: "mb-3" do %>
-    <%= form.label :value, "Value", class: "form-label fw-semibold" %>
+    <%= form.label :value, class: "form-label fw-semibold" %>
     <%= form.text_field :value, class: "form-control" %>
   <% end %>
 
   <%= tag.div class: "mb-3" do %>
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-primary" %>
   <% end %>
 <% end %>
