@@ -1,31 +1,43 @@
 # displays site_name.
 class SitesController < ApplicationController
+  before_action :set_site_name_and_ensure_presence, except: [:index]
+
   def index
     @sites = Article.group(:site_name).order(count_all: :desc).count.to_a
-    @sites.map! { |site| { name: site[0], count: site[1] } }
+    @sites.map! do |site|
+      {
+        name: site[0],
+        count: site[1],
+        collection: ArticleCollection.find_by(key: "site_name", value: site[0])
+      }
+    end
   end
 
   def show
-    @site_name = params[:site_name]
+    @collection = ArticleCollection.find_by(key: "site_name", value: @site_name)
   end
 
   def total_articles
-    @site_name = params[:site_name]
     count = Article.by_site_name(@site_name).count
     respond_to :html, :turbo_stream
     render Stats::TotalArticlesComponent.new(count)
   end
 
   def total_sentences
-    @site_name = params[:site_name]
     count = Sentence.by_site_name(@site_name).count
     respond_to :html, :turbo_stream
     render Stats::TotalSentencesComponent.new(count)
   end
 
   def total_token_analyses
-    @site_name = params[:site_name]
     count = Article.joins(sentences: :token_analyses).where(site_name: @site_name).count
     render Stats::TotalTokenAnalysesComponent.new(count)
+  end
+
+  private
+
+  def set_site_name_and_ensure_presence
+    @site_name = params[:site_name]
+    render_not_found unless Article.exists?(site_name: @site_name)
   end
 end

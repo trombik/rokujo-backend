@@ -1,4 +1,10 @@
-<h1><%= @site_name %></h1>
+<%= tag.div class: "d-flex flex-row align-items-center gap-2 mt-3 mb-3" do %>
+  <%= tag.h1 @site_name, class: "mb-0" %>
+  <%= tag.div class: "d-flex flex-wrap align-items-center gap-2" do %>
+    <%= render Badge::CollectionTagGroupComponent.new(@collection) %>
+    <%= render Article::CollectionBadgeComponent.new(@collection) %>
+  <% end %>
+<% end %>
 <% keyword = "site_name:\"#{@site_name}\"" %>
 <%= render SearchForm::FullTextComponent.new(keyword: keyword) %>
 <%= tag.div class: "container py-4" do %>
