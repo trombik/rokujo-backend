@@ -70,6 +70,17 @@ RSpec.describe "/article_collections", type: :request do
         post article_collections_url, params: { article_collection: valid_attributes }
         expect(response).to redirect_to(article_collection_url(ArticleCollection.last))
       end
+
+      context "with trubo_stream" do
+        it "creates a new ArticleCollection and returns success", :aggregate_failures do
+          expect do
+            post article_collections_path, params: { article_collection: valid_attributes }, as: :turbo_stream
+          end.to change(ArticleCollection, :count).by(1)
+
+          expect(response).to have_http_status(:success)
+          expect(response.media_type).to eq "text/vnd.turbo-stream.html"
+        end
+      end
     end
 
     context "with invalid parameters" do
@@ -82,6 +93,16 @@ RSpec.describe "/article_collections", type: :request do
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
         post article_collections_url, params: { article_collection: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_content)
+      end
+
+      context "with trubo_stream" do
+        it "does not ceate a new ArticleCollectioni and returns unprocessable_content", :aggregate_failures do
+          expect do
+            post article_collections_path, params: { article_collection: invalid_attributes }, as: :turbo_stream
+          end.not_to change(ArticleCollection, :count)
+
+          expect(response).to have_http_status(:unprocessable_content)
+        end
       end
     end
   end

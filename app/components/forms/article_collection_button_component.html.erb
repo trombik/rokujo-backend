@@ -1,0 +1,9 @@
+<%= form_with url: article_collections_path, method: :post, scope: :article_collection, class: "d-inline", id: id do |f| %>
+  <%= f.hidden_field :name, value: name %>
+  <%= f.hidden_field :key, value: key %>
+  <%= f.hidden_field :value, value: value %>
+  <%= f.button type: :submit, class: "btn btn-primary btn-sm",
+                              data: { disable_with: "..." } do %>
+    <%= render IconComponent.new("plus-circle") %> Create <%= name %> <%= article_collection.class.name.underscore.humanize %>
+  <% end %>
+<% end %>
