@@ -12,6 +12,8 @@ class Forms::ArticleCollectionButtonComponent < ViewComponent::Base
   attr_reader :article_collection
 
   def render?
+    return false if article_collection.name.blank?
+
     ArticleCollection.where(key: key, value: value).none?
   end
 
