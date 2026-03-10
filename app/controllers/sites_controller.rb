@@ -34,6 +34,15 @@ class SitesController < ApplicationController
     render Stats::TotalTokenAnalysesComponent.new(count)
   end
 
+  def destroy
+    articles = Article.where(site_name: @site_name)
+    collections = ArticleCollection.where(key: "site_name", value: @site_name)
+    logger.info { articles.size }
+    collections.destroy_all
+    articles.destroy_all
+    redirect_to sites_index_path, notice: t(".success", site_name: @site_name)
+  end
+
   private
 
   def set_site_name_and_ensure_presence

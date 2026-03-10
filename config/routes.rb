@@ -63,6 +63,7 @@ Rails.application.routes.draw do
     get :total_sentences, path: "/total_sentences/:site_name"
     get :total_token_analyses, path: "/total_token_analyses/:site_name"
     get :show, path: "/show/:site_name"
+    delete :destroy, path: "/destroy/:site_name"
   end
 
   get "token_analysis_analyzer" => "token_analysis_analyzer#index"
