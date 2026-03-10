@@ -1,9 +1,15 @@
 require "rails_helper"
 
-TARGET = "こんにちは".freeze
-TARGET_TAG = "ユニークなタグ".freeze
-TARGET_SITE_NAME = "サイト".freeze
-TARGET_DOMAIN = "example.org".freeze
+module FullTextSearchSpecConstants
+  TARGET = "こんにちは".freeze
+  TARGET_TAG = "ユニークなタグ".freeze
+  TARGET_SITE_NAME = "サイト".freeze
+  TARGET_DOMAIN = "example.org".freeze
+end
+
+# rubocop:disable Style/MixinUsage
+include FullTextSearchSpecConstants
+# rubocop:enable Style/MixinUsage
 
 RSpec.describe "FullTextSearches", type: :system do
   include ERB::Util
@@ -48,7 +54,7 @@ RSpec.describe "FullTextSearches", type: :system do
   [
     TARGET,
     "#{TARGET}?",
-    "#{TARGET} foobar", # when multipul keywords are given, the first one is used and the rest are ignored.
+    "#{TARGET} foobar", # when multiple keywords are given, the first one is used and the rest are ignored.
     "#{TARGET} site_name:\"#{TARGET_SITE_NAME}\"",
     "#{TARGET} url:#{TARGET_DOMAIN}/path1",
     "#{TARGET} url:#{TARGET_DOMAIN}",
@@ -83,7 +89,7 @@ RSpec.describe "FullTextSearches", type: :system do
 
   [
     "foobar",
-    "foobar #{TARGET}", # when multipul keywords are given, the first one is used and the rest are ignored.
+    "foobar #{TARGET}", # when multiple keywords are given, the first one is used and the rest are ignored.
     "site_name:\"Site X\"",
     "#{TARGET} site_name:\"Site X\"",
     "siet_name:",
