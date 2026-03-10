@@ -25,6 +25,9 @@
           <%= render IconComponent.new("globe", klass: "me-1") %><%= domain %>
         <% end %>
 
+        <%= render Article::CollectionBadgeComponent.new(article_collection_by_site_name) %>
+        <%= render Badge::CollectionTagGroupComponent.new(article_collection_by_site_name) %>
+
         <% if source? %>
           <%= render IconComponent.new("link-45deg", klass:"me-1") %><%= t(".has_source") %>
         <% end %>
