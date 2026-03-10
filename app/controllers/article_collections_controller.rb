@@ -25,11 +25,10 @@ class ArticleCollectionsController < ApplicationController
     respond_to do |format|
       if @article_collection.persisted? || @article_collection.save
         format.html { redirect_to @article_collection, notice: t(".success") }
-        format.turbo_stream
       else
         format.html { render :new, status: :unprocessable_content }
-        format.turbo_stream { head :unprocessable_content }
       end
+      format.turbo_stream
     end
   end
 

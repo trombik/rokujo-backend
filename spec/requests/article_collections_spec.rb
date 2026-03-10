@@ -96,12 +96,13 @@ RSpec.describe "/article_collections", type: :request do
       end
 
       context "with trubo_stream" do
-        it "does not ceate a new ArticleCollectioni and returns unprocessable_content", :aggregate_failures do
+        it "does not ceate a new ArticleCollectioni and returns turbo stream", :aggregate_failures do
           expect do
             post article_collections_path, params: { article_collection: invalid_attributes }, as: :turbo_stream
           end.not_to change(ArticleCollection, :count)
 
-          expect(response).to have_http_status(:unprocessable_content)
+          expect(response).to have_http_status(:success)
+          expect(response.media_type).to eq "text/vnd.turbo-stream.html"
         end
       end
     end

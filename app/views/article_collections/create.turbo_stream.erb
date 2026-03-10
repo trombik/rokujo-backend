@@ -1,1 +1,12 @@
-<%= turbo_stream.remove Forms::ArticleCollectionButtonComponent.new(@article_collection).id %>
+<% if @article_collection.persisted? %>
+  <%= turbo_stream.remove Forms::ArticleCollectionButtonComponent.new(@article_collection).id %>
+  <%= turbo_stream.append Notification::ToastFrameComponent.new.id do %>
+    <%= render Notification::ToastComponent.new(title: "Success", message: "Created #{@article_collection.name}i collection.", type: :success) %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.append Notification::ToastFrameComponent.new.id do %>
+    <% reason = @article_collection.errors.full_messages.join(" / ") %>
+    <% message = "Failed to create #{@article_collection} collection: #{reason}" %>
+    <%= render Notification::ToastComponent.new(title: "Error", message: message, type: :danger) %>
+  <% end %>
+<% end %>
