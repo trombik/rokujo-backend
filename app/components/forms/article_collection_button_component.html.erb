@@ -2,8 +2,8 @@
   <%= f.hidden_field :name, value: name %>
   <%= f.hidden_field :key, value: key %>
   <%= f.hidden_field :value, value: value %>
-  <%= f.button type: :submit, class: "btn btn-primary btn-sm",
+  <%= f.button type: :submit, class: "btn btn-primary-outline",
                               data: { disable_with: "..." } do %>
-    <%= render IconComponent.new("plus-circle") %> Create <%= name %> <%= article_collection.class.name.underscore.humanize %>
+    <%= render IconComponent.new("plus-circle") %> <%= t(".button_text") %>
   <% end %>
 <% end %>
