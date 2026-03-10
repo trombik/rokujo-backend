@@ -23,7 +23,7 @@
       <%# tags %>
       <%= tag.div class: "col-12 col-md d-flex flex-wrap align-items-center gap-1" do %>
         <% article_collection.collection_tags.each do |tag| %>
-          <%= render Bagde::CollectionTagComponent.new(tag) %>
+          <%= render Badge::CollectionTagComponent.new(tag) %>
         <% end %>
         <%= tag.div class: "ms-1" do %>
           <%= render Forms::CollectionTagSelectorComponent.new(article_collection) %>

@@ -1,7 +1,28 @@
-<h1><%= @site_name %></h1>
-
-<h2>Article count</h2>
-<%= @article_count %>
-
-<h2>Sentence count</h2>
-<%= @sentence_count %>
+<%= tag.div class: "d-flex flex-row align-items-center gap-2 mt-3 mb-3" do %>
+  <%= tag.h1 @site_name, class: "mb-0" %>
+  <%= tag.div class: "d-flex flex-wrap align-items-center gap-2" do %>
+    <%= render Badge::CollectionTagGroupComponent.new(@collection) %>
+    <%= render Article::CollectionBadgeComponent.new(@collection) %>
+  <% end %>
+<% end %>
+<% keyword = "site_name:\"#{@site_name}\"" %>
+<%= render SearchForm::FullTextComponent.new(keyword: keyword) %>
+<%= tag.div class: "container py-4" do %>
+  <%= tag.section class: "mb-5" do %>
+    <%= tag.div class: "d-flex align-items-center mb-3" do %>
+      <%= tag.h2 class: "h5 mb-0 text-primary fw-bold" do %>Overall Volume<% end %>
+      <%= tag.hr class: "flex-grow-1 ms-3 opacity-25" %>
+    <% end %>
+    <%= tag.div class: "row g-4" do %>
+      <%= tag.div class: "col-md-4" do %>
+        <%= render Stats::TotalArticlesComponent.new(nil, frame_url: sites_total_articles_path(@site_name))  %>
+      <% end %>
+      <%= tag.div class: "col-md-4" do %>
+        <%= render Stats::TotalSentencesComponent.new(nil, frame_url: sites_total_sentences_path(@site_name)) %>
+      <% end %>
+      <%= tag.div class: "col-md-4" do %>
+        <%= render Stats::TotalTokenAnalysesComponent.new(nil, frame_url: sites_total_token_analyses_path(@site_name)) %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

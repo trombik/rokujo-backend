@@ -17,18 +17,27 @@ class Navigation::BarComponent < ViewComponent::Base
     "navbarSupportedContent"
   end
 
+  # rubocop:disable Metrics/AbcSize
   def links
     [
-      { label: "Search", path: search_path },
-      { label: "Articles", path: articles_path },
-      { label: "Token analysis", path: token_analysis_analyzer_path },
-      { label: "Article collections", path: article_collections_path },
-      { label: "Corpus Dashboard", path: stats_index_path },
-      { label: "Collection tags", path: collection_tags_path },
-      { label: "Collect articles", path: collect_articles_path },
-      { label: "Sites", path: sites_path }
+      DropDownHeaderComponent.new(text: "Search"),
+      DropDownItemComponent.new(label: "Full text search", path: search_path),
+      DropDownItemComponent.new(label: "Collocation search", path: collocations_nouns_index_path),
+      DropDownDividerComponent.new,
+      DropDownHeaderComponent.new(text: "Browse"),
+      DropDownItemComponent.new(label: "Sites", path: sites_index_path),
+      DropDownItemComponent.new(label: "Articles", path: articles_path),
+      DropDownItemComponent.new(label: "Collection Tags", path: collection_tags_path),
+      DropDownItemComponent.new(label: "Article Collections", path: article_collections_path),
+      DropDownItemComponent.new(label: "Corpus Statistic", path: stats_index_path),
+      DropDownDividerComponent.new,
+      DropDownHeaderComponent.new(text: "Actions"),
+      DropDownItemComponent.new(label: "Collect Articles", path: collect_articles_path),
+      DropDownItemComponent.new(label: "Analyze Sentence", path: token_analysis_analyzer_path),
+      DropDownItemComponent.new(label: "Manage Jobs", path: mission_control_jobs_path)
     ]
   end
+  # rubocop:enable Metrics/AbcSize
 
   # Link in the navbar
   class LinkComponent < ViewComponent::Base
@@ -71,7 +80,7 @@ class Navigation::BarComponent < ViewComponent::Base
   class DropDownComponent < ViewComponent::Base
     attr_reader :label
 
-    renders_many :items, "DropDownItemComponent"
+    renders_many :items
 
     def initialize(label:)
       @label = label
@@ -96,21 +105,21 @@ class Navigation::BarComponent < ViewComponent::Base
         )
       end
     end
+  end
 
-    # Dropdown item
-    class DropDownItemComponent < ViewComponent::Base
-      attr_reader :label, :path
+  # Dropdown item
+  class DropDownItemComponent < ViewComponent::Base
+    attr_reader :label, :path
 
-      def initialize(label:, path:)
-        @label = label
-        @path = path
-        super()
-      end
+    def initialize(label:, path:)
+      @label = label
+      @path = path
+      super()
+    end
 
-      def call
-        tag.li do
-          link_to label, path, class: "dropdown-item"
-        end
+    def call
+      tag.li do
+        link_to label, path, class: "dropdown-item"
       end
     end
   end
@@ -120,6 +129,24 @@ class Navigation::BarComponent < ViewComponent::Base
     def call
       tag.li do
         tag.hr class: "dropdown-divider"
+      end
+    end
+  end
+
+  # header
+  class DropDownHeaderComponent < ViewComponent::Base
+    attr_reader :text
+
+    def initialize(text:)
+      @text = text
+      super()
+    end
+
+    def call
+      tag.li do
+        tag.h6 class: "dropdown-header" do
+          concat text
+        end
       end
     end
   end

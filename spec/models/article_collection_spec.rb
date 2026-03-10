@@ -31,7 +31,7 @@ RSpec.describe ArticleCollection, type: :model do
     end
 
     context "when key is normalized_url" do
-      let(:collection) { described_class.new(key: "normalized_url", value: "example.org/") }
+      let!(:collection) { described_class.new(key: "normalized_url", value: "example.org/") }
 
       it "returns correct number of articles" do
         expect(collection.articles.size).to eq 2
@@ -110,6 +110,33 @@ RSpec.describe ArticleCollection, type: :model do
       article_columns = Article.column_names
 
       expect(described_class.valid_keys).to all(be_in(article_columns))
+    end
+  end
+
+  describe ".covering_collections" do
+    let!(:collection) { create(:article_collection, name: "Name", key: "normalized_url", value: "example.org/foo") }
+
+    it "finds ArticleCollection that matches the given url" do
+      url = "example.org/foo/bar"
+
+      expect(described_class.covering_collections(url)).to contain_exactly(collection)
+    end
+
+    context "when the given URL does not match any" do
+      it "returns empty array" do
+        url = "example.com"
+
+        expect(described_class.covering_collections(url)).to eq([])
+      end
+    end
+
+    context "when multiple article_collection match the given URL" do
+      it "retuns all the matched article_collection" do
+        another_collection = create(:article_collection, name: "Another", key: "normalized_url", value: "example.org")
+        url = "example.org/foo"
+
+        expect(described_class.covering_collections(url)).to contain_exactly(collection, another_collection)
+      end
     end
   end
 end

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Bagde::CollectionTagComponent, type: :component do
+RSpec.describe Badge::CollectionTagComponent, type: :component do
   let(:resource) { create(:collection_tag) }
   let(:component) { described_class.new(resource) }
 

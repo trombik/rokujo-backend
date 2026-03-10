@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 # the base class for badges
-class Bagde::BaseComponent < ViewComponent::Base
+class Badge::BaseComponent < ViewComponent::Base
   attr_reader :resource, :link
 
   include ColorPalletGeneratorHelper
+
+  TEST_ID_PREFIX = self.class.name.tableize
 
   BASE_COLORS = %w[
     blue indigo violet purple fuchsia pink rose
@@ -30,11 +32,13 @@ class Bagde::BaseComponent < ViewComponent::Base
   def call
     if link
       link_to link_path, class: "badge rounded-pill text-decoration-none shadow-sm",
+                         data: { testid: testid },
                          style: badge_style do
                            badge_content
                          end
     else
       tag.div class: "badge rounded-pill text-decoration-none shadow-sm",
+              data: { testid: testid },
               style: badge_style do
                 badge_content
               end
@@ -46,6 +50,10 @@ class Bagde::BaseComponent < ViewComponent::Base
   end
 
   private
+
+  def testid
+    "#{TEST_ID_PREFIX}_#{dom_id(resource)}"
+  end
 
   def badge_content
     concat(tag.i(class: "bi bi-#{icon_name} me-1"))
@@ -66,6 +74,7 @@ class Bagde::BaseComponent < ViewComponent::Base
       padding: "0.5em 1em",
       font_weight: "500",
       display: "inline-flex",
+      height: "fit-content",
       align_items: "center"
     }.map { |k, v| "#{k.to_s.dasherize}: #{v}" }.join("; ")
   end

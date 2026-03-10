@@ -37,4 +37,12 @@ class ResourceCard::ArticleComponent < ViewComponent::Base
   def truncated_title
     helpers.truncate(article.title, length: 50)
   end
+
+  def article_collection_by_site_name
+    ArticleCollection.find_by(key: "site_name", value: article.site_name)
+  end
+
+  def article_collections_by_normalized_urls
+    ArticleCollection.covering_collections(article.normalized_url)
+  end
 end

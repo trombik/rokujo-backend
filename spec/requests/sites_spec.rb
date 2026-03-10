@@ -10,7 +10,7 @@ RSpec.describe "Sites", type: :request do
   describe "GET /index" do
     it "returns http success" do
       article
-      get sites_path
+      get sites_index_path
 
       expect(response).to have_http_status(:success)
     end
@@ -18,7 +18,7 @@ RSpec.describe "Sites", type: :request do
 
   describe "GET /show" do
     it "returns http success" do
-      get "/sites/show/#{url_encode(article.site_name)}"
+      get sites_show_path(article.site_name)
 
       expect(response).to have_http_status(:success)
     end

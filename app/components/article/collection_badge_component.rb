@@ -34,6 +34,7 @@ class Article::CollectionBadgeComponent < ViewComponent::Base
       padding: "0.5em 1em",
       font_weight: "500",
       display: "inline-flex",
+      height: "fit-content",
       align_items: "center"
     }.map { |k, v| "#{k.to_s.dasherize}: #{v}" }.join("; ")
   end

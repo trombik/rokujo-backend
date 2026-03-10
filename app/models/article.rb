@@ -15,6 +15,8 @@ class Article < ApplicationRecord
   validates :uuid, presence: true, uniqueness: true
 
   scope :site_name_like, ->(word) { where("site_name LIKE ?", "#{Sentence.sanitize_sql_like(word)}%") if word.present? }
+  scope :by_site_name, ->(site_name) { where(site_name: site_name) }
+
   # OR-ed version of site_name_like
   scope :site_names_like, lambda { |words|
     return all if words.blank?
@@ -132,11 +134,6 @@ class Article < ApplicationRecord
   def set_normalized_url
     return if url.blank?
 
-    uri = URI.parse(url.strip)
-    path = uri.path == "/" ? "" : uri.path
-    self.normalized_url = "#{uri.host}#{path}"
-  rescue URI::InvalidURIError
-    Rails.logger.error "Failed to parse URL: #{url} | Error: #{e.message}"
-    self.normalized_url = ""
+    self.normalized_url = NormalizeUrlService.call(url)
   end
 end

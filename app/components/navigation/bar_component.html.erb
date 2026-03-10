@@ -7,7 +7,9 @@
         <%= render LinkComponent.new(label: "Home", path: root_path, active: true) %>
         <%= render DropDownComponent.new(label: "Menu") do |c| %>
           <% links.each do |item | %>
-            <% c.with_item(**item) %>
+            <% c.with_item(item) do %>
+              <%= render item %>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>
