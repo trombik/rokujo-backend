@@ -26,6 +26,7 @@
   <body>
     <div class="container mt-5">
       <%= yield %>
+      <%= render Notification::ToastFrameComponent.new %>
     </div>
   </body>
 </html>

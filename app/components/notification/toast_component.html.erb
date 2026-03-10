@@ -1,0 +1,14 @@
+<%= tag.div class: "toast align-items-center border-0",
+            role: "alert",
+            aria: { live: "assertive", atomic: "true" },
+            data: { bs_autohide: autohide, bs_delay: "5000", controller: "toast" } do %>
+  <%= tag.div class: "toast-header bg-#{type}-subtle text-#{type}" do %>
+    <%= tag.strong class: "me-auto " do %>
+      <%= title %>
+    <% end %>
+    <%= tag.button type: "button", class: "btn-close me-2 m-auto", data: { bs_dismiss: "toast" }, aria: { label: "Close" } %>
+  <% end %>
+  <%= tag.div class: "toast-body" do %>
+    <%= message %>
+  <% end %>
+<% end %>
