@@ -1,11 +1,13 @@
 <h1>Sites#index</h1>
-<ul>
-  <% @sites.each do |site| %>
-    <li>
-      <%= link_to site[:name], "/sites/show/#{site[:name]}" %> (<%= site[:count] %>)
-      <%= render Article::CollectionBadgeComponent.new(site[:collection]) %>
-      <%= render Badge::CollectionTagGroupComponent.new(site[:collection]) %>
-      <%= render Forms::ArticleCollectionButtonComponent.new(ArticleCollection.new(name: site[:name], key: "site_name", value: site[:name])) %>
-    </li>
-  <% end %>
-</ul>
+
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Site Management</h1>
+  </div>
+
+  <div class="card shadow-sm border-0">
+    <ul class="list-group list-group-flush border-top">
+      <%= render Row::SiteComponent.with_collection(@sites) %>
+    </ul>
+  </div>
+</div>
