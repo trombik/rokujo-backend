@@ -17,23 +17,6 @@ class SitesController < ApplicationController
     @collection = ArticleCollection.find_by(key: "site_name", value: @site_name)
   end
 
-  def total_articles
-    count = Article.by_site_name(@site_name).count
-    respond_to :html, :turbo_stream
-    render Stats::TotalArticlesComponent.new(count)
-  end
-
-  def total_sentences
-    count = Sentence.by_site_name(@site_name).count
-    respond_to :html, :turbo_stream
-    render Stats::TotalSentencesComponent.new(count)
-  end
-
-  def total_token_analyses
-    count = Article.joins(sentences: :token_analyses).where(site_name: @site_name).count
-    render Stats::TotalTokenAnalysesComponent.new(count)
-  end
-
   def destroy
     articles = Article.where(site_name: @site_name)
     collections = ArticleCollection.where(key: "site_name", value: @site_name)

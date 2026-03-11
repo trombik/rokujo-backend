@@ -1,43 +1,47 @@
 # A controller to route request for stats.
 class StatsController < ApplicationController
   layout :choose_layout
+  before_action :set_site_name
 
   def index
     respond_to :html
   end
 
   def total_articles
-    count = Article.count
+    count = Article.by_site_name(@site_name).count
     respond_to :html, :turbo_stream
     render Stats::TotalArticlesComponent.new(count)
   end
 
   def total_sentences
-    count = Sentence.count
+    count = Sentence.by_site_name(@site_name).count
     respond_to :html, :turbo_stream
     render Stats::TotalSentencesComponent.new(count)
   end
 
   def total_token_analyses
-    count = TokenAnalysis.count
+    count = Article.joins(sentences: :token_analyses).by_site_name(@site_name).count
     respond_to :html, :turbo_stream
     render Stats::TotalTokenAnalysesComponent.new(count)
   end
 
   def sentence_analysis_ratio
-    percentage = Sentence.analysis_ratio * 100
+    scope = Sentence.by_site_name(@site_name)
+    percentage = Sentence.analysis_ratio(scope) * 100
     respond_to :html, :turbo_stream
     render Stats::SentenceAnalysisRatioComponent.new(percentage)
   end
 
   def sentences_per_article
-    count = Article.sentences_per_article
+    scope = Article.by_site_name(@site_name)
+    count = Article.sentences_per_article(scope)
     respond_to :html, :turbo_stream
     render Stats::SentencesPerArticleComponent.new(count)
   end
 
   def tokens_per_sentence
-    count = Sentence.tokens_per_sentence
+    scope = Sentence.by_site_name(@site_name)
+    count = Sentence.tokens_per_sentence(scope)
     respond_to :html, :turbo_stream
     render Stats::TokensPerSentenceComponent.new(count)
   end
@@ -57,6 +61,10 @@ class StatsController < ApplicationController
   end
 
   private
+
+  def set_site_name
+    @site_name = params[:site_name]
+  end
 
   def choose_layout
     return "application" if action_name == "index"

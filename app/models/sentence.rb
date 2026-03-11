@@ -17,22 +17,26 @@ class Sentence < ApplicationRecord
       .order(:line_number)
   }
 
-  scope :by_site_name, ->(site_name) { joins(:article).where(article: { site_name: site_name }) }
+  scope :by_site_name, ->(site_name) { site_name.present? ? joins(:article).where(article: { site_name: site_name }) : all }
 
   def self.count_by_site_name(limit: 10)
     joins(:article).group(article: :site_name).limit(limit).order(count_all: :desc).count
   end
 
-  def self.analysis_ratio
-    all = Sentence.count
-    with_token_analysis = Sentence.joins(:token_analyses).distinct.count
-    all.zero? ? 0 : (with_token_analysis / all.to_f)
+  def self.analysis_ratio(scope = all)
+    total_count = scope.count
+    return 0 if total_count.zero?
+
+    total_token_analysis = scope.joins(:token_analyses).distinct.count
+    total_token_analysis / total_count.to_f
   end
 
-  def self.tokens_per_sentence
-    all = Sentence.count
-    tokens = TokenAnalysis.count
-    all.zero? ? 0 : (tokens / all)
+  def self.tokens_per_sentence(scope = all)
+    total_sentence = scope.count
+    return 0 if total_sentence.zero?
+
+    total_token = TokenAnalysis.joins(:sentence).merge(scope).count
+    total_token / total_sentence.to_f
   end
 
   # Search word from Sentence with search operators

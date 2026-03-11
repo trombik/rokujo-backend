@@ -15,7 +15,7 @@ class Article < ApplicationRecord
   validates :uuid, presence: true, uniqueness: true
 
   scope :site_name_like, ->(word) { where("site_name LIKE ?", "#{Sentence.sanitize_sql_like(word)}%") if word.present? }
-  scope :by_site_name, ->(site_name) { where(site_name: site_name) }
+  scope :by_site_name, ->(site_name) { site_name.present? ? where(site_name: site_name) : all }
 
   # OR-ed version of site_name_like
   scope :site_names_like, lambda { |words|
@@ -53,9 +53,12 @@ class Article < ApplicationRecord
     ArticleCollection.matches_for(self)
   end
 
-  def self.sentences_per_article
-    n_article = Article.count
-    n_article.zero? ? 0 : Sentence.count / n_article
+  def self.sentences_per_article(scope = all)
+    total_articles = scope.count
+    return 0 if total_articles.zero?
+
+    total_sentences = Sentence.where(article: scope).count
+    total_sentences / total_articles.to_f
   end
 
   def self.count_by_site_name(limit: 10)

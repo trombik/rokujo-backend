@@ -5,8 +5,10 @@
     <%= render Article::CollectionBadgeComponent.new(@collection) %>
   <% end %>
 <% end %>
+
 <% keyword = "site_name:\"#{@site_name}\"" %>
 <%= render SearchForm::FullTextComponent.new(keyword: keyword) %>
+
 <%= tag.div class: "container py-4" do %>
   <%= tag.section class: "mb-5" do %>
     <%= tag.div class: "d-flex align-items-center mb-3" do %>
@@ -15,15 +17,34 @@
     <% end %>
     <%= tag.div class: "row g-4" do %>
       <%= tag.div class: "col-md-4" do %>
-        <%= render Stats::TotalArticlesComponent.new(nil, frame_url: sites_total_articles_path(@site_name))  %>
+        <%= render Stats::TotalArticlesComponent.new(nil, frame_url: stats_total_articles_path(@site_name))  %>
       <% end %>
       <%= tag.div class: "col-md-4" do %>
-        <%= render Stats::TotalSentencesComponent.new(nil, frame_url: sites_total_sentences_path(@site_name)) %>
+        <%= render Stats::TotalSentencesComponent.new(nil, frame_url: stats_total_sentences_path(@site_name)) %>
       <% end %>
       <%= tag.div class: "col-md-4" do %>
-        <%= render Stats::TotalTokenAnalysesComponent.new(nil, frame_url: sites_total_token_analyses_path(@site_name)) %>
+        <%= render Stats::TotalTokenAnalysesComponent.new(nil, frame_url: stats_total_token_analyses_path(@site_name)) %>
       <% end %>
     <% end %>
+  <% end %>
+
+  <%= tag.section class: "mb-5" do %>
+    <%= tag.div class: "d-flex align-items-center mb-3" do %>
+      <%= tag.h2 class: "h5 mb-0 text-success fw-bold" do %>Analysis and Quality<% end %>
+      <%= tag.hr class: "flex-grow-1 ms-3 opacity-25" %>
+    <% end %>
+    <%= tag.div class: "row g-4" do %>
+      <%= tag.div class: "col-md-4" do %>
+        <%= render Stats::SentenceAnalysisRatioComponent.new(nil, frame_url: stats_sentence_analysis_ratio_path(@site_name)) %>
+      <% end %>
+      <%= tag.div class: "col-md-4" do %>
+        <%= render Stats::SentencesPerArticleComponent.new(nil, frame_url: stats_sentences_per_article_path(@site_name)) %>
+      <% end %>
+      <%= tag.div class: "col-md-4" do %>
+        <%= render Stats::TokensPerSentenceComponent.new(nil, frame_url: stats_tokens_per_sentence_path(@site_name)) %>
+      <% end %>
+    <% end %>
+
   <% end %>
   <%= render Forms::SiteDeleteButtonComponent.new(@site_name) %>
 <% end %>
