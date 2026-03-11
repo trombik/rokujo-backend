@@ -56,6 +56,9 @@ en:
     create:
       invalid: Invalid spider name.
       success: Job queued.
+  sites:
+    destroy:
+      success: "All articles and collections of %{site_name} has been deleted."
 
   activerecord:
     models:

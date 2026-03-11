@@ -10,28 +10,40 @@ RSpec.describe Sentence, type: :model do
     it { is_expected.to validate_presence_of :text }
   end
 
-  describe ".match" do
-    it "returns sentences that match a regexp" do
-      sentences = [build(:sentence, text: "foobar"), build(:sentence, text: "foobbar")]
-      create(:article, sentences: sentences)
+  describe "scope" do
+    describe ".like" do
+      it "returns sentences that contain a word" do
+        sentences = [build(:sentence, text: "foobar"), build(:sentence, text: "foo")]
+        create(:article, sentences: sentences)
 
-      expect(described_class.match("foob{2}").count).to eq 1
+        expect(described_class.like("foo").count).to eq 2
+      end
     end
 
-    it "ignores case by default" do
-      sentences = [build(:sentence, text: "Foobar"), build(:sentence, text: "Foobbar")]
-      create(:article, sentences: sentences)
+    describe ".match" do
+      it "returns sentences that match a regexp" do
+        sentences = [build(:sentence, text: "foobar"), build(:sentence, text: "foobbar")]
+        create(:article, sentences: sentences)
 
-      expect(described_class.match("foob{2}").count).to eq 1
+        expect(described_class.match("foob{2}").count).to eq 1
+      end
+
+      it "ignores case by default" do
+        sentences = [build(:sentence, text: "Foobar"), build(:sentence, text: "Foobbar")]
+        create(:article, sentences: sentences)
+
+        expect(described_class.match("foob{2}").count).to eq 1
+      end
     end
-  end
 
-  describe ".like" do
-    it "returns sentences that contain a word" do
-      sentences = [build(:sentence, text: "foobar"), build(:sentence, text: "foo")]
-      create(:article, sentences: sentences)
+    describe ".by_site_name" do
+      it "returns a limited scope by site_name", :aggregate_failures do
+        article = create(:article, site_name: "foo")
+        sentence = create(:sentence, article: article)
+        create(:sentence, article: create(:article, site_name: "bar"))
 
-      expect(described_class.like("foo").count).to eq 2
+        expect(described_class.by_site_name("foo")).to contain_exactly(sentence)
+      end
     end
   end
 

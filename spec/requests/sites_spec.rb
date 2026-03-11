@@ -23,4 +23,14 @@ RSpec.describe "Sites", type: :request do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe "DELETE /destroy/:site_name" do
+    it "deletes the article of the site_name and article_collection" do
+      create(:article_collection, key: "site_name", value: article.site_name)
+
+      expect do
+        delete sites_destroy_path(article.site_name)
+      end.to change(Article, :count).by(-1).and change(ArticleCollection, :count).by(-1)
+    end
+  end
 end

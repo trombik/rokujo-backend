@@ -1,0 +1,5 @@
+---
+en:
+  button_text: "Delete all articles from %{site_name}"
+ja:
+  button_text: "%{site_name}の記事をすべて削除"

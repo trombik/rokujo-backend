@@ -20,14 +20,15 @@ class ArticleCollectionsController < ApplicationController
 
   # POST /article_collections
   def create
-    @article_collection = ArticleCollection.new(article_collection_params)
+    @article_collection = ArticleCollection.find_or_initialize_by(article_collection_params)
 
     respond_to do |format|
-      if @article_collection.save
+      if @article_collection.persisted? || @article_collection.save
         format.html { redirect_to @article_collection, notice: t(".success") }
       else
         format.html { render :new, status: :unprocessable_content }
       end
+      format.turbo_stream
     end
   end
 

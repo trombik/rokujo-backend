@@ -1,22 +1,6 @@
 ##### Regular expression search
 
-Type a regular expression. Operators follow the regular expression.
-
-Correct:
-
-```
-(foo|bar) site_name:Wikipedia
-```
-
-Incorrect:
-
-```
-site_name:Wikipedia (foo|bar)
-```
-
-> Regular expression search is slow. Use operators to limit the scope.
-
-The supported regular expression is [Ruby's Regexp](https://docs.ruby-lang.org/en/master/Regexp.html).
+Search sentences with a regular expression. The supported regular expression is [Ruby's Regexp](https://docs.ruby-lang.org/en/master/Regexp.html).
 
 Notable expressions:
 
@@ -28,10 +12,11 @@ Notable expressions:
 
 See [Mastering Ruby Regular Expressions](https://www.rubyguides.com/2015/06/ruby-regex/) for a short summary.
 
+> Regular expression search is slow. Use operators to limit the scope.
+
 ##### `site_name` operator
 
-To match sentences from a specific site with a regular expression, use `site_name` operator.
-When the site name includes spaces, quote the name.  `site_name` can be `OR`-ed.
+To match sentences from a specific site with a regular expression, use `site_name` operator. When the site name includes spaces, quote the name.  `site_name` can be `OR`-ed.
 
 ```
 site_name:foo
