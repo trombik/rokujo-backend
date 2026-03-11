@@ -17,7 +17,9 @@ class Sentence < ApplicationRecord
       .order(:line_number)
   }
 
-  scope :by_site_name, ->(site_name) { site_name.present? ? joins(:article).where(article: { site_name: site_name }) : all }
+  scope :by_site_name, lambda { |site_name|
+    site_name.present? ? joins(:article).where(article: { site_name: site_name }) : all
+  }
 
   def self.count_by_site_name(limit: 10)
     joins(:article).group(article: :site_name).limit(limit).order(count_all: :desc).count
