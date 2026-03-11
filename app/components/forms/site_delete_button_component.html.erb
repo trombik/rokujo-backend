@@ -1,0 +1,8 @@
+<%= button_to t(".button_text", site_name: site_name),
+              sites_destroy_path(site_name: site_name),
+              method: :delete,
+              class: "btn btn-outline-danger btn-sm",
+              data: {
+                turbo_confirm: t("form.msg.confirm"),
+                disable_with: "..."
+              } %>
