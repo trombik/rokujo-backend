@@ -3,7 +3,9 @@
   <%= tag.div class: "flex-grow-1" do %>
     <%= tag.div class: "d-flex align-items-center mb-1" do %>
       <%= link_to name, sites_show_path(site_name: name),
-                  class: "text-decoration-none fw-bold fs-5 text-primary me-2" %>
+                        class: "text-decoration-none fw-bold fs-5 text-primary me-2 text-truncate d-inline-block",
+                        style: "max-width: 60%;",
+                        title: name %>
     <% end %>
 
     <%= tag.div class: "d-flex flex-wrap align-items-center gap-1" do %>
