@@ -2,11 +2,12 @@
 
 # A thin wrapper for bootstarp icons
 class IconComponent < ViewComponent::Base
-  attr_reader :klass, :name
+  attr_reader :klass, :name, :args
 
-  def initialize(name, klass: "")
+  def initialize(name, klass: "", **args)
     @klass = klass
     @name = name
+    @args = args
     super()
   end
 
