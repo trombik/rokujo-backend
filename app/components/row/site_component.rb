@@ -2,6 +2,8 @@
 
 # Row for sites.
 class Row::SiteComponent < ViewComponent::Base
+  include Concerns::IdentifiableComponent
+
   def initialize(site:)
     @site = site
     @name = site[:name]
@@ -16,9 +18,8 @@ class Row::SiteComponent < ViewComponent::Base
     name.present?
   end
 
-  def id
-    hash = Digest::MD5.hexdigest(@name)
-    "#{self.class.name.gsub("::", "_").underscore}_#{hash}"
+  def uniq_key
+    @uniq_key ||= Digest::MD5.hexdigest(@name)
   end
 
   private

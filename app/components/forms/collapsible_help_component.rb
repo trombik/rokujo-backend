@@ -4,6 +4,8 @@
 #
 # The help content is read from a markdown under app/docs/help.
 class Forms::CollapsibleHelpComponent < ViewComponent::Base
+  include Concerns::IdentifiableComponent
+
   attr_reader :slug, :help_class, :btn_class
 
   def initialize(slug, help_class: nil, btn_class: nil)
@@ -19,12 +21,8 @@ class Forms::CollapsibleHelpComponent < ViewComponent::Base
 
   private
 
-  def id
-    "#{id_prefix}_#{slug}"
-  end
-
-  def id_prefix
-    self.class.name.underscore.tr("/", "_")
+  def uniq_key
+    slug
   end
 
   def markdown_content

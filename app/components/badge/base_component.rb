@@ -4,9 +4,8 @@
 class Badge::BaseComponent < ViewComponent::Base
   attr_reader :resource, :link
 
+  include Concerns::IdentifiableComponent
   include ColorPalletGeneratorHelper
-
-  TEST_ID_PREFIX = self.class.name.tableize
 
   BASE_COLORS = %w[
     blue indigo violet purple fuchsia pink rose
@@ -51,8 +50,8 @@ class Badge::BaseComponent < ViewComponent::Base
 
   private
 
-  def testid
-    "#{TEST_ID_PREFIX}_#{dom_id(resource)}"
+  def uniq_key
+    dom_id(resource)
   end
 
   def badge_content

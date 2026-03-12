@@ -2,6 +2,8 @@
 
 # A stats component to display number of articles by site_name
 class Stats::ArticlesBySitenameComponent < ViewComponent::Base
+  include Concerns::IdentifiableComponent
+
   attr_reader :data, :total
 
   # data = { "site name 1" => 1, "site name 2" => 10 }
@@ -10,10 +12,6 @@ class Stats::ArticlesBySitenameComponent < ViewComponent::Base
     @frame_url = frame_url
     @total = total
     super()
-  end
-
-  def id
-    self.class.name.underscore.gsub("/", "_")
   end
 
   def frame_id

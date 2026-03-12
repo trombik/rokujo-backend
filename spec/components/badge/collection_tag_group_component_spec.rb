@@ -23,7 +23,7 @@ RSpec.describe Badge::CollectionTagGroupComponent, type: :component do
 
   context "when a collection tagged with two tags is given" do
     it "renders two Badge::CollectionTagComponent" do
-      expect(page).to have_testid_starting_with(Badge::CollectionTagComponent::TEST_ID_PREFIX, count: 2)
+      expect(page).to have_testid_starting_with(Badge::CollectionTagComponent.testid_prefix, count: 2)
     end
   end
 end

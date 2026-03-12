@@ -2,6 +2,8 @@
 
 # Renders a group of Badge::CollectionTagGroupComponent from a collection.
 class Badge::CollectionTagGroupComponent < ViewComponent::Base
+  include Concerns::IdentifiableComponent
+
   attr_reader :collection
 
   # @param collection [ArticleCollection]

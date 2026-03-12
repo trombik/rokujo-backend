@@ -2,6 +2,8 @@
 
 # A button to create ArticleCollection with pre-defined attributes.
 class Forms::ArticleCollectionButtonComponent < ViewComponent::Base
+  include Concerns::IdentifiableComponent
+
   # @param article_collection [ArticleCollection] an ArticleCollection with
   #   pre-defined attributes.
   def initialize(article_collection)
@@ -17,8 +19,8 @@ class Forms::ArticleCollectionButtonComponent < ViewComponent::Base
     ArticleCollection.where(key: key, value: value).none?
   end
 
-  def id
-    "#{self.class.name.gsub("::", "_").underscore}_#{key}_#{value}"
+  def uniq_key
+    Digest::MD5.hexdigest("#{key}_#{value}")
   end
 
   delegate :key, to: :article_collection
