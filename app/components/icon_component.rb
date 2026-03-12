@@ -4,6 +4,8 @@
 class IconComponent < ViewComponent::Base
   attr_reader :klass, :name, :args
 
+  include Concerns::IdentifiableComponent
+
   def initialize(name, klass: "", **args)
     @klass = klass
     @name = name

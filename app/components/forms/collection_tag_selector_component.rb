@@ -2,6 +2,8 @@
 
 # A form to add tags to ArticleCollection
 class Forms::CollectionTagSelectorComponent < ViewComponent::Base
+  include Concerns::IdentifiableComponent
+
   attr_reader :article_collection
 
   def initialize(article_collection)
@@ -13,7 +15,7 @@ class Forms::CollectionTagSelectorComponent < ViewComponent::Base
     CollectionTag.all
   end
 
-  def id
-    "#{self.class.name.underscore.gsub("/", "_")}-#{article_collection.id}"
+  def uniq_key
+    article_collection.id
   end
 end

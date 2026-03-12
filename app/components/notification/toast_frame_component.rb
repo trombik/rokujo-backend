@@ -2,7 +2,5 @@
 
 # A frame to display ToastComonent
 class Notification::ToastFrameComponent < ViewComponent::Base
-  def id
-    self.class.name.gsub("::", "_").underscore
-  end
+  include Concerns::IdentifiableComponent
 end
