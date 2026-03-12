@@ -33,8 +33,6 @@ RSpec.describe "FullTextSearches", type: :system do
   let(:word) { "" }
 
   before do
-    driven_by(:rack_test)
-
     ac = create(:article_collection, key: "site_name", value: TARGET_SITE_NAME)
     create(:collection_tag, name: TARGET_TAG, article_collections: [ac])
 

@@ -93,6 +93,14 @@ RSpec.configure do |config|
   config.after(:suite) do
     ApiServerRunner.stop
   end
+
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+
+  config.before(:each, :js, type: :system) do
+    driven_by :selenium, using: :headless_firefox
+  end
 end
 
 Shoulda::Matchers.configure do |config|
@@ -100,4 +108,8 @@ Shoulda::Matchers.configure do |config|
     with.test_framework :rspec
     with.library :rails
   end
+end
+
+Capybara.configure do |config|
+  config.test_id = 'data-testid'
 end
