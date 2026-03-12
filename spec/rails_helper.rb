@@ -99,7 +99,12 @@ RSpec.configure do |config|
   end
 
   config.before(:each, :js, type: :system) do
-    driven_by :selenium, using: :headless_firefox
+    if ENV["CI"]
+      driven_by :selenium, using: :headless_chrome
+    else
+      # use firefox on my machine
+      driven_by :selenium, using: :headless_firefox
+    end
   end
 end
 
