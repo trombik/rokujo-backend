@@ -37,7 +37,9 @@ RSpec.describe "FullTextSearches", type: :system do
     create(:collection_tag, name: TARGET_TAG, article_collections: [ac])
 
     visit search_path
-    within(format("form[action='%s']", search_path)) do
+    form_test_id = SearchForm::FullTextComponent.testid_prefix
+    search_form = find_by_testid_starting_with(form_test_id)
+    within(search_form) do
       fill_in "Regular expression", with: word
       click_button "Search"
     end
