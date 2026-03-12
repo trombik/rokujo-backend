@@ -1,0 +1,6 @@
+<%= tag.button type: "button",
+      class: "btn btn-outline-secondary btn-sm d-inline-flex align-items-center justify-content-center p-1 px-2 gap-1",
+      **options do %>
+  <%= render IconComponent.new(icon) if icon %>
+  <%= text %>
+<% end %>

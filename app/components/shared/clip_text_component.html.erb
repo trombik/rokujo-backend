@@ -1,0 +1,17 @@
+<%= tag.div class: "input-group input-group-sm", data: { controller: "clipboard", testid: self.class.testid } do %>
+  <%= tag.input type: "text",
+                value: text,
+                class: "form-control bg-light text-muted",
+                readonly: true,
+                data: {
+                  clipboard_target: "source",
+                  action: "click->clipboard#select"
+                }
+  %>
+
+  <%= tag.button class: "btn btn-outline-secondary",
+    type: "button",
+    data: { action: "click->clipboard#copy" } do %>
+    <%= render IconComponent.new("copy", data: { clipboard_target: "icon" }) %>
+  <% end %>
+<% end %>
