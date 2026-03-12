@@ -111,5 +111,5 @@ Shoulda::Matchers.configure do |config|
 end
 
 Capybara.configure do |config|
-  config.test_id = 'data-testid'
+  config.test_id = "data-testid"
 end
