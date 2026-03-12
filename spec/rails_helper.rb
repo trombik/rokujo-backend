@@ -100,7 +100,10 @@ RSpec.configure do |config|
 
   config.before(:each, :js, type: :system) do
     if ENV["CI"]
-      driven_by :selenium, using: :headless_chrome
+      driven_by :selenium, using: :headless_chrome do |options|
+        # allow clipboard access in chrome
+        options.add_preference("profile.default_content_setting_values.clipboard", 1)
+      end
     else
       # use firefox on my machine
       driven_by :selenium, using: :headless_firefox
