@@ -21,4 +21,8 @@ class Stats::ArticlesBySitenameComponent < ViewComponent::Base
   def frame_url
     @frame_url || stats_articles_by_site_name_path
   end
+
+  def uniq_key
+    ""
+  end
 end

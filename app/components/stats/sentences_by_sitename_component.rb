@@ -20,4 +20,8 @@ class Stats::SentencesBySitenameComponent < ViewComponent::Base
   def frame_url
     @frame_url || stats_sentences_by_site_name_path
   end
+
+  def uniq_key
+    ""
+  end
 end

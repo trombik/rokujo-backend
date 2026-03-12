@@ -27,4 +27,14 @@ RSpec.describe Stats::ArticlesBySitenameComponent, type: :component do
   it "renders values" do
     expect(page).to have_text("10,000").and have_text("10")
   end
+
+  it "generates the same frame_id" do
+    data = [
+      { "name" => 1 }
+    ]
+    with_data = described_class.new(data)
+    without_data = described_class.new(nil)
+
+    expect(with_data.frame_id).to eq without_data.frame_id
+  end
 end
