@@ -6,7 +6,7 @@
         aria: { expanded: "false", controls: id }
       ) %>
 
-    <%= tag.div class: "collapse position-absolute end-0 z-3 #{placement_classes}", id: id, style: "min-width: 300px;" do %>
+  <%= tag.div class: "collapse position-absolute end-0 z-3 #{placement_classes}", id: id, style: "min-width: 300px;" do %>
     <%= tag.div class: "p-2 bg-white border rounded shadow" do %>
       <%= render Shared::ClipTextComponent.new(text: value) %>
     <% end %>
