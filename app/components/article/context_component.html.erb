@@ -3,7 +3,7 @@
     <%= tag.div class: "card-body" do %>
       <%= tag.div class: "card-title" do %>
         <%= tag.h5 do %>
-          <%= link_to target_sentence.article.title, article_path(target_sentence.article.uuid), class: "link-offset-1" %>
+          <%= link_to target_sentence.article.title, articles_show_path(target_sentence.article.uuid), class: "link-offset-1" %>
         <% end %>
       <% end %>
       <% context_sentences.each do |sentence| %>

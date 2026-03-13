@@ -4,6 +4,7 @@ class ArticlesController < ApplicationController
     @pagy, @articles = pagy(:countish,
                             Article.all,
                             items: 20)
+    @n_articles_without_site_name = Article.without_site_name.count
   end
 
   # Shows an article by uuid.
@@ -22,5 +23,11 @@ class ArticlesController < ApplicationController
     render_not_found and return unless @target_sentence
 
     @context_sentences = Sentence.context_sentences(@target_sentence)
+  end
+
+  def without_site_name
+    @pagy, @articles_without_site_name = pagy(:countish,
+                                              Article.without_site_name.order(:normalized_url),
+                                              items: 20)
   end
 end

@@ -5,13 +5,7 @@
   All artciels have site name.
 <% else %>
   <%= tag.ul do %>
-    <% @articles_without_site_name.each do |article| %>
-      <%= tag.li do %>
-        Title: <%= article.title %>
-        URL: <%= article.normalized_url %>
-      <% end %>
-    <% end %>
+    <%= render Row::ArticleComponent.with_collection(@articles_without_site_name) %>
   <% end %>
-
   <%= render Pagination::NaviComponent.new(@pagy) if @pagy %>
 <% end %>

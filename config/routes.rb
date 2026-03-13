@@ -25,9 +25,6 @@ Rails.application.routes.draw do
 
   get "search" => "sentences#index"
   get "show_sentences_with_particle_and_verb" => "sentences#show_sentences_with_particle_and_verb"
-  get "articles/:uuid", to: "articles#show", as: "article"
-  get "articles/:uuid/:line_number", to: "articles#context", as: "article_context"
-  get "articles", to: "articles#index"
 
   resource :token_analysis_manager do
     get :status
@@ -64,7 +61,13 @@ Rails.application.routes.draw do
     get :total_token_analyses, path: "/total_token_analyses/:site_name"
     get :show, path: "/show/:site_name"
     delete :destroy, path: "/destroy/:site_name"
-    get :index_without_site_name, path: "/without_site_name/"
+  end
+
+  namespace :articles do
+    get :index, path: "/"
+    get :without_site_name, path: "/without_site_name"
+    get :show, path: "/:uuid"
+    get :context, path: "/:uuid/:line_number"
   end
 
   get "token_analysis_analyzer" => "token_analysis_analyzer#index"

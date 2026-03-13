@@ -42,7 +42,7 @@ RSpec.describe Row::ArticleComponent, type: :component do
   end
 
   it "has a link to the article" do
-    expect(page).to have_link(href: article_path(article.uuid))
+    expect(page).to have_link(href: articles_show_path(uuid: article.uuid))
   end
 
   it "has a link to the original url" do

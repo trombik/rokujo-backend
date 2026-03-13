@@ -33,12 +33,4 @@ RSpec.describe "Sites", type: :request do
       end.to change(Article, :count).by(-1).and change(ArticleCollection, :count).by(-1)
     end
   end
-
-  describe "GET /without_site_name" do
-    it "returns success" do
-      get sites_index_without_site_name_path
-
-      expect(response).to have_http_status(:success)
-    end
-  end
 end

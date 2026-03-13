@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Row to display an article
 class Row::ArticleComponent < ViewComponent::Base
   include Concerns::IdentifiableComponent
 
