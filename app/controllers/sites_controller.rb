@@ -11,6 +11,7 @@ class SitesController < ApplicationController
         collection: ArticleCollection.find_by(key: "site_name", value: site[0])
       }
     end
+    @n_articles_without_site_name = Article.without_site_name.count
   end
 
   def show
