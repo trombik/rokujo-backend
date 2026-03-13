@@ -1,6 +1,6 @@
 # displays site_name.
 class SitesController < ApplicationController
-  before_action :set_site_name_and_ensure_presence, except: [:index]
+  before_action :set_site_name_and_ensure_presence, except: [:index, :index_without_site_name]
 
   def index
     @sites = Article.group(:site_name).order(count_all: :desc).count.to_a
@@ -12,6 +12,12 @@ class SitesController < ApplicationController
       }
     end
     @n_articles_without_site_name = Article.without_site_name.count
+  end
+
+  def index_without_site_name
+    @pagy, @articles_without_site_name = pagy(:countish,
+                                              Article.without_site_name.order(:normalized_url),
+                                              items: 20)
   end
 
   def show

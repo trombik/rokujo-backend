@@ -1,0 +1,17 @@
+<%= tag.h1 "Articles without site name" %>
+<%= render Pagination::InfoComponent.new(@pagy) if @pagy %>
+
+<% if @articles_without_site_name.size.zero? %>
+  All artciels have site name.
+<% else %>
+  <%= tag.ul do %>
+    <% @articles_without_site_name.each do |article| %>
+      <%= tag.li do %>
+        Title: <%= article.title %>
+        URL: <%= article.normalized_url %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= render Pagination::NaviComponent.new(@pagy) if @pagy %>
+<% end %>
