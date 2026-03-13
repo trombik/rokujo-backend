@@ -12,4 +12,10 @@ RSpec.describe Notification::ToastFrameComponent, type: :component do
   it "has ID" do
     expect(page).to have_css("div[id]")
   end
+
+  context "when multiple instances are created" do
+    it "does not change the id" do
+      expect(component.id).to eq described_class.new.id
+    end
+  end
 end
