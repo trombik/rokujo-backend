@@ -30,6 +30,9 @@ class Article < ApplicationRecord
     end
   }
 
+  # artciles without site_name
+  scope :without_site_name, -> { where(site_name: nil) }
+
   scope :url_like, ->(word) { where("normalized_url LIKE ?", "#{Article.sanitize_sql_like(word)}%") if word.present? }
   # OR-ed version of url_like
   scope :urls_like, lambda { |words|

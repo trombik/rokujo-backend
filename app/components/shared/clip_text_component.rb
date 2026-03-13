@@ -2,6 +2,8 @@
 
 # components to display a text and an icon to copy the value
 class Shared::ClipTextComponent < ViewComponent::Base
+  include Concerns::IdentifiableComponent
+
   def initialize(text:, max_width: "400px")
     @text = text
     @max_width = max_width
@@ -9,8 +11,4 @@ class Shared::ClipTextComponent < ViewComponent::Base
   end
 
   attr_reader :text, :max_width
-
-  def self.testid
-    name.gsub("::", "_").underscore
-  end
 end

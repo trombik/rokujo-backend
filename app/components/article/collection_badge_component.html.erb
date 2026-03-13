@@ -1,6 +1,8 @@
-<%= link_to path,
-            class: "badge rounded-pill text-decoration-none shadow-sm",
-            style: badge_style do %>
-  <i class="bi bi-layers-fill me-1"></i>
-  <%= collection.name %>
+<%= tag.div data: { testid: testid } do %>
+  <%= link_to path,
+              class: "badge rounded-pill text-decoration-none shadow-sm",
+              style: badge_style do %>
+    <i class="bi bi-layers-fill me-1"></i>
+    <%= collection.name %>
+  <% end %>
 <% end %>

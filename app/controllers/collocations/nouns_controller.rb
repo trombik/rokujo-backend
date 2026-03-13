@@ -1,12 +1,11 @@
 # Collocations for noun
 class Collocations::NounsController < ApplicationController
-  def index
-    @lemma = params[:lemma]
-  end
+  before_action :set_lemma_and_type
+
+  def index; end
 
   def verbs
-    @lemma = params[:lemma]
-    @results = @lemma ? TokenAnalysis.find_verb_collocations_by_noun(@lemma) : nil
+    @results = @lemma.present? ? TokenAnalysis.find_verb_collocations_by_noun(@lemma) : nil
 
     respond_to do |format|
       format.turbo_stream
@@ -14,13 +13,18 @@ class Collocations::NounsController < ApplicationController
   end
 
   def adjectives
-    @lemma = params[:lemma]
-    @type = params[:type]
     return head :not_acceptable unless %w[appos nmod acl amod compound].include? @type
 
-    @results = @lemma ? TokenAnalysis.find_modifier_patterns_for(@lemma, by: @type) : []
+    @results = @lemma.present? ? TokenAnalysis.find_modifier_patterns_for(@lemma, by: @type) : []
     respond_to do |format|
       format.turbo_stream
     end
+  end
+
+  private
+
+  def set_lemma_and_type
+    @lemma = params[:lemma]&.strip
+    @type = params[:type]&.strip
   end
 end

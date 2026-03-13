@@ -42,7 +42,15 @@ RSpec.describe "Articles", type: :request do
 
   describe "GET /articles" do
     it "returns success" do
-      get articles_path
+      get articles_index_path
+
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe "GET /articles/without_site_name" do
+    it "returns success" do
+      get articles_without_site_name_path
 
       expect(response).to have_http_status(:success)
     end

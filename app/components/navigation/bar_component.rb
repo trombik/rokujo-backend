@@ -26,7 +26,7 @@ class Navigation::BarComponent < ViewComponent::Base
       DropDownDividerComponent.new,
       DropDownHeaderComponent.new(text: "Browse"),
       DropDownItemComponent.new(label: "Sites", path: sites_index_path),
-      DropDownItemComponent.new(label: "Articles", path: articles_path),
+      DropDownItemComponent.new(label: "Articles", path: articles_index_path),
       DropDownItemComponent.new(label: "Collection Tags", path: collection_tags_path),
       DropDownItemComponent.new(label: "Article Collections", path: article_collections_path),
       DropDownItemComponent.new(label: "Corpus Statistic", path: stats_index_path),

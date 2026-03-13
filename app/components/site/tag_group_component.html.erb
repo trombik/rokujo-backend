@@ -1,0 +1,6 @@
+<%= tag.div class: "d-flex flex-wrap align-items-center gap-1", id: id, data: { testid: testid } do %>
+  <%= render Article::CollectionBadgeComponent.new(@collection) %>
+  <% article_collection = ArticleCollection.new(name: @site_name, key: "site_name", value: @site_name) %>
+  <%= render Forms::ArticleCollectionButtonComponent.new(article_collection) %>
+  <%= render Badge::CollectionTagGroupComponent.new(@collection) %>
+<% end %>

@@ -5,6 +5,8 @@
 # The component highlights the matched keyword and has links to the original
 # URL, the article oage, and displays metadata of the article.
 class Sentence::CardComponent < ViewComponent::Base
+  include Concerns::IdentifiableComponent
+
   attr_reader :sentence, :word
 
   def initialize(sentence, word = nil)
@@ -41,5 +43,9 @@ class Sentence::CardComponent < ViewComponent::Base
     sanitize highlighted_text, tags: %w[span], attributes: %w[class]
   rescue StandardError
     sentence.text
+  end
+
+  def uniq_key
+    "#{sentence.article_uuid}_#{sentence.line_number}"
   end
 end

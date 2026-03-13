@@ -1,5 +1,8 @@
 <% if @article_collection.persisted? %>
-  <%= turbo_stream.remove Forms::ArticleCollectionButtonComponent.new(@article_collection).id %>
+  <% tag_group = Site::TagGroupComponent.new(site_name: @article_collection.value, collection: @article_collection) %>
+  <%= turbo_stream.replace tag_group.id do %>
+    <%= render tag_group %>
+  <% end %>
   <%= turbo_stream.append Notification::ToastFrameComponent.new.id do %>
     <%= render Notification::ToastComponent.new(title: "Success", message: "Created #{@article_collection.name}i collection.", type: :success) %>
   <% end %>

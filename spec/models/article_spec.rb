@@ -227,6 +227,14 @@ RSpec.describe Article, type: :model do
         end
       end
     end
+
+    describe ".without_site_name" do
+      it "returns number of articles without site name" do
+        create_list(:article, 2, site_name: nil)
+
+        expect(described_class.without_site_name.count).to eq 2
+      end
+    end
   end
 
   describe ".sentences_per_article" do

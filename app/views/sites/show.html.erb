@@ -1,8 +1,21 @@
-<%= tag.div class: "d-flex flex-row align-items-center gap-2 mt-3 mb-3" do %>
-  <%= tag.h1 @site_name, class: "mb-0" %>
-  <%= tag.div class: "d-flex flex-wrap align-items-center gap-2" do %>
-    <%= render Badge::CollectionTagGroupComponent.new(@collection) %>
-    <%= render Article::CollectionBadgeComponent.new(@collection) %>
+<%= tag.div class: "container align-items-center gap-2 mt-3 mb-3" do %>
+  <%= tag.div class: "row align-items-center" do %>
+    <%= tag.div class: "col col-sm-10" do %>
+      <%= tag.h1 @site_name, class: "mb-0" %>
+    <% end %>
+    <%= tag.div class: "col-sm" do %>
+      foo
+    <% end %>
+  <% end %>
+  <%= tag.div class: "row align-items-center" do %>
+    <%= tag.div class: "col col-sm-10" do %>
+      <%= render Site::TagGroupComponent.new(site_name: @site_name, collection: @collection) %>
+    <% end %>
+    <%= tag.div class: "col-sm" do %>
+      bar
+    <% end %>
+  <% end %>
+  <%= tag.div class: "row" do %>
   <% end %>
 <% end %>
 
