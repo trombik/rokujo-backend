@@ -4,6 +4,7 @@
 class Article::CollectionBadgeComponent < ViewComponent::Base
   attr_reader :collection
 
+  include Concerns::IdentifiableComponent
   include ColorPalletGeneratorHelper
 
   BASE_COLORS = %w[

@@ -1,4 +1,6 @@
-<%= tag.li id: id, class: "list-group-item list-group-item-action d-flex align-items-center py-3" do %>
+<%= tag.li id: id,
+           class: "list-group-item list-group-item-action d-flex align-items-center py-3",
+           data: { testid: testid } do %>
 
   <%= tag.div class: "flex-grow-1" do %>
     <%= tag.div class: "d-flex align-items-center mb-1" do %>
@@ -13,12 +15,10 @@
         <%= render IconComponent.new("file-earmark") %>
         <%= count %> articles
       <% end %>
-      <%= render Article::CollectionBadgeComponent.new(collection) %>
-      <%= render Badge::CollectionTagGroupComponent.new(collection) %>
+      <%= render Site::TagGroupComponent.new(site_name: name, collection: collection) %>
     <% end %>
   <% end %>
 
   <%= tag.div class: "actions ms-3" do %>
-    <%= render Forms::ArticleCollectionButtonComponent.new(new_collection) %>
   <% end %>
 <% end %>

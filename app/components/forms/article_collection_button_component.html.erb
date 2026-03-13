@@ -1,4 +1,9 @@
-<%= form_with url: article_collections_path, method: :post, scope: :article_collection, class: "d-inline", id: id do |f| %>
+<%= form_with url: article_collections_path,
+              method: :post,
+              scope: :article_collection,
+              class: "d-inline",
+              data: { testid: testid },
+              id: id do |f| %>
   <%= f.hidden_field :name, value: name %>
   <%= f.hidden_field :key, value: key %>
   <%= f.hidden_field :value, value: value %>
