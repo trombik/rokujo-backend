@@ -8,13 +8,13 @@
                         class: "text-decoration-none fw-bold fs-5 text-primary me-2 text-truncate d-inline-block",
                         style: "max-width: 60%;",
                         title: name %>
-    <% end %>
-
-    <%= tag.div class: "d-flex flex-wrap align-items-center gap-1" do %>
       <%= tag.span class: "badge rounded-pill bg-secondary shadow-sm" do %>
         <%= render IconComponent.new("file-earmark") %>
         <%= count %> articles
       <% end %>
+    <% end %>
+
+    <%= tag.div class: "d-flex flex-wrap align-items-center gap-1" do %>
       <%= render Site::TagGroupComponent.new(site_name: name, collection: collection) %>
     <% end %>
   <% end %>
