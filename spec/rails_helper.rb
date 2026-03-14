@@ -107,6 +107,7 @@ RSpec.configure do |config|
     else
       # use firefox on my machine
       driven_by :selenium, using: :headless_firefox
+      # driven_by :selenium, using: :firefox
     end
   end
 end

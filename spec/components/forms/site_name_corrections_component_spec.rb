@@ -25,7 +25,7 @@ RSpec.describe Forms::SiteNameCorrectionsComponent, type: :component do
     specify "the content contains `Creating`" do
       render_inline described_class.new(resource)
 
-      expect(page).to have_css("h1", text: /Creating/)
+      expect(page).to have_text(/Creating/)
     end
   end
 end

@@ -12,7 +12,7 @@ class SiteNameCorrectionsController < ApplicationController
 
   # GET /site_name_corrections/new
   def new
-    @site_name_correction = SiteNameCorrection.new
+    @site_name_correction = SiteNameCorrection.new(domain: params[:domain])
   end
 
   # GET /site_name_corrections/1/edit
@@ -25,8 +25,10 @@ class SiteNameCorrectionsController < ApplicationController
     respond_to do |format|
       if @site_name_correction.save
         format.html { redirect_to @site_name_correction, notice: t(".success") }
+        format.turbo_stream
       else
         format.html { render :new, status: :unprocessable_content }
+        format.turbo_stream { render :new, status: :unprocessable_content }
       end
     end
   end

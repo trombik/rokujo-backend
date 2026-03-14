@@ -1,0 +1,9 @@
+<% if @site_name_correction.persisted? %>
+  <%= turbo_stream.append Shared::ModalComponent.new.target_id do %>
+    <%= tag.span data: { close: true } %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.update Shared::ModalComponent.new.target_id  do %>
+      <%= render Forms::SiteNameCorrectionsComponent.new(@site_name_correction) %>
+  <% end %>
+<% end %>
