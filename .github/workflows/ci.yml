@@ -77,6 +77,15 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Set up node
+        uses: actions/setup-node@v3
+
+      - name: Install playwright
+        run: |
+          export PLAYWRIGHT_CLI_VERSION=$(bundle exec ruby -e 'require "playwright"; puts Playwright::COMPATIBLE_PLAYWRIGHT_VERSION.strip')
+          npm install playwright@${PLAYWRIGHT_CLI_VERSION}
+          ./node_modules/.bin/playwright install --with-deps
+
       - name: Run tests
         env:
           RAILS_ENV: test
