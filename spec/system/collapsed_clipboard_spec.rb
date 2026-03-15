@@ -4,6 +4,10 @@ RSpec.describe "CollapsedClipboard", :js, type: :system do
   let(:expected_value) { "019c4dbc-7941-7ae6-8d27-5d40d35ee96e" }
 
   before do
+    article = create(:article, uuid: expected_value, url: "http://example.org/path")
+    create(:sentence, text: "foo bar buz", article: article)
+    visit search_path
+
     # grant permissions to read and write clipboard
     # https://playwright-ruby-client.vercel.app/docs/api/browser_context#clear_permissions
     browser_type = Capybara.current_session
@@ -19,10 +23,6 @@ RSpec.describe "CollapsedClipboard", :js, type: :system do
               .contexts.first
               .grant_permissions(%w[clipboard-read clipboard-write])
     end
-
-    article = create(:article, uuid: expected_value, url: "http://example.org/path")
-    create(:sentence, text: "foo bar buz", article: article)
-    visit search_path
     form = find_by_testid_starting_with(SearchForm::FullTextComponent.testid_prefix)
     within form do
       fill_in "Regular expression", with: "foo\\s+bar"

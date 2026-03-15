@@ -1,17 +1,18 @@
 require "capybara/dsl"
 
+headless = ENV["HEADFULL"].nil?
 Capybara.register_driver(:playwright_chromium) do |app|
   Capybara::Playwright::Driver.new(app,
                                    browser_type: :chromium,
                                    browser_options: {},
-                                   headless: false)
+                                   headless: headless)
 end
 
 Capybara.register_driver(:playwright_firefox) do |app|
   Capybara::Playwright::Driver.new(app,
                                    browser_type: :firefox,
                                    browser_options: {},
-                                   headless: true)
+                                   headless: headless)
 end
 
 Capybara.default_max_wait_time = 15
