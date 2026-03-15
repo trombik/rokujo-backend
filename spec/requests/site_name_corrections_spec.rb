@@ -67,6 +67,19 @@ RSpec.describe "/site_name_corrections", type: :request do
         post site_name_corrections_url, params: { site_name_correction: valid_attributes }
         expect(response).to redirect_to(site_name_correction_url(SiteNameCorrection.last))
       end
+
+      context "with turbo-stream" do
+        it "creates a new SiteNameCorrection" do
+          expect do
+            post site_name_corrections_url, params: { site_name_correction: valid_attributes }, as: :turbo_stream
+          end.to change(SiteNameCorrection, :count).by(1)
+        end
+
+        it "returns success" do
+          post site_name_corrections_url, params: { site_name_correction: valid_attributes }, as: :turbo_stream
+          expect(response).to have_http_status(:success)
+        end
+      end
     end
 
     context "with invalid parameters" do
@@ -79,6 +92,19 @@ RSpec.describe "/site_name_corrections", type: :request do
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
         post site_name_corrections_url, params: { site_name_correction: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_content)
+      end
+
+      context "with turbo-stream" do
+        it "does not create a new SiteNameCorrection" do
+          expect do
+            post site_name_corrections_url, params: { site_name_correction: invalid_attributes }, as: :turbo_stream
+          end.not_to change(SiteNameCorrection, :count)
+        end
+
+        it "renders a response with 422 status (i.e. to display the 'new' template)" do
+          post site_name_corrections_url, params: { site_name_correction: invalid_attributes }, as: :turbo_stream
+          expect(response).to have_http_status(:unprocessable_content)
+        end
       end
     end
   end

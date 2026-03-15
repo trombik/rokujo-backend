@@ -1,0 +1,26 @@
+<%= helpers.turbo_frame_tag frame_id do %>
+  <%= tag.div id: id,
+    class: "modal fade",
+    data: { controller: "modal",
+            modal_target: "modal",
+            modal_target_id_value: target_id,
+            testid: testid,
+            turbo_permanent: "" },
+    tabindex: "-1" do %>
+    <%= tag.div id: target_id, class: "modal-dialog modal-dialog-centered modal-dialog-scrollable" do %>
+      <div class="modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-header">
+          <h5 id="modal-title" class="modal-title">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div id="modal-body" class="modal-body">
+          <p>Modal body text goes here.</p>
+        </div>
+        <div id="modal-footer" class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

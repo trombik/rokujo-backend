@@ -1,22 +1,60 @@
-<%= tag.h1 do %>
-  <%= title_string %>
-<% end %>
+<%= tag.div class: "modal-content", data: { testid: testid } do %>
+  <%= form_with(model: site_name_correction) do |form| %>
+    <%= tag.div class: "modal-header" do %>
+      <%= tag.h5 class: "modal-title" do %><%= title_string %><% end %>
+      <%= tag.button type: "button",
+                     class: "btn-close",
+                     aria: { label: t("form.button.close") },
+                     data: { bs_dismiss: "modal" } %>
+    <% end %>
 
-<%= form_with(model: site_name_correction) do |form| %>
-  <%= render Forms::ValidationErrorComponent.new(site_name_correction) %>
+    <%= tag.div class: "modal-body", style: scrollable_workaround_style do %>
+      <%= render Forms::ValidationErrorComponent.new(site_name_correction) %>
 
-  <%= tag.div class: "mb-3" do %>
-    <%= form.label :domain, class: "form-label fw-semibold" %>
-    <%= form.text_field :domain, class: "form-control", placeholder: t(".placeholder.domain") %>
-  <% end %>
+      <%= tag.div class: "input-group mb-1 align-items-center" do %>
+        <%= tag.span class: "input-group-text" do %>
+          <%= form.label :domain, class: "form-label mb-0" %>
+          <%= render help_for_domain.button_component %>
+        <% end %>
+        <%= form.text_field :domain,
+                              class: "form-control",
+                              placeholder: t(".placeholder.domain"),
+                              aria: { describedby: "description-for-domain" } %>
+      <% end %>
+      <%= tag.div id: "description-for-domain", class: "form-text mb-3" do %>
+        <%= t(".form_text_for_domain") %>
+      <% end %>
+      <%= tag.div class: "mb-2" do %>
+        <%= render help_for_domain %>
+      <% end %>
 
-  <%= tag.div class: "mb-3" do %>
-    <%= form.label :name, class: "form-label fw-semibold" %>
-    <%= form.text_field :name, class: "form-control", placeholder: t(".placeholder.name") %>
-  <% end %>
+      <%= tag.div class: "input-group mb-1 align-items-center" do %>
+        <%= tag.span class: "input-group-text" do %>
+          <%= form.label :name, class: "form-label mb-0" %>
+          <%= render help_for_name.button_component %>
+        <% end %>
+        <%= form.text_field :name,
+                              class: "form-control",
+                              placeholder: t(".placeholder.name"),
+                              aria: { describedby: "description-for-name" } %>
+      <% end %>
+      <%= tag.div id: "description-for-name", class: "form-text mb-3" do %>
+        <%= t(".form_text_for_name") %>
+      <% end %>
+      <%= tag.div class: "mb-2" do %>
+        <%= render help_for_name %>
+      <% end %>
 
-  <%= tag.div class: "mt-4" do %>
-    <%= form.submit class: "btn btn-primary px-4" %>
-    <%= link_to "Cancel", site_name_corrections_path, class: "btn btn-link text-decoration-none" %>
+    <% end %>
+
+    <%= tag.div class: "modal-footer gap-1" do %>
+      <%= tag.button type: "button",
+                     class: "btn btn-secondary",
+                     data: { bs_dismiss: "modal" },
+                     aria: { label: t("form.button.close") } do %>
+        <%= t("form.button.close") %>
+      <% end %>
+      <%= form.submit class: "btn btn-primary px-4", data: { testid: "submit" } %>
+    <% end %>
   <% end %>
 <% end %>

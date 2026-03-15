@@ -85,6 +85,7 @@ group :development, :test do
   # https://github.com/thoughtbot/factory_bot_rails
   gem "factory_bot_rails"
 
+  gem "dotenv", "~> 3.2"
   gem "faker"
   gem "htmlbeautifier", "~> 1.4"
   gem "rspec-rails", "~> 8.0"
@@ -122,7 +123,6 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
-  gem "selenium-webdriver"
+  gem "capybara-playwright-driver", "~> 0.5.8"
 end
-
 gem "activerecord-import", "~> 2.2"

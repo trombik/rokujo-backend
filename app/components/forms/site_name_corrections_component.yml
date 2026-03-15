@@ -7,7 +7,8 @@ en:
   placeholder:
     name: A new site name to rewrite
     domain: A pattern to match
-
+  form_text_for_domain: Type domain name pattern to match. If you are creating a Site Name Correction for articles without site name, simply type the domain part of the article. Click the question mark icon for more details.
+  form_text_for_name: Type the name to update the site name of matching URL.
 ja:
   title:
     create: "%{model_name}を作成する"
@@ -15,3 +16,5 @@ ja:
   placeholder:
     name: 書き換える新しいサイト名
     domain: マッチさせるパターン
+  form_text_for_domain: マッチさせるドメイン名のパターンを入力します。サイト名のない記事のためにサイト名の訂正を作成するには、該当する記事のドメイン名部分をここに入力します。詳しくはクエスチョンマークのアイコンをクリックしてください。
+  form_text_for_name: URLがマッチした場合に書き換えるサイト名を入力します。
