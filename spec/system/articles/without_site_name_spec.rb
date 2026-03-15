@@ -21,10 +21,11 @@ RSpec.describe "/articles/without_site_name", :js, type: :system do
       within find_by_testid_starting_with(Forms::SiteNameCorrectionsComponent.testid_prefix) do
         fill_in "Name", with: "Foo"
         expect(page).to have_button "Create Site name correction"
-        expect do
-          find_by_testid_starting_with("submit").click
-        end.to change(SiteNameCorrection, :count).by(1)
+        find_by_testid_starting_with("submit").click
       end
+
+      expect(page).to have_css("[data-close]")
+      expect(SiteNameCorrection.count).to eq 1
     end
   end
 end

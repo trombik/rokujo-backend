@@ -93,23 +93,6 @@ RSpec.configure do |config|
   config.after(:suite) do
     ApiServerRunner.stop
   end
-
-  config.before(:each, type: :system) do
-    driven_by :rack_test
-  end
-
-  config.before(:each, :js, type: :system) do
-    if ENV["CI"]
-      driven_by :selenium, using: :headless_chrome do |options|
-        # allow clipboard access in chrome
-        options.add_preference("profile.default_content_setting_values.clipboard", 1)
-      end
-    else
-      # use firefox on my machine
-      driven_by :selenium, using: :headless_firefox
-      # driven_by :selenium, using: :firefox
-    end
-  end
 end
 
 Shoulda::Matchers.configure do |config|
@@ -117,8 +100,4 @@ Shoulda::Matchers.configure do |config|
     with.test_framework :rspec
     with.library :rails
   end
-end
-
-Capybara.configure do |config|
-  config.test_id = "data-testid"
 end
