@@ -11,16 +11,16 @@ RSpec.describe "/sites/index", :js, type: :system do
   describe "adding an article collection flow" do
     context "when the site has no article collection" do
       it "renders `Create a collection` button and the button disappears after clicking the button" do
-        within find_by_testid_starting_with(Row::SiteComponent.testid_prefix) do
-          within find_by_testid_starting_with(Site::TagGroupComponent.testid_prefix) do
-            expect(page).to have_no_testid_starting_with(Article::CollectionBadgeComponent.testid_prefix)
+        within find_component(Row::SiteComponent) do
+          within find_component(Site::TagGroupComponent) do
+            expect(page).to have_no_component(Article::CollectionBadgeComponent)
 
-            within find_by_testid_starting_with(Forms::ArticleCollectionButtonComponent.testid_prefix) do
+            within find_component(Forms::ArticleCollectionButtonComponent) do
               click_button
             end
 
-            expect(page).to have_no_testid_starting_with(Forms::ArticleCollectionButtonComponent.testid_prefix)
-            expect(page).to have_testid_starting_with(Article::CollectionBadgeComponent.testid_prefix)
+            expect(page).to have_no_component(Forms::ArticleCollectionButtonComponent)
+            expect(page).to have_component(Article::CollectionBadgeComponent)
           end
         end
       end
