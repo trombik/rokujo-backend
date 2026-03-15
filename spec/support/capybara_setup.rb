@@ -3,10 +3,8 @@ require "capybara/dsl"
 Capybara.register_driver(:playwright_chromium) do |app|
   Capybara::Playwright::Driver.new(app,
                                    browser_type: :chromium,
-                                   browser_options: {
-                                     "profile.default_content_setting_values.clipboard" => 1
-                                   },
-                                   headless: true)
+                                   browser_options: {},
+                                   headless: false)
 end
 
 Capybara.register_driver(:playwright_firefox) do |app|
