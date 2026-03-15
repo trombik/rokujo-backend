@@ -89,6 +89,7 @@ jobs:
       - name: Run tests
         env:
           RAILS_ENV: test
+          PLAYWRIGHT_CLI_EXECUTABLE_PATH: ./node_modules/.bin/playwright
           # REDIS_URL: redis://localhost:6379/0
         run: bin/rails db:test:prepare spec
 
