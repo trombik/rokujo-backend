@@ -17,7 +17,7 @@ class NormalizeUrlService < ApplicationService
     uri = URI.parse(url.strip)
     path = uri.path == "/" ? "" : uri.path
     "#{uri.host}#{path}"
-  rescue URI::InvalidURIError
+  rescue URI::InvalidURIError => e
     Rails.logger.error "Failed to parse URL: #{url} | Error: #{e.message}"
     ""
   end
