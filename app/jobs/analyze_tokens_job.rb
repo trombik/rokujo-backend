@@ -5,6 +5,14 @@ class AnalyzeTokensJob < ApplicationJob
 
   queue_as :analysis
 
+  # retry because the analysis API server restarts after a certain number of
+  # requests.
+  retry_on TextAnalysisServiceNotAvailavleError
+
+  # discard the job because SentenceNotFoundError should not happen and there
+  # is no way to recover if the sentence does not exist.
+  discard_on SentenceNotFoundError, report: true
+
   def perform(keys)
     article_uuid, line_number = keys
     sentence = Sentence.find_by(article_uuid: article_uuid, line_number: line_number)
