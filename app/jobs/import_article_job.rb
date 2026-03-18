@@ -5,10 +5,8 @@ class ImportArticleJob < ApplicationJob
 
   queue_as :default
 
-  rescue_from(Exception) do |exception|
-    Rails.error.report(exception)
-    raise exception
-  end
+  # discard if the article is a duplicated article
+  discard_on ActiveRecord::RecordNotUnique, report: true
 
   # @param hash [Hash] Hashed article.
   def perform(hash)
