@@ -123,6 +123,6 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
-  gem "capybara-playwright-driver", "~> 0.5.8"
+  gem "capybara-playwright-driver", "~> 0.5.9"
 end
 gem "activerecord-import", "~> 2.2"
