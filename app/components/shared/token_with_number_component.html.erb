@@ -1,0 +1,6 @@
+<%= tag.div  class: div_class do %>
+  <%= tag.div class: "d-flex align-items-center" do %>
+    <%= content_or_text %>
+    <%= tag.span number, class: "ms-1 text-muted border-start ps-1" %>
+  <% end %>
+<% end %>
