@@ -5,7 +5,7 @@
       <h1 class="card-title"><%= @article.title %></h1>
       <h6 class="card-subtitle mb-2 text-muted">UUID: <%= @article.uuid %></h6>
       <div class="card-text mt-4">
-        <%= sanitize @article.body %>
+        <%= sanitize(Tei2htmlService.call(@article.body)) %>
       </div>
     </div>
   </div>
