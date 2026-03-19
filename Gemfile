@@ -53,7 +53,7 @@ gem "kramdown"
 gem "kramdown-parser-gfm", "~> 1.1"
 
 # Use pagy for pagination
-gem "pagy", "~> 43.3"
+gem "pagy", "~> 43.4"
 
 # Use mission_control for job management
 gem "mission_control-jobs", "~> 1.1"
