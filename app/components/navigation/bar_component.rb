@@ -30,6 +30,7 @@ class Navigation::BarComponent < ViewComponent::Base
       DropDownItemComponent.new(label: "Collection Tags", path: collection_tags_path),
       DropDownItemComponent.new(label: "Article Collections", path: article_collections_path),
       DropDownItemComponent.new(label: "Corpus Statistic", path: stats_index_path),
+      DropDownItemComponent.new(label: "Site Name Correction", path: site_name_corrections_path),
       DropDownDividerComponent.new,
       DropDownHeaderComponent.new(text: "Actions"),
       DropDownItemComponent.new(label: "Collect Articles", path: collect_articles_path),
