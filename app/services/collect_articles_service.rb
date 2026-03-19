@@ -52,11 +52,11 @@ class CollectArticlesService < ApplicationService
   #   # => #<Process::Status: pid 77537 exit 0>
   #   status.success?
   #   # => true
-  def call(&block)
+  def call(&)
     prepare
     @tmp_file = Tempfile.create(self.class.name)
     @tmp_file.close
-    run(&block)
+    run(&)
   ensure
     FileUtils.rm_f(@tmp_file.path)
   end
