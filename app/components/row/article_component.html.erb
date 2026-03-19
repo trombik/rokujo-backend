@@ -49,9 +49,7 @@
         <%= tag.div class: "d-flex justify-content-between align-items-start" do %>
           <%= tag.p class: "text-muted font-monospace mb-0" do %>
             <%= article.normalized_url %>
-            <%= link_to "Create Site Name Correction", new_site_name_correction_path(params: { domain: article.normalized_url }),
-                                                       data: { turbo_stream: true, testid: "create_site_name_button" },
-                                                       class: "btn btn-sm btn-outline-secondary" %>
+            <%= render Site::RenameButtonComponent.new(@site_name, url: article.url) %>
           <% end %>
         <% end %>
       <% end %>

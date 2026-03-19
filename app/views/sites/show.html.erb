@@ -4,7 +4,6 @@
       <%= tag.h1 @site_name, class: "mb-0" %>
     <% end %>
     <%= tag.div class: "col-sm" do %>
-      foo
     <% end %>
   <% end %>
   <%= tag.div class: "row align-items-center" do %>
@@ -12,7 +11,6 @@
       <%= render Site::TagGroupComponent.new(site_name: @site_name, collection: @collection) %>
     <% end %>
     <%= tag.div class: "col-sm" do %>
-      bar
     <% end %>
   <% end %>
   <%= tag.div class: "row" do %>
@@ -60,4 +58,5 @@
 
   <% end %>
   <%= render Forms::SiteDeleteButtonComponent.new(@site_name) %>
+  <%= render Site::RenameButtonComponent.new(@site_name) %>
 <% end %>
