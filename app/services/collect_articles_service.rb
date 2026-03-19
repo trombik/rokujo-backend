@@ -71,6 +71,7 @@ class CollectArticlesService < ApplicationService
   # Runs the scrapy command and returns the output, error, and status
   #
   # @return [Array] an array containing the output, error, and status of the command
+  # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
   def run(&block)
     Rails.logger.debug { "cmd: #{build_cmd}" }
     status = Open3.popen3(*build_cmd, chdir: WORK_DIR.to_s) do |_in, out, err, wait_thr|
@@ -98,6 +99,7 @@ class CollectArticlesService < ApplicationService
       [nil, status]
     end
   end
+  # rubocop:enable Metrics/MethodLength,Metrics/AbcSize
 
   def build_cmd
     raise "BUG: @tmp_file is not set" unless @tmp_file
