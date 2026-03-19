@@ -16,7 +16,7 @@ class Site::RenameButtonComponent < ViewComponent::Base
   attr_reader :site_name, :url
 
   def domain
-    return URI.parse(url).host if url.present?
+    return Addressable::URI.parse(url).host if url.present?
     return "" if site_name.blank?
 
     article = Article.by_site_name(site_name).first

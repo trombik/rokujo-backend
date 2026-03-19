@@ -12,7 +12,7 @@ class ResourceCard::ArticleComponent < ViewComponent::Base
   private
 
   def domain
-    URI.parse(article.url).host
+    Addressable::URI.parse(article.url).host
   rescue StandardError
     nil
   end
