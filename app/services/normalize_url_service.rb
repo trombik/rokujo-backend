@@ -14,10 +14,10 @@ class NormalizeUrlService < ApplicationService
   def call
     return "" if url.blank?
 
-    uri = URI.parse(url.strip)
+    uri = Addressable::URI.parse(url.strip)
     path = uri.path == "/" ? "" : uri.path
     "#{uri.host}#{path}"
-  rescue URI::InvalidURIError => e
+  rescue Addressable::URI::InvalidURIError => e
     Rails.logger.error "Failed to parse URL: #{url} | Error: #{e.message}"
     ""
   end
