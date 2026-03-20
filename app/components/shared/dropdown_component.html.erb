@@ -1,0 +1,10 @@
+<%= tag.div class: classes, data: data do %>
+  <%= dropdown_button %>
+  <%= tag.ul class: dropdown_menu_classes do %>
+    <% dropdown_items.each do |item| %>
+      <%= tag.li do %>
+        <%= item %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
