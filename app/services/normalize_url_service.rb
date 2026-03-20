@@ -1,3 +1,5 @@
+require "addressable/uri"
+
 # Provides URL normalization service.
 class NormalizeUrlService < ApplicationService
   attr_reader :url
