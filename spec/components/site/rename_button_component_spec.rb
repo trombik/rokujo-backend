@@ -12,14 +12,16 @@ RSpec.describe Site::RenameButtonComponent, type: :component do
   end
 
   it "renders a link to create SiteNameCorrection" do
-    expect(page).to have_link(href: new_site_name_correction_path(params: { domain: "" }))
+    expect(page).to have_link(href: /#{new_site_name_correction_path}/)
   end
 
   context "with site_name" do
     let(:site_name) { article.site_name }
 
     it "generates a link with host name from the first matching article" do
-      expect(page).to have_link(href: new_site_name_correction_path(params: { domain: "example.org" }))
+      link = page.find_link
+      uri = Addressable::URI.parse(link[:href])
+      expect(uri.query_values).to include("domain" => "example.org", "name" => "foo")
     end
   end
 
@@ -27,7 +29,19 @@ RSpec.describe Site::RenameButtonComponent, type: :component do
     let(:component) { described_class.new(site_name, url: "http://example.net/path") }
 
     it "generates a link with host name from the given url" do
-      expect(page).to have_link(href: new_site_name_correction_path(params: { domain: "example.net" }))
+      link = page.find_link
+      uri = Addressable::URI.parse(link[:href])
+      expect(uri.query_values).to include("domain" => "example.net")
+    end
+  end
+
+  context "with on_success" do
+    let(:component) { described_class.new(on_success: "redirect") }
+
+    it "generates a link with on_success query parameter" do
+      link = page.find_link
+      uri = Addressable::URI.parse(link[:href])
+      expect(uri.query_values).to include("on_success" => "redirect")
     end
   end
 end

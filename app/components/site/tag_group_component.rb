@@ -7,7 +7,7 @@ class Site::TagGroupComponent < ViewComponent::Base
   include Concerns::IdentifiableComponent
 
   def initialize(site_name:, collection: [])
-    @site_name = site_name
+    @site_name = site_name || ""
     @collection = collection
     super()
   end

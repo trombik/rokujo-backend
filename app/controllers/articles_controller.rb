@@ -1,8 +1,9 @@
 # A controller for Articles
 class ArticlesController < ApplicationController
   def index
+    site_name = params[:site_name]
     @pagy, @articles = pagy(:countish,
-                            Article.all,
+                            Article.by_site_name(site_name),
                             items: 20)
     @n_articles_without_site_name = Article.without_site_name.count
   end

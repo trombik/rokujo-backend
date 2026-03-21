@@ -58,5 +58,5 @@
 
   <% end %>
   <%= render Forms::SiteDeleteButtonComponent.new(@site_name) %>
-  <%= render Site::RenameButtonComponent.new(@site_name) %>
+  <%= render Site::RenameButtonComponent.new(@site_name, on_success: "redirect") %>
 <% end %>

@@ -5,15 +5,16 @@ class Site::RenameButtonComponent < ViewComponent::Base
   include Concerns::IdentifiableComponent
   include ERB::Util
 
-  def initialize(site_name = "", url: "")
+  def initialize(site_name = "", url: "", on_success: "")
     @site_name = site_name
     @url = url
+    @on_success = on_success
     super()
   end
 
   private
 
-  attr_reader :site_name, :url
+  attr_reader :site_name, :url, :on_success
 
   def domain
     return Addressable::URI.parse(url).host if url.present?
