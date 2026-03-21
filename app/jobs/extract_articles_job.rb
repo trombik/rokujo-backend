@@ -11,11 +11,6 @@ class ExtractArticlesJob < ApplicationJob
 
   queue_as :analysis
 
-  rescue_from(Exception) do |exception|
-    Rails.error.report(exception)
-    raise exception
-  end
-
   # @param file [String] Path to the file
   def perform(file)
     raise_if_file_has_issues(file)

@@ -26,7 +26,7 @@ RSpec.describe ExtractArticlesJob, type: :job do
       it "raises EnqueueError" do
         expect do
           described_class.perform_now("/path/to/file")
-        end.to raise_error ExtractArticlesJob::EnqueueError
+        end.to raise_error described_class::EnqueueError
       end
     end
 
@@ -50,7 +50,7 @@ RSpec.describe ExtractArticlesJob, type: :job do
       it "raises RuntimeError" do
         expect do
           described_class.perform_now("/path/to/file")
-        end.to raise_error ExtractArticlesJob::FileNotFoundError
+        end.to raise_error described_class::FileNotFoundError
       end
     end
 
@@ -62,7 +62,7 @@ RSpec.describe ExtractArticlesJob, type: :job do
       it "raises EmptyFileError" do
         expect do
           described_class.perform_now("/path/to/file")
-        end.to raise_error ExtractArticlesJob::EmptyFileError
+        end.to raise_error described_class::EmptyFileError
       end
     end
   end

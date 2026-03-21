@@ -42,5 +42,13 @@ RSpec.describe NormalizeUrlService do
         expect(service.call).to eq "example.org/path"
       end
     end
+
+    context "when the URL includes non-ASCII characters" do
+      let(:url) { "http://example.org/日本語" }
+
+      it "does not raise error" do
+        expect(service.call).to eq "example.org/日本語"
+      end
+    end
   end
 end

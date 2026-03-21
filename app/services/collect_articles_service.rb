@@ -35,6 +35,8 @@ class CollectArticlesService < ApplicationService
     @loglevel = loglevel
     @format = format
     @output_dir = Pathname.new(output_dir)
+    @stdout = ""
+    @stderr = ""
   end
 
   # Runs the scrapy spider and saves the output to a file
@@ -50,11 +52,11 @@ class CollectArticlesService < ApplicationService
   #   # => #<Process::Status: pid 77537 exit 0>
   #   status.success?
   #   # => true
-  def call
+  def call(&)
     prepare
     @tmp_file = Tempfile.create(self.class.name)
     @tmp_file.close
-    run
+    run(&)
   ensure
     FileUtils.rm_f(@tmp_file.path)
   end
@@ -69,10 +71,27 @@ class CollectArticlesService < ApplicationService
   # Runs the scrapy command and returns the output, error, and status
   #
   # @return [Array] an array containing the output, error, and status of the command
-  def run
+  # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
+  def run(&block)
     Rails.logger.debug { "cmd: #{build_cmd}" }
+    status = Open3.popen3(*build_cmd, chdir: WORK_DIR.to_s) do |_in, out, err, wait_thr|
+      thr_out = Thread.new do
+        while (line = out.gets)
+          @stdout << line
+          block&.call
+        end
+      end
+      thr_err = Thread.new do
+        while (line = err.gets)
+          @stderr << line
+          block&.call
+        end
+      end
+      thr_out.join
+      thr_err.join
+      wait_thr.value
+    end
 
-    @stdout, @stderr, status = Dir.chdir(WORK_DIR) { Open3.capture3(*build_cmd) }
     if status.success?
       FileUtils.mv(@tmp_file.path, output_file)
       [output_file, status]
@@ -80,6 +99,7 @@ class CollectArticlesService < ApplicationService
       [nil, status]
     end
   end
+  # rubocop:enable Metrics/MethodLength,Metrics/AbcSize
 
   def build_cmd
     raise "BUG: @tmp_file is not set" unless @tmp_file

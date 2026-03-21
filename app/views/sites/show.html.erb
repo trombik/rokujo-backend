@@ -4,23 +4,23 @@
       <%= tag.h1 @site_name, class: "mb-0" %>
     <% end %>
     <%= tag.div class: "col-sm" do %>
-      foo
     <% end %>
   <% end %>
   <%= tag.div class: "row align-items-center" do %>
-    <%= tag.div class: "col col-sm-10" do %>
+    <%= tag.div class: "col col-sm-10 my-3" do %>
       <%= render Site::TagGroupComponent.new(site_name: @site_name, collection: @collection) %>
     <% end %>
     <%= tag.div class: "col-sm" do %>
-      bar
     <% end %>
   <% end %>
   <%= tag.div class: "row" do %>
   <% end %>
 <% end %>
 
-<% keyword = "site_name:\"#{@site_name}\"" %>
-<%= render SearchForm::FullTextComponent.new(keyword: keyword) %>
+<%= tag.div class: "container py-2" do %>
+  <% keyword = "site_name:\"#{@site_name}\"" %>
+  <%= render SearchForm::FullTextComponent.new(keyword: keyword) %>
+<% end %>
 
 <%= tag.div class: "container py-4" do %>
   <%= tag.section class: "mb-5" do %>
@@ -59,5 +59,11 @@
     <% end %>
 
   <% end %>
-  <%= render Forms::SiteDeleteButtonComponent.new(@site_name) %>
+<% end %>
+
+<%= tag.div class: "container py-4" do %>
+  <%= tag.div class: "d-flex align-items-cneter gap-2" do %>
+    <%= render Forms::SiteDeleteButtonComponent.new(@site_name) %>
+    <%= render Site::RenameButtonComponent.new(@site_name, on_success: "redirect") %>
+  <% end %>
 <% end %>

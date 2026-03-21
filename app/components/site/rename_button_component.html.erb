@@ -1,0 +1,4 @@
+<%= link_to t(".button_text"),
+            new_site_name_correction_path(params: { domain: domain, name: site_name, on_success: on_success }),
+            data: { turbo_stream: true, testid: testid },
+            class: "btn btn-sm btn-outline-danger" %>

@@ -13,7 +13,7 @@ RSpec.describe CollectArticlesService do
   let!(:output_dir) { Dir.mktmpdir }
 
   before do
-    allow(Open3).to receive(:capture3).and_return(["out", "err", status_double])
+    allow(Open3).to receive(:popen3).and_return(status_double)
   end
 
   after do
@@ -38,10 +38,10 @@ RSpec.describe CollectArticlesService do
         expect(file).to exist
       end
 
-      it "calls Open3.capture3 with correct scrapy arguments", :aggregate_failures do
+      it "calls Open3.popen3 with correct scrapy arguments", :aggregate_failures do
         service.call
 
-        expect(Open3).to have_received(:capture3) do |*cmds|
+        expect(Open3).to have_received(:popen3) do |*cmds|
           expect(cmds).to include("urls=#{args[:urls]}", "read_next=#{args[:read_next]}")
         end
       end
@@ -61,7 +61,7 @@ RSpec.describe CollectArticlesService do
 
       it "does not append the ommitted argument", :aggregate_failures do
         service.call
-        expect(Open3).to have_received(:capture3) do |*cmds|
+        expect(Open3).to have_received(:popen3) do |*cmds|
           expect(cmds).not_to include("read_next=")
         end
       end
