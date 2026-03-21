@@ -658,6 +658,7 @@ DEPENDENCIES
   actioncable
   activerecord-enhancedsqlite3-adapter (~> 0.8.0)
   activerecord-import (~> 2.2)
+  addressable
   bootsnap
   bootstrap (~> 5.3)
   brakeman
