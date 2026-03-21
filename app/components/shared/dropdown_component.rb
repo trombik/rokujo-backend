@@ -87,7 +87,7 @@ class Shared::DropdownComponent < ViewComponent::Base
     include Concerns::IdentifiableComponent
 
     # rubocop:disable Metrics/ParameterLists
-    def initialize(link: "#", text: nil, disabled: false, classes: nil, data: {}, aria: {})
+    def initialize(link: nil, text: nil, disabled: false, classes: nil, data: {}, aria: {})
       @link = link
       @text = text
       @classes = classes
@@ -99,10 +99,18 @@ class Shared::DropdownComponent < ViewComponent::Base
     # rubocop:enable Metrics/ParameterLists
 
     def call
-      link_to link, class: classes,
-                    data: data,
-                    aria: aria do
-        content_or_text
+      if link.present?
+        link_to link, class: classes,
+                      data: data,
+                      aria: aria do
+                        content_or_text
+                      end
+      else
+        tag.div class: classes,
+                data: data,
+                aria: aria do
+                  content_or_text
+                end
       end
     end
 
