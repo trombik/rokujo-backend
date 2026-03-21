@@ -22,12 +22,12 @@ class SiteNameCorrectionsController < ApplicationController
   def edit; end
 
   # POST /site_name_corrections
+  # rubocop:disable Metrics/MethodLength
   def create
     @site_name_correction = SiteNameCorrection.new(site_name_correction_params)
-
     respond_to do |format|
       if @site_name_correction.save
-        format.html { redirect_to @site_name_correction, notice: t(".success") }
+        format.html { redirect_to @site_name_correction, notice: t(".success"), status: :see_other }
         format.turbo_stream do
           redirect_to sites_show_path(@site_name_correction.name), status: :see_other if @on_success == "redirect"
         end
@@ -37,15 +37,14 @@ class SiteNameCorrectionsController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   # PATCH/PUT /site_name_corrections/1
+  # rubocop:disable Metrics/MethodLength
   def update
     respond_to do |format|
       if @site_name_correction.update(site_name_correction_params)
-        format.html do
-          redirect_to @site_name_correction, notice: t(".success"),
-                                             status: :see_other
-        end
+        format.html { redirect_to @site_name_correction, notice: t(".success"), status: :see_other }
         format.turbo_stream do
           redirect_to sites_show_path(@site_name_correction.name), status: :see_other if @on_success == "redirect"
         end
@@ -55,6 +54,7 @@ class SiteNameCorrectionsController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   # DELETE /site_name_corrections/1
   def destroy
