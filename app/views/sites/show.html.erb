@@ -4,6 +4,9 @@
   <% end %>
   <% c.with_col(classes: "my-2") do %>
     <%= render Site::TagGroupComponent.new(site_name: @site_name, collection: @collection) %>
+    <%= tag.div class: "d-flex my-2 align-items-cneter gap-2" do %>
+      <%= link_to "All articles", articles_index_path(site_name: @site_name), class: "btn btn-sm btn-secondary" %>
+    <% end %>
   <% end %>
   <% c.with_col(classes: "my-2") do %>
     <% keyword = "site_name:\"#{@site_name}\"" %>
