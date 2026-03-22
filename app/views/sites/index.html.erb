@@ -4,7 +4,7 @@
       Sites
     <% end %>
     <%= tag.div do %>
-      <%= @n_articles_without_site_name %> articles has <%= link_to "no site name", articles_without_site_name_path %>.
+      <%= @n_articles_without_site_name %> articles has <%= link_to "no site name", articles_without_site_name_path, class: "link-danger" %>.
     <% end %>
   <% end %>
 
