@@ -11,7 +11,7 @@ RSpec.describe "/articles/without_site_name", :js, type: :system do
   describe "creating SiteNameCorrection from without_site_name flow" do
     it "allows to create SiteNameCorrection with a modal form", :aggregate_failures do
       within find_component(Row::ArticleComponent) do
-        click_on "Create Site Name Correction"
+        find_component(Site::RenameButtonComponent).click
       end
 
       # expect the modal that contains the form shows up

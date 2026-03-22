@@ -4,14 +4,15 @@
 class Forms::SiteNameCorrectionsComponent < ViewComponent::Base
   include Concerns::IdentifiableComponent
 
-  attr_reader :site_name_correction
-
-  def initialize(site_name_correction)
+  def initialize(site_name_correction, on_success: nil)
     @site_name_correction = site_name_correction
+    @on_success = on_success
     super()
   end
 
   private
+
+  attr_reader :site_name_correction, :on_success
 
   def title_string
     mode = site_name_correction.persisted? ? "edit" : "create"
@@ -34,5 +35,9 @@ class Forms::SiteNameCorrectionsComponent < ViewComponent::Base
   # ".modal-dialog-scrollable" fails to trigger correctly.
   def scrollable_workaround_style
     "overflow-y: auto; max-height: calc(100vh - 200px);"
+  end
+
+  def turbo_frame
+    "_top" if on_success == "redirect"
   end
 end

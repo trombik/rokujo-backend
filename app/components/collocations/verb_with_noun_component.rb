@@ -10,6 +10,10 @@ class Collocations::VerbWithNounComponent < ViewComponent::Base
     super()
   end
 
+  def render?
+    noun && results
+  end
+
   def frame_id
     self.class.name.underscore.parameterize
   end

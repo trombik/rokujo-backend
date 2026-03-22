@@ -4,54 +4,44 @@
     <%= tag.p class: "text-secondary small" do %><%= Time.zone.now.strftime("%Y-%m-%d %H:%M") %><% end %>
   <% end %>
 
-  <%= tag.section class: "mb-5" do %>
-    <%= tag.div class: "d-flex align-items-center mb-3" do %>
-      <%= tag.h2 class: "h5 mb-0 text-primary fw-bold" do %>Overall Volume<% end %>
-      <%= tag.hr class: "flex-grow-1 ms-3 opacity-25" %>
-    <% end %>
-    <%= tag.div class: "row g-4" do %>
-      <%= tag.div class: "col-md-4" do %>
-        <%= render Stats::TotalArticlesComponent.new %>
-      <% end %>
-      <%= tag.div class: "col-md-4" do %>
-        <%= render Stats::TotalSentencesComponent.new %>
-      <% end %>
-      <%= tag.div class: "col-md-4" do %>
-        <%= render Stats::TotalTokenAnalysesComponent.new %>
-      <% end %>
+  <%= render Layout::SectionGridComponent.new(cols_per_row: 3) do |c| %>
+    <% c.with_header { "Overall Volume" } %>
+    <%
+      items = [
+        Stats::TotalArticlesComponent.new,
+        Stats::TotalSentencesComponent.new,
+        Stats::TotalTokenAnalysesComponent.new
+      ]
+    %>
+    <% items.each do |item| %>
+      <% c.with_col { render item } %>
     <% end %>
   <% end %>
 
-  <%= tag.section class: "mb-5" do %>
-    <%= tag.div class: "d-flex align-items-center mb-3" do %>
-      <%= tag.h2 class: "h5 mb-0 text-success fw-bold" do %>Analysis and Quality<% end %>
-      <%= tag.hr class: "flex-grow-1 ms-3 opacity-25" %>
-    <% end %>
-    <%= tag.div class: "row g-4" do %>
-      <%= tag.div class: "col-md-4" do %>
-        <%= render Stats::SentenceAnalysisRatioComponent.new %>
-      <% end %>
-      <%= tag.div class: "col-md-4" do %>
-        <%= render Stats::SentencesPerArticleComponent.new %>
-      <% end %>
-      <%= tag.div class: "col-md-4" do %>
-        <%= render Stats::TokensPerSentenceComponent.new %>
-      <% end %>
+  <%= render Layout::SectionGridComponent.new(cols_per_row: 3) do |c| %>
+    <% c.with_header { "Analysis and Quality" } %>
+    <%
+      items = [
+        Stats::SentenceAnalysisRatioComponent.new,
+        Stats::SentencesPerArticleComponent.new,
+        Stats::TotalTokenAnalysesComponent.new
+      ]
+    %>
+    <% items.each do |item| %>
+      <% c.with_col { render item } %>
     <% end %>
   <% end %>
 
-  <%= tag.section class: "mb-5" do %>
-    <%= tag.div class: "d-flex align-items-center mb-3" do %>
-      <%= tag.h2 class: "h5 mb-0 text-success fw-bold" do %>Metrics<% end %>
-      <%= tag.hr class: "flex-grow-1 ms-3 opacity-25" %>
-    <% end %>
-    <%= tag.div class: "row g-4" do %>
-      <%= tag.div class: "col-md-6" do %>
-        <%= render Stats::ArticlesBySitenameComponent.new %>
-      <% end %>
-      <%= tag.div class: "col-md-6" do %>
-        <%= render Stats::SentencesBySitenameComponent.new %>
-      <% end %>
+  <%= render Layout::SectionGridComponent.new(cols_per_row: 2) do |c| %>
+    <% c.with_header { "Analysis and Quality" } %>
+    <%
+      items = [
+        Stats::ArticlesBySitenameComponent.new,
+        Stats::SentencesBySitenameComponent.new
+      ]
+    %>
+    <% items.each do |item| %>
+      <% c.with_col { render item } %>
     <% end %>
   <% end %>
 <% end %>

@@ -1,5 +1,8 @@
 <%= tag.div class: "modal-content", data: { testid: testid } do %>
   <%= form_with(model: site_name_correction) do |form| %>
+
+    <%# a hidden field to control action by the controller on successful update or create %>
+    <%= hidden_field_tag :on_success, @on_success %>
     <%= tag.div class: "modal-header" do %>
       <%= tag.h5 class: "modal-title" do %><%= title_string %><% end %>
       <%= tag.button type: "button",
@@ -44,7 +47,6 @@
       <%= tag.div class: "mb-2" do %>
         <%= render help_for_name %>
       <% end %>
-
     <% end %>
 
     <%= tag.div class: "modal-footer gap-1" do %>
@@ -54,7 +56,7 @@
                      aria: { label: t("form.button.close") } do %>
         <%= t("form.button.close") %>
       <% end %>
-      <%= form.submit class: "btn btn-primary px-4", data: { testid: "submit" } %>
+      <%= form.submit class: "btn btn-primary px-4", data: { turbo_frame: turbo_frame, testid: "submit" } %>
     <% end %>
   <% end %>
 <% end %>

@@ -11,11 +11,9 @@
   <%= tag.div class: "card-body p-2" do %>
     <%= tag.div class: "d-flex flex-wrap gap-1" do %>
       <% patterns.each do |pattern| %>
-        <%= tag.div class: "btn btn-sm border-1 border-light-subtle bg-light py-0 px-2 d-flex align-items-center",
-                    title: "Total: #{pattern.count}" do %>
+        <%= render Shared::TokenWithNumberComponent.new(number: pattern.count) do %>
           <%= tag.span pattern.phrase, class: "fw-bold" %>
           <%= tag.span noun, class: "text-dark ms-1", style: "font-size: 0.85em;" %>
-          <%= tag.span pattern.count, class: "ms-2 text-muted small border-start ps-2", style: "font-size: 0.75em;" %>
         <% end %>
       <% end %>
     <% end %>

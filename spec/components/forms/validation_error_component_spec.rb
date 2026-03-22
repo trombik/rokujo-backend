@@ -16,6 +16,6 @@ RSpec.describe Forms::ValidationErrorComponent, type: :component do
   end
 
   it "renders validation error" do
-    expect(page).to have_css("[data-testid='validation_error']")
+    expect(page).to have_component(described_class)
   end
 end

@@ -12,8 +12,10 @@ class CollectArticlesJob < ApplicationJob
   # @param spider_name [String] the name of the spider to run
   # @param arg [Hash] A hash of spider's arguments
   def perform(spider_name, arg)
-    # ActiveRecord::Base.connection_pool.release_connection
-    service = CollectArticlesService.new(spider_name, arg)
+    service = CollectArticlesService.new(spider_name, arg) do
+      SolidQueue::Process.current.heartbeat if defined?(SolidQueue::Process) && SolidQueue::Process.current
+    end
+
     file, status = service.call
     log_and_raise(spider_name, service, arg) unless status.success?
     enqueue_job(file)
