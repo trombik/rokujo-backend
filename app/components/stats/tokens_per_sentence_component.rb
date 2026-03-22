@@ -5,4 +5,8 @@ class Stats::TokensPerSentenceComponent < Stats::SingleNumberComponent
   def frame_url
     @frame_url || stats_tokens_per_sentence_path
   end
+
+  def data_text
+    data.to_i.to_s
+  end
 end
