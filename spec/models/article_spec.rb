@@ -125,6 +125,27 @@ RSpec.describe Article, type: :model do
       end
     end
 
+    describe ".with_sentence_less_than_or_equal" do
+      before do
+        articles = described_class.all
+        articles.each do |article|
+          create(:sentence, article: article)
+        end
+      end
+
+      context "with zero" do
+        it "returns zero articles" do
+          expect(described_class.with_sentence_less_than_or_equal(0).to_a.count).to eq 0
+        end
+      end
+
+      context "with one" do
+        it "returns all articles" do
+          expect(described_class.with_sentence_less_than_or_equal(1).to_a.count).to eq described_class.count
+        end
+      end
+    end
+
     describe ".site_names_like" do
       context "when a word matches an article", :aggregate_failures do
         it "returns the article" do
