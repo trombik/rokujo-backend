@@ -1,0 +1,3 @@
+<%= helpers.turbo_frame_tag(frame_id, src: (frame_url unless data), loading: :lazy) do %>
+  <% render_parent %>
+<% end %>

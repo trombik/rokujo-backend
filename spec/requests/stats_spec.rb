@@ -72,4 +72,10 @@ RSpec.describe "Stats", type: :request do
 
     it_behaves_like "a turbo_stream stats endpoint"
   end
+
+  describe "GET /articles_without_sentence" do
+    let(:path) { stats_articles_without_sentence_path }
+
+    it_behaves_like "a turbo_stream stats endpoint"
+  end
 end

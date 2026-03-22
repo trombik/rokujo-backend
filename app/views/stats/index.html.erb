@@ -24,7 +24,8 @@
       items = [
         Stats::SentenceAnalysisRatioComponent.new,
         Stats::SentencesPerArticleComponent.new,
-        Stats::TokensPerSentenceComponent.new
+        Stats::TokensPerSentenceComponent.new,
+        Stats::ArticlesWithoutSentenceComponent.new
       ]
     %>
     <% items.each do |item| %>

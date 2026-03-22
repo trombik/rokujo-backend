@@ -60,6 +60,12 @@ class StatsController < ApplicationController
     render Stats::SentencesBySitenameComponent.new(data, total: total)
   end
 
+  def articles_without_sentence
+    data = Article.with_sentence_less_than_or_equal(0).to_a.count
+    respond_to :html, :turbo_stream
+    render Stats::ArticlesWithoutSentenceComponent.new(data)
+  end
+
   private
 
   def set_site_name

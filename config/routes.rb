@@ -50,6 +50,7 @@ Rails.application.routes.draw do
     get :tokens_per_sentence, path: "tokens_per_sentence(/:site_name)"
     get :articles_by_site_name
     get :sentences_by_site_name
+    get :articles_without_sentence
   end
 
   resources :collect_articles, only: [:index, :new, :create]
