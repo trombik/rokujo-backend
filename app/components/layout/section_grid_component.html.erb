@@ -1,0 +1,15 @@
+<%= tag.section class: classes, **options do %>
+  <%= tag.div class: "d-flex align-items-center my-2" do %>
+    <%= header %>
+  <% end %>
+  <%= tag.div class: "container" do %>
+    <% 0.upto(n_rows) do |index| %>
+      <%= render row_component do %>
+        <% cols_next(index).each do |col| %>
+          <% col.width = col_witdh %>
+          <%= col %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
