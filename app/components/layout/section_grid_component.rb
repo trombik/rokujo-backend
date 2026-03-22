@@ -35,7 +35,7 @@ class Layout::SectionGridComponent < ViewComponent::Base
   end
 
   def classes
-    "mb-5 #{@classes}".strip
+    "my-3 #{@classes}".strip
   end
 
   # The header
@@ -62,7 +62,7 @@ class Layout::SectionGridComponent < ViewComponent::Base
     attr_reader :options
 
     def classes
-      "h5 mb-0 fw-bold opacity-75 #{@classes}".strip
+      "h5 fw-bold opacity-75 #{@classes}".strip
     end
   end
 

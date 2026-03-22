@@ -1,54 +1,41 @@
-<%= tag.div class: "container align-items-center gap-2 mt-3 mb-3" do %>
-  <%= tag.div class: "row align-items-center" do %>
-    <%= tag.div class: "col col-sm-10" do %>
-      <%= tag.h1 @site_name, class: "mb-0" %>
-    <% end %>
-    <%= tag.div class: "col-sm" do %>
-    <% end %>
+<%= render Layout::SectionGridComponent.new(cols_per_row: 1) do |c| %>
+  <% c.with_col do %>
+    <%= tag.h1 @site_name, class: "h2" %>
   <% end %>
-  <%= tag.div class: "row align-items-center" do %>
-    <%= tag.div class: "col col-sm-10 my-3" do %>
-      <%= render Site::TagGroupComponent.new(site_name: @site_name, collection: @collection) %>
-    <% end %>
-    <%= tag.div class: "col-sm" do %>
-    <% end %>
+  <% c.with_col(classes: "my-2") do %>
+    <%= render Site::TagGroupComponent.new(site_name: @site_name, collection: @collection) %>
   <% end %>
-  <%= tag.div class: "row" do %>
+  <% c.with_col(classes: "my-2") do %>
+    <% keyword = "site_name:\"#{@site_name}\"" %>
+    <%= render SearchForm::FullTextComponent.new(keyword: keyword) %>
   <% end %>
 <% end %>
 
-<%= tag.div class: "container py-2" do %>
-  <% keyword = "site_name:\"#{@site_name}\"" %>
-  <%= render SearchForm::FullTextComponent.new(keyword: keyword) %>
+<%= render Layout::SectionGridComponent.new(cols_per_row: 3) do |c| %>
+  <% c.with_header { "Overall Volume" } %>
+  <%
+    items = [
+      Stats::TotalArticlesComponent.new(nil, frame_url: stats_total_articles_path(@site_name)),
+      Stats::TotalSentencesComponent.new(nil, frame_url: stats_total_sentences_path(@site_name)),
+      Stats::TotalTokenAnalysesComponent.new(nil, frame_url: stats_total_token_analyses_path(@site_name))
+    ]
+  %>
+  <% items.each do |item| %>
+    <% c.with_col { render item } %>
+  <% end %>
 <% end %>
 
-<%= tag.div class: "container py-4" do %>
-  <%= render Layout::SectionGridComponent.new(cols_per_row: 3) do |c| %>
-    <% c.with_header { "Overall Volume" } %>
-    <%
-      items = [
-        Stats::TotalArticlesComponent.new(nil, frame_url: stats_total_articles_path(@site_name)),
-        Stats::TotalSentencesComponent.new(nil, frame_url: stats_total_sentences_path(@site_name)),
-        Stats::TotalTokenAnalysesComponent.new(nil, frame_url: stats_total_token_analyses_path(@site_name))
-      ]
-    %>
-    <% items.each do |item| %>
-      <% c.with_col { render item } %>
-    <% end %>
-  <% end %>
-
-  <%= render Layout::SectionGridComponent.new(cols_per_row: 3) do |c| %>
-    <% c.with_header { "Analysis and Quality" } %>
-    <%
-      items = [
-        Stats::SentenceAnalysisRatioComponent.new(nil, frame_url: stats_sentence_analysis_ratio_path(@site_name)),
-        Stats::SentencesPerArticleComponent.new(nil, frame_url: stats_sentences_per_article_path(@site_name)),
-        Stats::TokensPerSentenceComponent.new(nil, frame_url: stats_tokens_per_sentence_path(@site_name))
-      ]
-    %>
-    <% items.each do |item| %>
-      <% c.with_col { render item } %>
-    <% end %>
+<%= render Layout::SectionGridComponent.new(cols_per_row: 3) do |c| %>
+  <% c.with_header { "Analysis and Quality" } %>
+  <%
+    items = [
+      Stats::SentenceAnalysisRatioComponent.new(nil, frame_url: stats_sentence_analysis_ratio_path(@site_name)),
+      Stats::SentencesPerArticleComponent.new(nil, frame_url: stats_sentences_per_article_path(@site_name)),
+      Stats::TokensPerSentenceComponent.new(nil, frame_url: stats_tokens_per_sentence_path(@site_name))
+    ]
+  %>
+  <% items.each do |item| %>
+    <% c.with_col { render item } %>
   <% end %>
 <% end %>
 
