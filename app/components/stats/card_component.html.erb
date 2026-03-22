@@ -1,8 +1,10 @@
-<div class="card shadow-sm h-100">
-  <div class="card-body">
-    <div class="card-title">
-      <h6 class="card-subtitle mb-2 text-muted"><%= title %></h6>
-    </div>
+<%= tag.div class: classes do %>
+  <%= tag.div class: "card-body" do %>
+    <%= tag.div class: "card-title" do %>
+      <%= tag.h6 class: "card-subtitle mb-2 text-muted" do %>
+        <%= title %>
+      <% end %>
+    <% end %>
     <%= content %>
-  </div>
-</div>
+  <% end %>
+<% end %>
