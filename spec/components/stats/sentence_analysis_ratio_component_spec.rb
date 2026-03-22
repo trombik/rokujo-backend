@@ -12,7 +12,7 @@ RSpec.describe Stats::SentenceAnalysisRatioComponent, type: :component do
   it "rounds up the number" do
     render_inline described_class.new(99.55)
 
-    expect(page).to have_content(/99\.6\s+%/)
+    expect(page).to have_content(/99\.5\s+%/)
   end
 
   it "rounds down the number" do

@@ -27,9 +27,7 @@ class Stats::SingleNumberComponent < ViewComponent::Base
   def data_text
     return "?" if data.nil?
 
-    number_to_human(data).length <= number_to_delimited(data).length ? number_to_human(data) : number_to_delimited(data)
-  rescue StandardError
-    "NaN"
+    data > 1_000_000 ? number_to_human(data) : number_to_delimited(data)
   end
 
   def unit_text

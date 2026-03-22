@@ -41,8 +41,6 @@ class Article::CollectionBadgeComponent < ViewComponent::Base
   end
 
   def color_hex
-    seed = Digest::MD5.hexdigest(@collection.name).to_i(16)
-    color_name = BASE_COLORS[seed % BASE_COLORS.size]
-    color_values(color_name, from: 400, to: 600).first
+    color_values("slate", number: 400).first
   end
 end

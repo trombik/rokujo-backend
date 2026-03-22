@@ -24,16 +24,17 @@
       items = [
         Stats::SentenceAnalysisRatioComponent.new,
         Stats::SentencesPerArticleComponent.new,
-        Stats::TotalTokenAnalysesComponent.new
+        Stats::TokensPerSentenceComponent.new,
+        Stats::ArticlesWithoutSentenceComponent.new
       ]
     %>
     <% items.each do |item| %>
-      <% c.with_col { render item } %>
+      <% c.with_col(classes: "my-2") { render item } %>
     <% end %>
   <% end %>
 
   <%= render Layout::SectionGridComponent.new(cols_per_row: 2) do |c| %>
-    <% c.with_header { "Analysis and Quality" } %>
+    <% c.with_header { "Statistics by Site" } %>
     <%
       items = [
         Stats::ArticlesBySitenameComponent.new,

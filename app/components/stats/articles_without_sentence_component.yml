@@ -1,0 +1,13 @@
+---
+en:
+  title: Articles without sentence
+  unit:
+    zero: article
+    one: article
+    other: articles
+ja:
+  title: 文がない記事
+  unit:
+    zero: 件
+    one: 件
+    other: 件

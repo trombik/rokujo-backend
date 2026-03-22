@@ -1,1 +1,14 @@
-<div>Add Stats::SingleNumber template here</div>
+<%= render Stats::CardComponent.new do |c| %>
+  <% c.with_title do %>
+    <%= title %>
+  <% end %>
+
+  <%= tag.div class: "d-flex align-items-baseline justify-content-end" do %>
+    <% if data %>
+      <%= tag.span class: "h2 mb-0 fw-bold" do %><%= data_text %><% end %>
+      <%= tag.span class: "ms-2 text-secondary" do %><% unit_text %><% end %>
+    <% else %>
+      <%= tag.span(class: "h2 mb-0 fw-bold") do %>Loading...<% end %>
+    <% end %>
+  <% end %>
+<% end %>

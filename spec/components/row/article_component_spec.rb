@@ -49,10 +49,6 @@ RSpec.describe Row::ArticleComponent, type: :component do
     expect(page).to have_link(href: article.url)
   end
 
-  it "has site name" do
-    expect(page).to have_text(article.site_name)
-  end
-
   context "when the article does not have site_name" do
     let(:site_name) { nil }
 

@@ -17,6 +17,10 @@ class Article < ApplicationRecord
   scope :site_name_like, ->(word) { where("site_name LIKE ?", "#{Sentence.sanitize_sql_like(word)}%") if word.present? }
   scope :by_site_name, ->(site_name) { site_name.present? ? where(site_name: site_name) : all }
 
+  scope :with_sentence_less_than_or_equal, lambda { |count|
+    left_joins(:sentences).group(:uuid).having("count(sentences.line_number) <= ?", count)
+  }
+
   # OR-ed version of site_name_like
   scope :site_names_like, lambda { |words|
     return all if words.blank?
