@@ -29,7 +29,7 @@
       ]
     %>
     <% items.each do |item| %>
-      <% c.with_col { render item } %>
+      <% c.with_col(classes: "my-2") { render item } %>
     <% end %>
   <% end %>
 
