@@ -18,19 +18,17 @@
 
       <%= tag.div class: "mt-auto pt-3 border-top border-1 mb-2" do %>
         <%= tag.div class: "d-flex align-items-center gap-3 small text-secondary overflow-hidden" do %>
-          <%= tag.span class: "text-truncate" do %>
-            <%= render IconComponent.new("building", klass: "me-1") %><%= site_name %>
-          <% end %>
-
-          <%= tag.span class: "text-truncate d-none d-sm-inline" do %>
-            <%= render IconComponent.new("globe", klass: "me-1") %><%= link_to domain, article.url %>
-          <% end %>
 
           <%= render Article::CollectionBadgeComponent.new(article_collection_by_site_name) %>
           <%= render Badge::CollectionTagGroupComponent.new(article_collection_by_site_name) %>
 
           <% if source? %>
             <%= render IconComponent.new("link-45deg", klass:"me-1", data: { testid: "has_source" }) %><%= t(".has_source") %>
+          <% end %>
+
+          <%= tag.span class: "text-truncate d-none d-sm-inline" do %>
+            <%= render IconComponent.new("globe", klass: "me-1") %>
+            <%= link_to t(".link_to_original_url"), article.url, class: "link-secondary" %>
           <% end %>
 
           <%= tag.div class: "ms-auto d-flex align-items-center gap-3 flex-shrink-0" do %>
