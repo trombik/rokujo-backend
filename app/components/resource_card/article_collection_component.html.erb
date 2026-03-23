@@ -1,4 +1,6 @@
-<%= tag.div class: "border border-1 rounded mb-2 bg-white shadow-sm-hover", id: dom_id(article_collection) do %>
+<%= tag.div class: "border border-1 rounded mb-2 bg-white shadow-sm-hover",
+            id: dom_id(article_collection),
+            data: { testid: testid } do %>
   <%= tag.div class: "py-2 px-3" do %>
     <%= tag.div class: "row align-items-center g-3" do %>
 
@@ -22,12 +24,10 @@
 
       <%# tags %>
       <%= tag.div class: "col-12 col-md d-flex flex-wrap align-items-center gap-1" do %>
-        <% article_collection.collection_tags.each do |tag| %>
-          <%= render Badge::CollectionTagComponent.new(tag) %>
-        <% end %>
         <%= tag.div class: "ms-1" do %>
           <%= render Forms::CollectionTagSelectorComponent.new(article_collection) %>
         <% end %>
+        <%= render Badge::CollectionTagGroupComponent.new(article_collection) %>
       <% end %>
 
       <%# action dropdown %>

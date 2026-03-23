@@ -1,5 +1,5 @@
-<%= tag.div class: "dropdown d-inline-block" do %>
-  <%= tag.button class: "btn btn-sm btn-outline-secondary rounded-pill px-2 dropdown-toggle border-0",
+<%= tag.div class: "dropdown d-inline-block", data: { testid: testid } do %>
+  <%= tag.button class: "btn btn-sm btn-outline-secondary px-2 dropdown-toggle",
                  type: "button",
                  id: "dropdown-#{id}",
                  data: { bs_toggle: "dropdown", bs_auto_close: "outside" },
@@ -27,7 +27,7 @@
         <% end %>
 
         <%= tag.div class: "d-flex justify-content-between gap-2 border-top pt-2" do %>
-          <%= f.submit t("form.button.update"), class: "btn btn-sm btn-primary flex-grow-1" %>
+          <%= f.submit t("form.button.update"), class: "btn btn-sm btn-primary flex-grow-1", data: { testid: "submit" } %>
         <% end %>
       <% end %>
     <% end %>
