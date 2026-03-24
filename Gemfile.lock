@@ -24,7 +24,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     Ascii85 (2.0.1)
-    action_text-trix (2.1.16)
+    action_text-trix (2.1.17)
       railties
     actioncable (8.1.2.1)
       actionpack (= 8.1.2.1)
@@ -595,7 +595,7 @@ GEM
     thruster (0.1.19-arm64-darwin)
     thruster (0.1.19-x86_64-darwin)
     thruster (0.1.19-x86_64-linux)
-    timeout (0.6.0)
+    timeout (0.6.1)
     tsort (0.2.0)
     ttfunk (1.7.0)
     tty-color (0.6.0)
@@ -687,7 +687,7 @@ DEPENDENCIES
   propshaft
   pry
   puma (>= 5.0)
-  rails (~> 8.1.1)
+  rails (~> 8.1.2)
   rb-kqueue (>= 0.2)
   rokujo-extractor!
   rspec-rails (~> 8.0)
