@@ -20,6 +20,7 @@ class SiteNameCorrection < ApplicationRecord
       article.site_name = name
       article.save
     end
+    # the rest of articles, if any, will be updated by a job
     enqueue_bulk_correction
   end
 
@@ -30,10 +31,10 @@ class SiteNameCorrection < ApplicationRecord
   private
 
   def apply_minimal_correction
-    # if at least one article with new name exists, taht is enough for the redirection
+    # if at least one article with new name exists, that is enough for the redirection
     # to work.
     return if Article.exists?(site_name: name)
 
-    apply_correction_to_articles(limit: 1_000)
+    apply_correction_to_articles(limit: 1000)
   end
 end
