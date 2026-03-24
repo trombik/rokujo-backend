@@ -3,9 +3,16 @@ class CollectArticlesJob < ApplicationJob
   queue_as :default
 
   rescue_from(Exception) do |exception|
+    broadcast_toast(
+      title: name,
+      message: "Failed to collect articles (#{exception.class.name}).",
+      autohide: false
+    )
     Rails.error.report(exception)
     raise exception
   end
+
+  include NotificationHelper
 
   # Run CollectArticlesService
   #
@@ -19,7 +26,10 @@ class CollectArticlesJob < ApplicationJob
     file, status = service.call
     log_and_raise(spider_name, service, arg) unless status.success?
     enqueue_job(file)
-    Rails.logger.info { "#{self.class.name}: #{spider_name}: Success" }
+    broadcast_toast(
+      title: self.class.name,
+      message: "Articles have been successfully collected."
+    )
   end
 
   private
