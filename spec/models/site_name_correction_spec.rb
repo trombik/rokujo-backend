@@ -12,7 +12,7 @@ RSpec.describe SiteNameCorrection, type: :model do
     end
   end
 
-  describe "after_save: apply_correction_to_articles" do
+  describe "after_save hooks" do
     let(:domain) { "example.org" }
     let(:correct_name) { "Corrected site_name" }
 
@@ -45,6 +45,45 @@ RSpec.describe SiteNameCorrection, type: :model do
           correction.update!(name: "new name")
           target_article.reload
         end.to change(target_article, :site_name).to("new name")
+      end
+    end
+  end
+
+  describe "#apply_correction_to_articles" do
+    context "when more than one records to update and limit is 1" do
+      let(:number_of_articles) { 2 }
+      let(:site_name_correction) do
+        # create site_name_correction before creating articles to avoid
+        # after_commit hook
+        site_name_correction = create(:site_name_correction, name: "New site name", domain: "example.org")
+        create_list(:article, number_of_articles)
+        site_name_correction
+      end
+
+      it "updates one record" do
+        site_name_correction.apply_correction_to_articles(limit: 1)
+
+        expect(Article.where(site_name: site_name_correction.name).count).to eq 1
+      end
+
+      it "enqueues ApplySiteNameCorrectionJob" do
+        expect do
+          site_name_correction.apply_correction_to_articles(limit: 1)
+        end.to have_enqueued_job(ApplySiteNameCorrectionJob).exactly(:once)
+      end
+
+      context "when limit is nil (default)" do
+        it "udpates all articles at once" do
+          site_name_correction.apply_correction_to_articles(limit: nil)
+
+          expect(Article.where(site_name: site_name_correction.name).count).to eq number_of_articles
+        end
+
+        it "does not enqueue ApplySiteNameCorrectionJob" do
+          expect do
+            site_name_correction.apply_correction_to_articles(limit: nil)
+          end.not_to have_enqueued_job(ApplySiteNameCorrectionJob)
+        end
       end
     end
   end
