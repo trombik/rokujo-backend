@@ -98,6 +98,9 @@ group :development, :test do
   gem "rubocop-rspec", "~> 3.8"
   gem "rubocop-rspec_rails", "~> 2.32"
   gem "shoulda-matchers"
+
+  # Use lookbook for UI development and tests
+  gem "lookbook", ">= 2.3.13"
 end
 
 group :development do
@@ -109,9 +112,6 @@ group :development do
   gem "guard", "~> 2.19"
   gem "guard-shell", "~> 0.7.2"
   gem "rb-kqueue", ">= 0.2", install_if: -> { RbConfig::CONFIG["target_os"] =~ /bsd|dragonfly/i }
-
-  # Use lookbook for UI development
-  gem "lookbook", ">= 2.3.13"
   # Install listen and actioncable gems to enable live-updating of the UI when
   # changes are made to component or preview files. The two are indirectly
   # installed via other dependencies but explicitly install them here to

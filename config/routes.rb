@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   resources :collection_tags
   resources :site_name_corrections
 
-  # lookbook for view_component development
-  mount Lookbook::Engine, at: "/lookbook" if Rails.env.development?
+  # lookbook for view_component development and test
+  mount Lookbook::Engine, at: "/lookbook" if Rails.env.local?
   # mission_control-jobs for job management
   mount MissionControl::Jobs::Engine, at: "/jobs"
 

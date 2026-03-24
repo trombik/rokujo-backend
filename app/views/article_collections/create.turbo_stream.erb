@@ -3,13 +3,21 @@
   <%= turbo_stream.replace tag_group.id do %>
     <%= render tag_group %>
   <% end %>
+  <% badge = Article::CollectionBadgeComponent.new(@article_collection) %>
+  <%= turbo_stream.replace badge.id do %>
+    <%= render badge %>
+  <% end %>
+  <% tag_group = Badge::CollectionTagGroupComponent.new(@article_collection) %>
+  <%= turbo_stream.replace tag_group.id do %>
+    <%= render tag_group %>
+  <% end %>
   <%= turbo_stream.append Notification::ToastFrameComponent.new.id do %>
-    <%= render Notification::ToastComponent.new(title: "Success", message: "Created #{@article_collection.name}i collection.", type: :success) %>
+    <%= render Notification::ToastComponent.new(title: "Success", message: "Created #{@article_collection.name} collection.", type: :success) %>
   <% end %>
 <% else %>
   <%= turbo_stream.append Notification::ToastFrameComponent.new.id do %>
     <% reason = @article_collection.errors.full_messages.join(" / ") %>
-    <% message = "Failed to create #{@article_collection} collection: #{reason}" %>
+    <% message = "Failed to create #{@article_collection.name} collection: #{reason}" %>
     <%= render Notification::ToastComponent.new(title: "Error", message: message, type: :danger) %>
   <% end %>
 <% end %>

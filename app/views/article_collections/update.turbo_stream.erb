@@ -1,3 +1,4 @@
-<%= turbo_stream.replace dom_id(@article_collection) do %>
-  <%= render ResourceCard::ArticleCollectionComponent.new(@article_collection) %>
+<% component = Badge::CollectionTagGroupComponent.new(@article_collection) %>
+<%= turbo_stream.replace component.id do %>
+  <%= render component %>
 <% end %>

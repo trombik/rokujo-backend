@@ -1,7 +1,8 @@
-<%= tag.div class: "toast align-items-center border-0",
+<%= tag.div class: "toast align-items-center border-0 m-2",
             role: "alert",
             aria: { live: "assertive", atomic: "true" },
-            data: { bs_autohide: autohide, bs_delay: "5000", controller: "toast" } do %>
+            data: { bs_autohide: autohide, bs_delay: delay, controller: "toast",
+                    testid: testid } do %>
   <%= tag.div class: "toast-header bg-#{type}-subtle text-#{type}" do %>
     <%= tag.strong class: "me-auto " do %>
       <%= title %>

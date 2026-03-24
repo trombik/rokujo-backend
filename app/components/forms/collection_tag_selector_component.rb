@@ -11,6 +11,10 @@ class Forms::CollectionTagSelectorComponent < ViewComponent::Base
     super()
   end
 
+  def render?
+    article_collection.present?
+  end
+
   def all_tags
     CollectionTag.all
   end

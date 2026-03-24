@@ -4,8 +4,6 @@
 class Badge::CollectionTagGroupComponent < ViewComponent::Base
   include Concerns::IdentifiableComponent
 
-  attr_reader :collection
-
   # @param collection [ArticleCollection]
   def initialize(collection)
     @collection = collection
@@ -14,5 +12,13 @@ class Badge::CollectionTagGroupComponent < ViewComponent::Base
 
   def render?
     collection.present?
+  end
+
+  private
+
+  attr_reader :collection
+
+  def uniq_key
+    collection&.id || super
   end
 end

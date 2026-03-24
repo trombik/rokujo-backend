@@ -43,4 +43,8 @@ class Article::CollectionBadgeComponent < ViewComponent::Base
   def color_hex
     color_values("slate", number: 400).first
   end
+
+  def uniq_key
+    collection&.id || super
+  end
 end

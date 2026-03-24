@@ -1,1 +1,2 @@
-<%= tag.div id: id, class: "position-fixed bottom-0 end-0 p-3" %>
+<%= helpers.turbo_stream_from stream_id %>
+<%= tag.div id: id, class: "toast-container position-fixed bottom-0 end-0 p-3", data: { testid: testid } %>

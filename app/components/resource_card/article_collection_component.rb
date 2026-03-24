@@ -2,7 +2,7 @@
 
 # A card for ArticleCollection
 class ResourceCard::ArticleCollectionComponent < ViewComponent::Base
-  attr_reader :article_collection
+  include Concerns::IdentifiableComponent
 
   def initialize(article_collection)
     @article_collection = article_collection
@@ -10,6 +10,8 @@ class ResourceCard::ArticleCollectionComponent < ViewComponent::Base
   end
 
   private
+
+  attr_reader :article_collection
 
   def articles_link
     articles_article_collection_path(article_collection)
@@ -24,5 +26,9 @@ class ResourceCard::ArticleCollectionComponent < ViewComponent::Base
     else
       "bg-error-subtle text-warning-emphasis"
     end
+  end
+
+  def uniq_key
+    article_collection.id
   end
 end

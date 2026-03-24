@@ -4,17 +4,37 @@ class SiteNameCorrection < ApplicationRecord
   validates :domain, presence: true, uniqueness: true
   validates :name,   presence: true
 
-  after_save :apply_correction_to_articles
+  # when creating SiteNameCorrection from sites#show, the browser is
+  # redirected to new site name page. apply SiteNameCorrection to some
+  # articles so that the controller finds the new site name. otherwise, the
+  # new site cannot be found by the controller because there might be no
+  # article with the new site name. apply_minimal_correction limits the number
+  # of articles to update to reasonable numbers so that the request would not
+  # timeout.
+  after_commit :apply_minimal_correction, on: [:create, :update]
+
+  def apply_correction_to_articles(limit: nil)
+    Article.url_like(domain)
+           .limit(limit)
+           .find_each do |article|
+      article.site_name = name
+      article.save
+    end
+    # the rest of articles, if any, will be updated by a job
+    enqueue_bulk_correction
+  end
+
+  def enqueue_bulk_correction
+    ApplySiteNameCorrectionJob.perform_later(id) if Article.url_like(domain).where.not(site_name: name).exists?
+  end
 
   private
 
-  def apply_correction_to_articles
-    escaped_domain = self.class.sanitize_sql_like(domain)
+  def apply_minimal_correction
+    # if at least one article with new name exists, that is enough for the redirection
+    # to work.
+    return if Article.exists?(site_name: name)
 
-    # what if the pattern matches millions of records? create a job to update
-    # records.
-    Article.where("normalized_url LIKE ?", "#{escaped_domain}%").find_each do |article|
-      article.update(site_name: name)
-    end
+    apply_correction_to_articles(limit: 1000)
   end
 end
