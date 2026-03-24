@@ -365,7 +365,7 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     ostruct (0.6.3)
-    pagy (43.3.3)
+    pagy (43.4.2)
       json
       uri
       yaml
@@ -683,7 +683,7 @@ DEPENDENCIES
   listen
   lookbook (>= 2.3.13)
   mission_control-jobs (~> 1.1)
-  pagy (~> 43.3)
+  pagy (~> 43.4)
   propshaft
   pry
   puma (>= 5.0)
