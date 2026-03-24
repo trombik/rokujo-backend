@@ -2,6 +2,6 @@
 
 class Notification::ToastFrameComponentPreview < ViewComponent::Preview
   def default
-    render(Notification::ToastFrameComponent.new)
+    render Notification::ToastFrameComponent.new
   end
 end
