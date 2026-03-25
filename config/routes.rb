@@ -72,6 +72,7 @@ Rails.application.routes.draw do
     get :without_site_name, path: "/without_site_name"
     get :show, path: "/:uuid"
     get :context, path: "/:uuid/:line_number"
+    delete :destroy
   end
 
   get "token_analysis_analyzer" => "token_analysis_analyzer#index"

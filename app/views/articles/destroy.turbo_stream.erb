@@ -1,0 +1,6 @@
+<% if @result %>
+  <%= turbo_stream.remove Row::ArticleComponent.new(article: @article).id %>
+  <%= render Notification::ToastComponent.new(title: "Success", message: "Deleted #{@article.title}.", type: :success) %>
+<% else %>
+  <%= render Notification::ToastComponent.new(title: "Failed to delete article", message: "Article could not be deleted.", type: :alert) %>
+<% end %>

@@ -21,4 +21,23 @@ RSpec.describe "/articles", :js, type: :system do
       expect(page).to have_component(Row::ArticleComponent, count: 1)
     end
   end
+
+  context "when clicking delete button" do
+    it "destroys the article and remove the article from the list" do
+      article = create(:article)
+      article_component = Row::ArticleComponent.new(article: article)
+      visit path
+
+      expect(page).to have_testid(article_component.testid)
+      within find_by_testid(article_component.testid) do
+        expect(page).to have_component(Article::DropdownActionComponent)
+        click_button class: "dropdown-toggle"
+        accept_confirm do
+          click_button "submit-delete"
+        end
+      end
+      expect(page).to have_no_testid(article_component.testid)
+      expect(Article.count).to be_zero
+    end
+  end
 end

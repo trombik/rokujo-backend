@@ -1,0 +1,15 @@
+<%= render Shared::DropdownComponent.new do |c| %>
+  <% c.with_dropdown_button(classes: "btn-sm", data: { testid: testid }) do %>
+    <%= render IconComponent.new("three-dots") %>
+  <% end %>
+  <% c.with_dropdown_item do %>
+    <%= button_to "Delete",
+                  articles_destroy_path(uuid: article.uuid),
+                  method: :delete,
+                  class: "btn btn-outline-danger",
+                  data: {
+                    testid: "submit-delete",
+                    turbo_confirm: t("form.msg.confirm")
+                  } %>
+  <% end %>
+<% end %>

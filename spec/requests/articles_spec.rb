@@ -55,4 +55,22 @@ RSpec.describe "Articles", type: :request do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe "DELETE /destroy" do
+    it "destroys the requested article" do
+      article = create(:article)
+
+      expect do
+        delete articles_destroy_path(uuid: article.uuid)
+      end.to change(Article, :count).by(-1)
+    end
+
+    context "when the article does not exist" do
+      it "returns not_found" do
+        delete articles_destroy_path(uuid: "no-such-article")
+
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
 end
