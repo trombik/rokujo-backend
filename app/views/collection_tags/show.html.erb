@@ -1,10 +1,24 @@
 <p style="color: green"><%= notice %></p>
+<%= tag.h1 class: "fs-2" do %>
+  Tag <%= @collection_tag.name %>
+<% end %>
 
-<%= render @collection_tag %>
+<%= tag.div class: "container mt-4" do %>
+  <%= tag.div class: "row" do %>
+    <%= tag.div class: "col-2" do %>
+      <%= render Badge::CollectionTagComponent.new(@collection_tag) %>
+    <% end %>
 
-<div>
-  <%= link_to "Edit this collection tag", edit_collection_tag_path(@collection_tag) %> |
-  <%= link_to "Back to collection tags", collection_tags_path %>
+    <%= tag.div class: "col d-flex flex-wrap gap-1" do %>
+      <% @collection_tag.article_collections.each do |collection| %>
+        <%= render Article::CollectionBadgeComponent.new(collection) %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
 
-  <%= button_to "Destroy this collection tag", @collection_tag, method: :delete %>
-</div>
+<%= tag.div class: "d-flex align-items-center gap-1 mt-4" do %>
+  <%= link_to "Edit this collection tag", edit_collection_tag_path(@collection_tag), class: "btn btn-secondary" %>
+  <%= link_to "Back to collection tags", collection_tags_path, class: "btn btn-secondary" %>
+  <%= button_to "Destroy this collection tag", @collection_tag, method: :delete, class: "btn btn-outline-danger" %>
+<% end %>
