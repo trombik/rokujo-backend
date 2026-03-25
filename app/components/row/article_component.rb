@@ -49,7 +49,7 @@ class Row::ArticleComponent < ViewComponent::Base
   end
 
   def truncated_title
-    helpers.truncate(article.title, length: 50)
+    helpers.truncate(article.title, length: 40)
   end
 
   def article_collection_by_site_name
