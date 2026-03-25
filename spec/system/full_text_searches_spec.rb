@@ -93,7 +93,7 @@ RSpec.describe "FullTextSearches", type: :system do
     another_sentence
     ac = create(:article_collection, key: "site_name", value: target_site_name)
     create(:collection_tag, name: target_tag, article_collections: [ac])
-    visit search_path
+    visit sentences_index_path
   end
 
   context "when no word is given" do

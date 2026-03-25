@@ -23,7 +23,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "root#index"
 
-  get "search" => "sentences#index"
+  namespace :sentences do
+    get :index, path: "/"
+  end
+
   get "show_sentences_with_particle_and_verb" => "sentences#show_sentences_with_particle_and_verb"
 
   resource :token_analysis_manager do
