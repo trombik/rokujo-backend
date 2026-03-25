@@ -1,6 +1,6 @@
 <% content_for :title, "Collection tags" %>
 
-<%= tag.h1 "Collection tags" %>
+<%= render Shared::PageTitleComponent.new(title: "Collection tags") %>
 
 <%= tag.div id: "collection_tags" do %>
   <%= tag.ul class: "list-group" do %>

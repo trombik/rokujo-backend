@@ -1,13 +1,15 @@
-<p style="color: green"><%= notice %></p>
+<%= tag.p style: "color: green" do %>
+  <%= notice %>
+<% end %>
 
 <% content_for :title, "Article collections" %>
 
-<h1>Article collections</h1>
+<%= render Shared::PageTitleComponent.new(title: "Article collections") %>
 
-<div id="article_collections">
+<%= tag.div id: "article_collections" do %>
   <% @article_collections.each do |article_collection| %>
     <%= render ResourceCard::ArticleCollectionComponent.new(article_collection) %>
   <% end %>
-</div>
+<% end %>
 
 <%= link_to "New article collection", new_article_collection_path %>

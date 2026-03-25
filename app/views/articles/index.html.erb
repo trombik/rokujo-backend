@@ -1,8 +1,6 @@
 <%= tag.div class: "container mt-4" do %>
   <%= tag.div class: "d-flex justify-content-between align-items-center mb-4" do %>
-    <%= tag.h1 class: "h3 mb-0 text-gray-800" do %>
-      Articles
-    <% end %>
+    <%= render Shared::PageTitleComponent.new(title: "Articles") %>
     <%= tag.div do %>
       <%= @n_articles_without_site_name %> articles has <%= link_to "no site name", articles_without_site_name_path %>.
     <% end %>
