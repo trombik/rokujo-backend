@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Stats", type: :request do
-  let(:article) { create(:article, site_name: "Example site") }
+  let(:article) { create(:article, site_name: "Example サイト.jp") }
 
   describe "GET /" do
     it "returns success" do

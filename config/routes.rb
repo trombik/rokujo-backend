@@ -45,12 +45,14 @@ Rails.application.routes.draw do
 
   namespace :stats do
     get :index, path: "/"
-    get :total_articles, path: "total_articles(/:site_name)"
-    get :total_sentences, path: "total_sentences(/:site_name)"
-    get :total_token_analyses, path: "total_token_analyses(/:site_name)"
-    get :sentence_analysis_ratio, path: "sentence_analysis_ratio(/:site_name)"
-    get :sentences_per_article, path: "sentences_per_article(/:site_name)"
-    get :tokens_per_sentence, path: "tokens_per_sentence(/:site_name)"
+    with_options constraints: { site_name: %r{[^/]+} } do
+      get :total_articles, path: "total_articles(/:site_name)"
+      get :total_sentences, path: "total_sentences(/:site_name)"
+      get :total_token_analyses, path: "total_token_analyses(/:site_name)"
+      get :sentence_analysis_ratio, path: "sentence_analysis_ratio(/:site_name)"
+      get :sentences_per_article, path: "sentences_per_article(/:site_name)"
+      get :tokens_per_sentence, path: "tokens_per_sentence(/:site_name)"
+    end
     get :articles_by_site_name
     get :sentences_by_site_name
     get :articles_without_sentence
@@ -60,11 +62,14 @@ Rails.application.routes.draw do
 
   namespace :sites do
     get :index, path: "/"
-    get :total_articles, path: "/total_articles/:site_name"
-    get :total_sentences, path: "/total_sentences/:site_name"
-    get :total_token_analyses, path: "/total_token_analyses/:site_name"
-    get :show, path: "/show/:site_name"
-    delete :destroy, path: "/destroy/:site_name"
+
+    with_options constraints: { site_name: %r{[^/]+} } do
+      get :total_articles, path: "/total_articles/:site_name"
+      get :total_sentences, path: "/total_sentences/:site_name"
+      get :total_token_analyses, path: "/total_token_analyses/:site_name"
+      get :show, path: "/show/:site_name"
+      delete :destroy, path: "/destroy/:site_name"
+    end
   end
 
   namespace :articles do
