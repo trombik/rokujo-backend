@@ -14,8 +14,8 @@ class UploadFilesController < ApplicationController
       return render :create, status: :unprocessable_content
     end
 
-    saved_files(files).each { |f| FileUtils.rm f }
-    broadcast_toast(title: "File upload", message: "Success!")
+    saved_files(files).each { |f| ImportFileJob.perform_later(f) }
+    broadcast_toast(title: "File upload", message: "Enqueued ImportFileJob.")
   end
 
   private
@@ -26,7 +26,7 @@ class UploadFilesController < ApplicationController
       FileUtils.mkdir_p tmp_dir
       path = tmp_dir.join("#{SecureRandom.uuid_v7}-#{file.original_filename}")
       File.binwrite(path, file.read)
-      path
+      path.to_s
     end
   end
 end
