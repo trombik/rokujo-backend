@@ -13,10 +13,11 @@ class ExtractFileJob < ApplicationJob
     end
     hash = serialize_hash(extractor.item.to_h)
     ImportArticleJob.perform_later(hash)
-    broadcast_toast(title: self.class.name, message: "Enqueued ImportArticleJob")
-  ensure
-    # do not remove fixture files
+    # remove the file as all the sentences are passed to another job and the
+    # the file is no longer necessary.  but do not remove fixture files during
+    # the test.
     FileUtils.rm file unless Rails.env.test?
+    broadcast_toast(title: self.class.name, message: "Enqueued ImportArticleJob")
   end
 
   private
