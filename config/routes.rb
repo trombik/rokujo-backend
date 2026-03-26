@@ -75,5 +75,10 @@ Rails.application.routes.draw do
     delete :destroy
   end
 
+  namespace :upload_files do
+    get :new
+    post :create
+  end
+
   get "token_analysis_analyzer" => "token_analysis_analyzer#index"
 end

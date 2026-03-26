@@ -28,7 +28,9 @@
       <%= render SideMenu::RightButtonComponent.new %>
       <%= render SideMenu::RightComponent.new %>
       <%= render Navigation::BarComponent.new %>
-      <%= yield %>
+      <%= tag.div class: "container mt-3" do %>
+        <%= yield %>
+      <% end %>
       <%= render Notification::ToastFrameComponent.new %>
       <%= render Shared::ModalComponent.new %>
     </div>

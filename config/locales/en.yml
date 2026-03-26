@@ -59,6 +59,9 @@ en:
   sites:
     destroy:
       success: "All articles and collections of %{site_name} has been deleted."
+  upload_files:
+    create:
+      empty_files: "No files selected."
 
   activerecord:
     models:
@@ -76,6 +79,7 @@ en:
       delete: Delete
       view: View
       update: Update
+      upload: Upload
       close: Close
       add: Add
       cancel: Cancel

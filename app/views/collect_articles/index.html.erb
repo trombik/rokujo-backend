@@ -1,15 +1,26 @@
-<div class="container py-5">
-  <h1 class="mb-4">Select a Spider to Run</h1>
-  <div class="list-group">
+<%= tag.div class: "container py-5" do %>
+  <%= tag.h1 class: "mb-4" do %>
+    Select a Spider to Run
+  <% end %>
+  <%= tag.div class: "d-flex flex-row align-items-center m-3 gap-2" do %>
+    <%= tag.p class: "m-0" do %>
+      Have files to upload?
+    <% end %>
+    <%= render Forms::FileUploadComponent.new.button_component %>
+  <% end %>
+  <%= tag.div class: "list-group" do %>
     <% @spiders.each do |spider| %>
-      <%= link_to new_collect_article_path(spider: spider),
-                  class: "list-group-item list-group-item-action d-flex justify-content-between align-items-center" do %>
-        <div>
-          <strong class="text-primary"><%= spider.titleize %></strong>
-          <div class="text-muted small">Configure and queue a collection job.</div>
-        </div>
-        <i class="bi bi-chevron-right"></i>
+      <%= link_to new_collect_article_path(spider: spider), class: "list-group-item list-group-item-action d-flex justify-content-between align-items-center" do %>
+        <%= tag.div do %>
+          <%= tag.strong class: "text-primary" do %>
+            <%= spider.titleize %>
+          <% end %>
+          <%= tag.div class: "text-muted small" do %>
+            Configure and queue a collection job.
+          <% end %>
+        <% end %>
+        <%= tag.i class: "bi bi-chevron-right" %>
       <% end %>
     <% end %>
-  </div>
-</div>
+  <% end %>
+<% end %>
