@@ -15,7 +15,7 @@
       <%= decorated_text %>
     <% end %>
     <%= tag.div class: "card-text text-end small text-muted d-flex justify-content-end align-items-center gap-2" do %>
-      <%= link_to article.url, class: "text-muted" do %>
+      <%= link_to article.url, class: "text-muted", data: { testid: "year" } do %>
         <%= published_year || t(".default_year") %>, <%= article_site_name || t(".default_site_name") %>
       <% end %>
       <%= render Shared::CollapsedClipboardComponent.new(value: article.normalized_url, label: "URL", icon: "link") %>
