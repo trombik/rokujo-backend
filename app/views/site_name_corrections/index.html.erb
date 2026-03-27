@@ -1,16 +1,18 @@
-<p style="color: green"><%= notice %></p>
+<%= tag.p style: "color: green" do %>
+  <%= notice %>
+<% end %>
 
 <% content_for :title, "Site name corrections" %>
 
-<h1>Site name corrections</h1>
+<%= render Shared::PageTitleComponent.new(title: "Site name corrections") %>
 
-<div id="site_name_corrections">
+<%= tag.div id: "site_name_corrections" do %>
   <% @site_name_corrections.each do |site_name_correction| %>
     <%= render ResourceCard::SiteNameCorrectionComponent.new(site_name_correction) %>
-    <p>
+    <%= tag.p do %>
       <%= link_to "Show this site name correction", site_name_correction %>
-    </p>
+    <% end %>
   <% end %>
-</div>
+<% end %>
 
 <%= link_to "New site name correction", new_site_name_correction_path %>

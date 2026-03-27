@@ -13,7 +13,14 @@
           <% end %>
         <% end %>
       <% end %>
-      <%= render SearchForm::CollocationComponent.new unless current_path_is_root? %>
     <% end %>
+  <% end %>
+<% end %>
+<%= tag.div class: "row mt-2" do %>
+  <%= tag.div class: "col" do %>
+    <%= render SearchForm::CollocationComponent.new unless current_path_is_root? %>
+  <% end %>
+  <%= tag.div class: "col" do %>
+    <%= render SearchForm::FullTextComponent.new unless current_path_is_root? %>
   <% end %>
 <% end %>

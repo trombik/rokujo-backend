@@ -1,0 +1,10 @@
+<%= tag.div class: "row m-1" do %>
+  <%= tag.div class: "col-sm-2 p-1" do %>
+    <%= render Badge::CollectionTagComponent.new(collection_tag) %>
+  <% end %>
+  <%= tag.div class: "col-sm-10 d-flex flex-row flex-wrap gap-1 row-gap-1 p-1" do %>
+    <% collections.each do |collection| %>
+      <%= render Article::CollectionBadgeComponent.new(collection) %>
+    <% end %>
+  <% end %>
+<% end %>

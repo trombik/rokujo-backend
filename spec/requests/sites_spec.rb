@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Sites", type: :request do
   let(:article) do
-    create(:article, site_name: "Example site")
+    create(:article, site_name: "Example サイト.jp")
   end
 
   include ERB::Util

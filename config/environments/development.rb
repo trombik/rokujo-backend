@@ -72,4 +72,6 @@ Rails.application.configure do
 
   # Use Solid Queue in Development.
   config.active_job.queue_adapter = :solid_queue
+
+  config.lookbook.preview_paths << "spec/components/previews"
 end

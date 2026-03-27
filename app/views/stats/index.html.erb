@@ -1,7 +1,6 @@
 <%= tag.div class: "container py-4" do %>
   <%= tag.header class: "mb-5 text-center text-md-start" do %>
-    <%= tag.h1 class: "h2 fw-bold text-dark" do %><%= t(".title", default: "Corpus Dashboard") %><% end %>
-    <%= tag.p class: "text-secondary small" do %><%= Time.zone.now.strftime("%Y-%m-%d %H:%M") %><% end %>
+    <%= render Shared::PageTitleComponent.new(title: "Corpus") %>
   <% end %>
 
   <%= render Layout::SectionGridComponent.new(cols_per_row: 3) do |c| %>

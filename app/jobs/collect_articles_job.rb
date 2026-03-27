@@ -4,7 +4,7 @@ class CollectArticlesJob < ApplicationJob
 
   rescue_from(Exception) do |exception|
     broadcast_toast(
-      title: name,
+      title: self.class.name,
       message: "Failed to collect articles (#{exception.class.name}).",
       autohide: false
     )

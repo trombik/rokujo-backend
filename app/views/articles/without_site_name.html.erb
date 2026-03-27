@@ -1,4 +1,4 @@
-<%= tag.h1 "Articles without site name" %>
+<%= render Shared::PageTitleComponent.new(title: "Articles without site name") %>
 <%= render Pagination::InfoComponent.new(@pagy) if @pagy %>
 
 <% if @articles_without_site_name.size.zero? %>

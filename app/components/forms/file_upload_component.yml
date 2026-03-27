@@ -1,0 +1,6 @@
+---
+en:
+  label:
+    files: Files
+  comment:
+    files: "Supported file types: .jsonl, .docx"

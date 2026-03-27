@@ -1,8 +1,11 @@
-<div class="container my-1 mx-1">
-  <%= render SearchForm::FullTextComponent.new %>
-  <%= render Pagination::InfoComponent.new(@pagy) if @pagy %>
-  <% @sentences.each do |sentence| %>
-    <%= render Sentence::CardComponent.new(sentence, @word) %>
+<%= tag.div class: "container my-1 mx-1" do %>
+  <% if @pagy %>
+    <%= render Pagination::InfoComponent.new(@pagy) %>
+    <% @sentences.each do |sentence| %>
+      <%= render Sentence::CardComponent.new(sentence, @word) %>
+    <% end %>
+    <%= render Pagination::NaviComponent.new(@pagy) %>
+  <% else %>
+    No results.
   <% end %>
-</div>
-<%= render Pagination::NaviComponent.new(@pagy) if @pagy %>
+<% end %>

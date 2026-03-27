@@ -1,0 +1,26 @@
+<%= render Shared::ModalFormComponent.new do |c| %>
+  <% c.with_title do %>
+    Uploading files
+  <% end %>
+
+  <% c.with_body do %>
+    <%= form_with url: upload_files_create_path, id: id, scope: :upload, local: true, data: { testid: testid } do |f| %>
+
+      <%= tag.div class: "mb-3" do %>
+        <%= f.label :files, t(".label.files"), class: "form-label" %>
+        <%= f.file_field :files, multiple: true, class: field_class %>
+        <%= tag.div class: "invalid-feedback" do %>
+          <%= flash[:alert] %>
+        <% end %>
+        <%= tag.p class: "text-sm text-muted" do %>
+          <%= t(".comment.files") %>
+        <% end %>
+      <% end %>
+
+      <% c.with_submit_button do %>
+        <%= f.submit t("form.button.upload"), form: id, class: "btn btn-primary", data: { testid: "submit" } %>
+      <% end %>
+
+    <% end %>
+  <% end %>
+<% end %>

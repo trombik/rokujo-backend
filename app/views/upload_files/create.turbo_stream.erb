@@ -1,0 +1,10 @@
+<% modal_component = Shared::ModalComponent.new %>
+<% if flash[:alert] %>
+  <%= turbo_stream.update modal_component.target_id do %>
+    <%= render Forms::FileUploadComponent.new %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.append modal_component.target_id do %>
+    <%= modal_component.close %>
+  <% end %>
+<% end %>

@@ -18,6 +18,9 @@ class ExtractArticlesJob < ApplicationJob
       Rails.logger.info "Processing line #{index}" if (index % 10).zero?
       hashed_item = extract_hashed_item_from_line(line)
       next unless hashed_item
+      # when URL is not unique, the article will be rejected by the unique
+      # constraint in the database schema.
+      next if url_exists?(hashed_item[:url])
 
       enqueued_job = ImportArticleJob.perform_later(hashed_item)
       raise EnqueueError, "Failed to enqueue ImportArticleJob for line: #{line}" unless enqueued_job
@@ -25,6 +28,10 @@ class ExtractArticlesJob < ApplicationJob
   end
 
   private
+
+  def url_exists?(url)
+    Article.exists?(url: url)
+  end
 
   def extract_hashed_item_from_line(line)
     parser = Rokujo::Extractor::Parsers::Article.new(line, widget_enable: false)

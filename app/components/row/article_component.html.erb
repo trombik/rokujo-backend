@@ -1,13 +1,14 @@
 <%= tag.div id: id, data: { testid: testid } do %>
   <%= tag.div class: "card h-100 border border-1 border-secondary-subtle shadow-sm bg-white m-2" do %>
     <%= tag.div class: "card-body d-flex flex-column p-4" do %>
-      <%= tag.div class: "d-flex justify-content-between align-items-start mb-2" do %>
+      <%= tag.div class: "d-flex justify-content-between align-items-center mb-2" do %>
         <%= tag.h5 class: "card-title mb-0 fw-bold" do %>
           <%= link_to truncated_title,
                       articles_show_path(article.uuid),
                       class: "text-decoration-none text-dark",
                       title: article.title %>
         <% end %>
+        <%= render Article::DropdownActionComponent.new(article) %>
       <% end %>
 
       <% if article.description.present? %>

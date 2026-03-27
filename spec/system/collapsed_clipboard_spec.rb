@@ -6,7 +6,7 @@ RSpec.describe "CollapsedClipboard", :js, type: :system do
   before do
     article = create(:article, uuid: expected_value, url: "http://example.org/path")
     create(:sentence, text: "foo bar buz", article: article)
-    visit search_path
+    visit sentences_index_path
 
     # grant permissions to read and write clipboard
     # https://playwright-ruby-client.vercel.app/docs/api/browser_context#clear_permissions

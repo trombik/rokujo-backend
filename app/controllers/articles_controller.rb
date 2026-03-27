@@ -14,6 +14,16 @@ class ArticlesController < ApplicationController
     render_not_found and return unless @article
   end
 
+  def destroy
+    @article = Article.find_by(uuid: params[:uuid])
+    render_not_found and return unless @article
+
+    @result = @article.destroy
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
   # Shows a sentence in an article with context around the sentence.
   def context
     @article = Article.find_by(uuid: params[:uuid])

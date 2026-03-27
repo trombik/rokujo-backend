@@ -21,7 +21,7 @@ class Navigation::BarComponent < ViewComponent::Base
   def links
     [
       DropDownHeaderComponent.new(text: "Search"),
-      DropDownItemComponent.new(label: "Full text search", path: search_path),
+      DropDownItemComponent.new(label: "Full text search", path: sentences_index_path),
       DropDownItemComponent.new(label: "Collocation search", path: collocations_nouns_index_path),
       DropDownDividerComponent.new,
       DropDownHeaderComponent.new(text: "Browse"),

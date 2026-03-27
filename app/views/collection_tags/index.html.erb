@@ -1,16 +1,15 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Collection tags" %>
 
-<h1>Collection tags</h1>
+<%= render Shared::PageTitleComponent.new(title: "Collection tags") %>
 
-<div id="collection_tags">
-  <% @collection_tags.each do |collection_tag| %>
-    <%= render collection_tag %>
-    <p>
-      <%= link_to "Show this collection tag", collection_tag %>
-    </p>
+<%= tag.div id: "collection_tags" do %>
+  <%= tag.ul class: "list-group" do %>
+    <% @collection_tags.each do |collection_tag| %>
+      <%= tag.li class: "list-group-item" do %>
+        <%= render Row::TagComponent.new(collection_tag) %>
+      <% end %>
+    <% end %>
   <% end %>
-</div>
+<% end %>
 
 <%= link_to "New collection tag", new_collection_tag_path %>
