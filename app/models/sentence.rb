@@ -99,6 +99,7 @@ class Sentence < ApplicationRecord
       }
     end
     TokenAnalysis.import token_data, validate: true
+    reload
   end
   # rubocop:enable Metrics/AbcSize
 

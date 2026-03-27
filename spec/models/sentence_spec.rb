@@ -60,7 +60,7 @@ RSpec.describe Sentence, type: :model do
 
   describe "#analyze_and_store_pos!" do
     let(:article) { create(:article) }
-    let(:sentence) { create(:sentence, article: article, text: "私は本を読む。") }
+    let(:sentence) { create(:sentence, article: article, text: "私は本を読む。", analyze: false) }
 
     it "stores TokenAnalysis" do
       analysis_results = [
@@ -79,7 +79,14 @@ RSpec.describe Sentence, type: :model do
       ].map(&:stringify_keys)
       allow(TextAnalysisService).to receive(:call).and_return(analysis_results)
 
-      expect { sentence.analyze_and_store_pos! }.to change(TokenAnalysis, :count).by(6)
+      expect do
+        sentence.analyze_and_store_pos!
+      end.to change(TokenAnalysis, :count).by(analysis_results.size)
+    end
+
+    it "reloads the instance" do
+      sentence.analyze_and_store_pos!
+      expect(sentence.token_analyses).not_to be_empty
     end
   end
 
