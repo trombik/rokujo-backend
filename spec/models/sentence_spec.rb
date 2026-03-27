@@ -87,8 +87,8 @@ RSpec.describe Sentence, type: :model do
     it "calcurate the ratio" do
       article = create(:article)
       # create two sentences
-      sentence = create(:sentence, article: article)
-      create(:sentence, article: article)
+      sentence = create(:sentence, article: article, analyze: false)
+      create(:sentence, article: article, analyze: false)
 
       # create token_analysis for one sentence but not the other
       create_list(:token_analysis, 6, sentence: sentence)
@@ -106,7 +106,7 @@ RSpec.describe Sentence, type: :model do
   describe ".tokens_per_sentence" do
     it "returns tokens per sentence" do
       article = create(:article)
-      sentence = create(:sentence, article: article)
+      sentence = create(:sentence, article: article, analyze: false)
       create_list(:token_analysis, 6, sentence: sentence)
 
       expect(described_class.tokens_per_sentence).to eq 6
