@@ -2,11 +2,11 @@
 
 # A component to display search results of modifiers with a noun
 class Collocations::ModifierComponent < ViewComponent::Base
-  attr_reader :noun, :patterns, :type
+  attr_reader :noun, :result, :type
 
-  def initialize(type, noun = nil, patterns = [])
+  def initialize(type, noun = nil, result = {})
     @noun = noun
-    @patterns = patterns || []
+    @result = result
     @type = type
     super()
   end

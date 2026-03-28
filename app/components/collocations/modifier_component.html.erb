@@ -10,9 +10,9 @@
 
   <%= tag.div class: "card-body p-2" do %>
     <%= tag.div class: "d-flex flex-wrap gap-1" do %>
-      <% patterns.each do |pattern| %>
-        <%= render Shared::TokenWithNumberComponent.new(number: pattern.count) do %>
-          <%= tag.span pattern.phrase, class: "fw-bold" %>
+      <% result.each do |word, count| %>
+        <%= render Shared::TokenWithNumberComponent.new(number: count) do %>
+          <%= tag.span word, class: "fw-bold" %>
           <%= tag.span noun, class: "text-dark ms-1", style: "font-size: 0.85em;" %>
         <% end %>
       <% end %>
