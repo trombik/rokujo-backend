@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.describe EnqueueTokenAnalysisJob, type: :job do
   include ActiveJob::TestHelper
 
-  let!(:sentence_without_tokens) { create(:sentence) }
-  let!(:sentence_with_tokens) { create(:sentence) }
+  let!(:sentence_without_tokens) { create(:sentence, analyze: false) }
+  let!(:sentence_with_tokens) { create(:sentence, false, analyze: false) }
 
   before do
     create(:token_analysis, sentence: sentence_with_tokens)

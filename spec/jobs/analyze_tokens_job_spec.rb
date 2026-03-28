@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe AnalyzeTokensJob, type: :job do
   let(:article) { create(:article) }
-  let(:sentence) { create(:sentence, text: "こんにちは。", article: article) }
+  let(:sentence) { create(:sentence, text: "こんにちは。", article: article, analyze: false) }
   let(:args) { [sentence.article_uuid, sentence.line_number] }
   let(:mocked_results) do
     [

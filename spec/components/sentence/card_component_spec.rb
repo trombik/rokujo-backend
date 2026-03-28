@@ -7,62 +7,84 @@ RSpec.describe Sentence::CardComponent, type: :component do
   let(:sentence) { create(:sentence, article: article, text: "foo bar buz") }
   let(:component) { described_class.new(sentence, "bar") }
 
-  describe "#new" do
-    it "does not raise" do
-      expect { component }.not_to raise_error
-    end
+  before do
+    render_inline component
   end
 
-  describe "#published_year" do
-    context "when published_time is not empty" do
-      it "returns %Y of published_time" do
-        article.published_time = Time.zone.parse("1983/1/1")
-        article.acquired_time = Time.zone.parse("2000/1/1")
-        expect(component.published_year).to eq "1983"
-      end
+  context "when published_time is not empty" do
+    let(:article) do
+      create(:article, published_time: Time.zone.parse("1983/1/1"), acquired_time: Time.zone.parse("2000/1/1"))
     end
 
-    context "when published_time is empty" do
-      it "returns %Y of acquired_time" do
-        article.published_time = ""
-        article.acquired_time = Time.zone.parse("2000/1/1")
-        expect(component.published_year).to eq "2000"
-      end
-    end
-
-    context "when both published_time and acquired_time are empty" do
-      it "returns Unknown year" do
-        article.published_time = ""
-        article.acquired_time = ""
-        expect(component.published_year).to be false
+    specify "year is based on published_time" do
+      within find_by_testid("year") do
+        expect(page).to have_text("1983")
       end
     end
   end
 
-  describe "#article_site_name" do
+  context "when published_time is empty" do
+    let(:article) do
+      create(:article, published_time: "", acquired_time: Time.zone.parse("2000/1/1"))
+    end
+
+    specify "year is based on acquired_time" do
+      within find_by_testid("year") do
+        expect(page).to have_text("2000")
+      end
+    end
+  end
+
+  context "when both published_time and acquired_time are empty" do
+    let(:article) do
+      create(:article, published_time: "", acquired_time: "")
+    end
+
+    it "renders Unknown year" do
+      expect(component.published_year).to be false
+      within find_by_testid("year") do
+        expect(page).to have_text("Unknown year")
+      end
+    end
+  end
+
+  context "when site name is too long" do
+    let(:article) do
+      create(:article, site_name: "X" * 255)
+    end
+
     it "truncates a long site name" do
-      article.site_name = "X" * 255
-      expect(component.article_site_name).to end_with("…")
-    end
-
-    context "when article has site_name" do
-      it "returns site_name" do
-        article.site_name = "A site"
-        expect(component.article_site_name).to eq "A site"
+      within find_by_testid("year") do
+        expect(page).to have_text("…")
       end
     end
+  end
 
-    context "when article does not have a site_name" do
-      it "returns No site name" do
-        article.site_name = ""
-        expect(component.article_site_name).to be false
+  context "when article has site_name" do
+    let(:article) { create(:article, site_name: "A site") }
+
+    it "renders site_name" do
+      within find_by_testid("year") do
+        expect(page).to have_text("A site")
+      end
+    end
+  end
+
+  context "when article does not have a site_name" do
+    let(:article) { create(:article, site_name: "") }
+
+    it "renders No site name" do
+      within find_by_testid("year") do
+        expect(page).to have_text("No site name")
       end
     end
   end
 
   describe "#decorated_text" do
     it "highlights matched word" do
-      expect(component.decorated_text).to match(%r{<span [^>]+>bar</span>})
+      within find_component(described_class) do
+        expect(page).to have_css("span", content: "bar")
+      end
     end
   end
 end

@@ -15,7 +15,7 @@ class Collocations::NounsController < ApplicationController
   def adjectives
     return head :not_acceptable unless %w[appos nmod acl amod compound].include? @type
 
-    @results = @lemma.present? ? TokenAnalysis.find_modifier_patterns_for(@lemma, by: @type) : []
+    @results = @lemma.present? ? NounPhraseExtractor.new(lemma: @lemma, deps: [@type]).call : []
     respond_to do |format|
       format.turbo_stream
     end

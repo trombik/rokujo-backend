@@ -71,6 +71,11 @@ jobs:
           python-version: ${{ matrix.python-version }}
           working-directory: vendor/rokujo-analyzer
 
+      - name: Install dependencies for rokujo-extractor
+        run: |
+          # poppler-utils for pdftotext
+          sudo apt-get install poppler-utils
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_08_035143) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_27_114753) do
   create_table "article_collection_taggings", force: :cascade do |t|
     t.integer "article_collection_id", null: false
     t.integer "collection_tag_id", null: false
@@ -226,10 +226,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_08_035143) do
     t.string "text"
     t.integer "token_id"
     t.datetime "updated_at", null: false
+    t.index ["article_uuid", "line_number", "head"], name: "idx_token_lookup_by_head"
     t.index ["article_uuid", "line_number"], name: "index_token_analyses_on_article_uuid_and_line_number"
+    t.index ["lemma", "pos"], name: "index_token_analyses_on_lemma_and_pos"
     t.index ["lemma"], name: "index_token_analyses_on_lemma"
     t.index ["pos"], name: "index_token_analyses_on_pos"
     t.index ["text"], name: "index_token_analyses_on_text"
+    t.index ["token_id"], name: "index_token_analyses_on_token_id"
   end
 
   add_foreign_key "article_collection_taggings", "article_collections"

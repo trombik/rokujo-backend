@@ -60,7 +60,7 @@ RSpec.describe Sentence, type: :model do
 
   describe "#analyze_and_store_pos!" do
     let(:article) { create(:article) }
-    let(:sentence) { create(:sentence, article: article, text: "私は本を読む。") }
+    let(:sentence) { create(:sentence, article: article, text: "私は本を読む。", analyze: false) }
 
     it "stores TokenAnalysis" do
       analysis_results = [
@@ -79,7 +79,14 @@ RSpec.describe Sentence, type: :model do
       ].map(&:stringify_keys)
       allow(TextAnalysisService).to receive(:call).and_return(analysis_results)
 
-      expect { sentence.analyze_and_store_pos! }.to change(TokenAnalysis, :count).by(6)
+      expect do
+        sentence.analyze_and_store_pos!
+      end.to change(TokenAnalysis, :count).by(analysis_results.size)
+    end
+
+    it "reloads the instance" do
+      sentence.analyze_and_store_pos!
+      expect(sentence.token_analyses).not_to be_empty
     end
   end
 
@@ -87,8 +94,8 @@ RSpec.describe Sentence, type: :model do
     it "calcurate the ratio" do
       article = create(:article)
       # create two sentences
-      sentence = create(:sentence, article: article)
-      create(:sentence, article: article)
+      sentence = create(:sentence, article: article, analyze: false)
+      create(:sentence, article: article, analyze: false)
 
       # create token_analysis for one sentence but not the other
       create_list(:token_analysis, 6, sentence: sentence)
@@ -106,7 +113,7 @@ RSpec.describe Sentence, type: :model do
   describe ".tokens_per_sentence" do
     it "returns tokens per sentence" do
       article = create(:article)
-      sentence = create(:sentence, article: article)
+      sentence = create(:sentence, article: article, analyze: false)
       create_list(:token_analysis, 6, sentence: sentence)
 
       expect(described_class.tokens_per_sentence).to eq 6

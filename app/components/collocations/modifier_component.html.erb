@@ -1,4 +1,4 @@
-<%= tag.div class: "card h-100 border-light-subtle shadow-sm" do %>
+<%= tag.div class: "card h-100 border-light-subtle shadow-sm", data: { testid: testid } do %>
   <%= tag.div class: "card-header py-1 px-2 bg-light d-flex justify-content-between align-items-center" do %>
     <%= tag.strong class: "small text-uppercase text-secondary" do %>
       <%= type_name %>
@@ -10,12 +10,28 @@
 
   <%= tag.div class: "card-body p-2" do %>
     <%= tag.div class: "d-flex flex-wrap gap-1" do %>
-      <% patterns.each do |pattern| %>
-        <%= render Shared::TokenWithNumberComponent.new(number: pattern.count) do %>
-          <%= tag.span pattern.phrase, class: "fw-bold" %>
+      <% frequent_words.each do |word, count| %>
+        <%= render Shared::TokenWithNumberComponent.new(number: count) do %>
+          <%= tag.span word, class: "fw-bold" %>
           <%= tag.span noun, class: "text-dark ms-1", style: "font-size: 0.85em;" %>
         <% end %>
       <% end %>
     <% end %>
+
+    <%= tag.div class: "d-flex justify-content-end my-2" do %>
+      <%= render button_component %>
+    <% end %>
+
+    <%= tag.div class: "d-flex flex-wrap gap-1" do %>
+      <%= tag.div class: "collapse", id: collapsed_part_id, aria: { expanded: false } do %>
+        <% less_frequent_words.each do |word, count| %>
+          <%= render Shared::TokenWithNumberComponent.new(number: count) do %>
+            <%= tag.span word, class: "fw-bold" %>
+            <%= tag.span noun, class: "text-dark ms-1", style: "font-size: 0.85em;" %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+
   <% end %>
 <% end %>

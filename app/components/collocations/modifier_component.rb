@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
-# A component to display search results of modifiers with a noun
+# A component to display search result of modifiers with a noun
 class Collocations::ModifierComponent < ViewComponent::Base
-  attr_reader :noun, :patterns, :type
+  include Concerns::IdentifiableComponent
 
-  def initialize(type, noun = nil, patterns = [])
+  attr_reader :noun, :result, :type, :minimum_freqeuncy
+
+  def initialize(type, noun = nil, result = {}, minimum_freqeuncy: 3)
     @noun = noun
-    @patterns = patterns || []
+    @result = result
     @type = type
+    @minimum_freqeuncy = minimum_freqeuncy
     super()
   end
 
@@ -47,7 +50,61 @@ class Collocations::ModifierComponent < ViewComponent::Base
   end
   # rubocop:enable Metrics/MethodLength
 
+  def frequent_words
+    result.select { |_word, count| count >= minimum_freqeuncy }.to_a
+  end
+
+  def less_frequent_words
+    result.select { |_word, count| count < minimum_freqeuncy }.to_a
+  end
+
+  def collapsed_part_id
+    "#{id}_collapsed_part"
+  end
+
+  def uniq_key
+    type
+  end
+
   def frame_id
     "#{self.class.name.underscore.parameterize}_#{type}"
+  end
+
+  def button_component
+    ToggleButton.new(n_items: less_frequent_words.size,
+                     target_id: collapsed_part_id,
+                     text: t(".see_all"))
+  end
+
+  # the button to show words_less_than_or_equal_to
+  class ToggleButton < ViewComponent::Base
+    include Concerns::IdentifiableComponent
+
+    def initialize(n_items:, target_id:, text:)
+      @n_items = n_items
+      @target_id = target_id
+      @text = text
+      super()
+    end
+
+    def render?
+      n_items.positive?
+    end
+
+    def call
+      tag.button class: "btn btn-primary btn-sm",
+                 data: {
+                   testid: testid,
+                   bs_toggle: "collapse",
+                   bs_target: "##{target_id}"
+                 },
+                 aria: { expanded: false, controls: target_id } do
+        text
+      end
+    end
+
+    private
+
+    attr_reader :n_items, :target_id, :text
   end
 end
