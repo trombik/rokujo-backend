@@ -44,32 +44,44 @@ class PhraseReconstructor
       .join
   end
 
-  # Recursively (up to 10 levels) finds all descendant token IDs in the dependency tree.
+  # Recursively (up to 10 levels at max) finds all descendant token IDs in the
+  # dependency tree.
+  #
+  # It expands the phrase by first identifying structural children and then
+  # filtering them through linguistic stop-rules.
   #
   # @param root_token [TokenAnalysis] The root of the traversal.
-  # @param tokens [Array<TokenAnalysis>] Available tokens to search.
+  # @param tokens [Array<TokenAnalysis>] Available tokens in the same line.
   # @return [Set<Integer>] A set of token_ids belonging to the phrase.
   def self.find_descendant_ids(root_token, tokens)
-    descendants = [root_token.token_id].to_set
+    return Set.new if root_token.nil?
+
+    initial_set = [root_token.token_id].to_set
 
     # Depth limit to prevent infinite loops and maintain performance.
-    10.times do
-      new_descendants = tokens.select do |t|
-        # 1. Structural check: Is this token a child of our current set?
-        descendants.include?(t.head) &&
-          descendants.exclude?(t.token_id) &&
-          # 2. Dependency check: Is this branch too semantically distant?
-          STOP_DEPS.exclude?(t.dep.to_s.downcase) &&
-          # 3. POS check: Should we stop based on the parent's attribute?
-          !should_stop_at_parent?(t, tokens, descendants)
-      end
+    (1..10).each_with_object(initial_set) do |_, descendants|
+      # Structural Expansion: Identify candidates that are children of the current phrase.
+      candidates = tokens.select { |t| child_of?(t, descendants) }
 
-      break if new_descendants.empty?
+      # Linguistic Pruning: Remove candidates that violate phrase boundary rules.
+      new_tokens = candidates.reject { |t| stop_traversal?(t, tokens, descendants) }
 
-      descendants.merge(new_descendants.map(&:token_id))
+      # must explicitly return the accumulator (descendants) to avoid nil return.
+      break descendants if new_tokens.empty?
+
+      descendants.merge(new_tokens.map(&:token_id))
     end
+  end
 
-    descendants
+  # Checks if a token is a direct structural child of any token currently in the phrase.
+  def self.child_of?(token, current_set)
+    current_set.include?(token.head) && current_set.exclude?(token.token_id)
+  end
+
+  # Determines if the traversal should stop at this token based on linguistic rules.
+  def self.stop_traversal?(token, all_tokens, current_set)
+    STOP_DEPS.include?(token.dep.to_s.downcase) ||
+      should_stop_at_parent?(token, all_tokens, current_set)
   end
 
   # Determines if the traversal should stop based on the parent's Part-of-Speech.
@@ -87,7 +99,7 @@ class PhraseReconstructor
 
     # If the parent is a noun, only allow functional/auxiliary children (ADP, AUX, PART).
     # This keeps "A of B" together but separates "A [measured by] B".
-    return !%w[ADP AUX PART].include?(token.pos.to_s.upcase) if STOP_POS.include?(parent.pos.to_s.upcase)
+    return %w[ADP AUX PART].exclude?(token.pos.to_s.upcase) if STOP_POS.include?(parent.pos.to_s.upcase)
 
     false
   end

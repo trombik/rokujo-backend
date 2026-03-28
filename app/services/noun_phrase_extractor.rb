@@ -21,6 +21,9 @@ class NounPhraseExtractor
   def initialize(lemma:, deps: %w[nmod compound])
     @lemma = lemma
     @deps = deps
+    # Retrieve target tokens and their potential modifiers via Query objects.
+    @targets = TargetNounQuery.new(lemma: @lemma).call
+    @modifiers = ModifierQuery.new(@targets, deps: @deps).call
   end
 
   # Executes the extraction process and returns a frequency map of phrases.
@@ -28,44 +31,21 @@ class NounPhraseExtractor
   # @yield [String] Yields each reconstructed phrase as it is found.
   # @return [Hash<String, Integer>] A hash of phrases and their occurrence counts, sorted by frequency.
   def call
-    # 1. Retrieve target tokens and their potential modifiers via specialized Query objects.
-    targets = TargetNounQuery.new(lemma: @lemma).call
-    modifiers = ModifierQuery.new(targets, deps: @deps).call
-
-    # Optimization: Convert targets into a Hash for O(1) lookup during the refinement stage.
-    target_map = targets.each_with_object({}) do |t, hash|
-      hash[[t.article_uuid, t.line_number, t.token_id]] = true
-    end
-
-    # 2. Performance Optimization: Identify unique line coordinates and batch-load all tokens.
-    # This prevents the "N+1 problem" when reconstructing phrases for multiple lines.
-    coords = modifiers.map { |m| [m.article_uuid, m.line_number] }.uniq
-    all_tokens_raw = []
-
-    # Process in slices of 100 to stay within SQL parameter limits.
-    coords.each_slice(100) do |batch|
-      # NOTE: This performs a broad fetch of all tokens in the relevant lines.
-      all_tokens_raw += TokenAnalysis.where([:article_uuid, :line_number] => batch).to_a
-    end
-
-    # Group raw tokens by line for efficient access during iteration.
-    all_related_tokens = all_tokens_raw.group_by { |t| [t.article_uuid, t.line_number] }
-
     counts = Hash.new(0)
 
-    # 3. Phrase Reconstruction Loop
+    # Phrase Reconstruction Loop
     # We iterate through identified modifiers to build complete linguistic units.
     modifiers.each do |mod|
       # RATIONALE: ModifierQuery might return tokens that modify a different word
       # in the same line if the dependency tree is complex. We must verify that
       # the current modifier's head is EXACTLY one of our target lemmas to ensure
       # the phrase is relevant to the user's query.
-      next unless target_map.key?([mod.article_uuid, mod.line_number, mod.head])
+      next unless target?(mod.article_uuid, mod.line_number, mod.head)
 
       # RATIONALE: PhraseReconstructor requires a contiguous, ordered array of tokens
       # to correctly identify adjacent adjuncts (like "の" or "な") and to resolve
       # the physical string in the correct reading order.
-      line_tokens = all_related_tokens[[mod.article_uuid, mod.line_number]]&.sort_by(&:token_id)
+      line_tokens = find_sorted_tokens_by(mod)
       next unless line_tokens
 
       # RECONSTRUCTION: Starting from the modifier (e.g., "Static"), we crawl down
@@ -81,5 +61,43 @@ class NounPhraseExtractor
 
     # Return results sorted by frequency (descending).
     counts.sort_by { |_, count| -count }.to_h
+  end
+
+  private
+
+  attr_reader :targets, :modifiers
+
+  def find_sorted_tokens_by(mod)
+    all_related_tokens[[mod.article_uuid, mod.line_number]]&.sort_by(&:token_id)
+  end
+
+  def target?(article_uuid, line_number, token_id)
+    target_registry.key?([article_uuid, line_number, token_id])
+  end
+
+  # Optimization: Convert targets into a Hash for O(1) lookup during the refinement stage.
+  def target_registry
+    @target_registry ||= targets.to_h do |target|
+      [[target.article_uuid, target.line_number, target.token_id], true]
+    end
+  end
+
+  # Returns all tokens in the relevant lines, grouped by their coordinates.
+  def all_related_tokens
+    return @all_related_tokens if @all_related_tokens
+
+    # Performance Optimization: Identify unique line coordinates and batch-load all tokens.
+    # This prevents the "N+1 problem" when reconstructing phrases for multiple lines.
+    coords = modifiers.map { |m| [m.article_uuid, m.line_number] }.uniq
+    all_tokens_raw = []
+
+    # Process in slices of 100 to stay within SQL parameter limits.
+    coords.each_slice(100) do |batch|
+      # NOTE: This performs a broad fetch of all tokens in the relevant lines.
+      all_tokens_raw += TokenAnalysis.where([:article_uuid, :line_number] => batch).to_a
+    end
+
+    # Group raw tokens by line for efficient access during iteration.
+    @all_related_tokens = all_tokens_raw.group_by { |t| [t.article_uuid, t.line_number] }
   end
 end
