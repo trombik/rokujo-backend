@@ -5,6 +5,11 @@ class TokenAnalysis < ApplicationRecord
              primary_key: [:article_uuid, :line_number],
              inverse_of: :token_analyses
 
+  before_validation :set_end, if: -> { text.present? && idx.present? }
+
+  alias_attribute :i, :token_id
+  alias_attribute :idx, :start
+
   # Find the head token that the current token points to
   scope :with_article, lambda {
     joins("INNER JOIN \
@@ -48,5 +53,11 @@ class TokenAnalysis < ApplicationRecord
       .group("modifiers.text", "heads.lemma")
       .order(count_all: :desc)
       .count
+  end
+
+  private
+
+  def set_end
+    self.end = idx + text.length
   end
 end

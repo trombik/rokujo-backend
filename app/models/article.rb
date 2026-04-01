@@ -77,8 +77,8 @@ class Article < ApplicationRecord
     transaction do
       h = hash.deep_symbolize_keys
       article = Article.find_or_initialize_by(uuid: h[:uuid])
-      article.assign_attributes(hash.symbolize_keys.except(:sentences, :sources))
-      article.replace_sentences_with_hash(h[:sentences])
+      article.assign_attributes(hash.symbolize_keys.except(:sentences, :sources, :tokens))
+      article.replace_sentences_with_hash(h[:sentences], h[:tokens])
       article.replace_sources_from_hash(h[:sources])
       article.save!
       article
@@ -88,12 +88,17 @@ class Article < ApplicationRecord
   end
   # rubocop:enable Metrics/MethodLength
 
-  def replace_sentences_with_hash(new_sentences)
-    sentences.delete_all
-    return if new_sentences.blank?
+  def replace_sentences_with_hash(new_sentences, new_tokens) # rubocop:disable Metrics/MethodLength
+    sentences.destroy_all
+    return if new_sentences.blank? || lang != "ja"
 
-    transformed_sentences = new_sentences.map do |s|
-      Sentence.build(text: s[:text], line_number: s.dig(:meta, :line_number))
+    transformed_sentences = new_sentences.map.with_index do |sentence, line_number|
+      new_sentence = Sentence.build(text: sentence, line_number: line_number)
+      new_token_analyses = new_tokens[line_number].map do |t|
+        TokenAnalysis.build(article_uuid: uuid, line_number: line_number, **t)
+      end
+      new_sentence.token_analyses = new_token_analyses
+      new_sentence
     end
     self.sentences = transformed_sentences
   end

@@ -12,6 +12,7 @@ FactoryBot.define do
     raw_json { "" }
     location { "MyString" }
     author { "MyString" }
+    lang { "ja" }
     trait :with_sources do
       after(:build) do |article|
         article.sources << build(:article)
