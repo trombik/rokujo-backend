@@ -1,5 +1,7 @@
 # Controller to enqueue CollectArticlesJob
 class CollectArticlesController < ApplicationController
+  before_action :disable_in_demo
+
   def index
     @spiders = Forms::CollectArticlesComponent::REGISTERED_SPIDERS
   end

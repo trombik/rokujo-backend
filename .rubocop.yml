@@ -97,3 +97,10 @@ Style/Documentation:
 
 RSpec/NestedGroups:
   Max: 4
+
+Rails/UnknownEnv:
+  Environments:
+    - development
+    - test
+    - production
+    - demo

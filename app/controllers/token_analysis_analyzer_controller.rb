@@ -1,5 +1,7 @@
 # accept q query and displays token analysis of a sentence
 class TokenAnalysisAnalyzerController < ApplicationController
+  before_action :disable_in_demo
+
   def index
     @text = params[:text]&.strip
     @tokens = @text.present? ? TextAnalysisService.call(@text) : []
