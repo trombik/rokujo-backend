@@ -14,6 +14,17 @@ See [Mastering Ruby Regular Expressions](https://www.rubyguides.com/2015/06/ruby
 
 > Regular expression search is slow. Use operators to limit the scope.
 
+##### `tag` operator
+
+`tag` operator limits the search results to tagged collections. Tags can be
+`OR`-ed.
+
+```
+tag:novel データ[をがに]
+tag:formal データ\p{Hiragana}+
+データ tag:formal tag:novel
+```
+
 ##### `site_name` operator
 
 To match sentences from a specific site with a regular expression, use `site_name` operator. When the site name includes spaces, quote the name.  `site_name` can be `OR`-ed.
