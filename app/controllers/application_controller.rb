@@ -10,4 +10,8 @@ class ApplicationController < ActionController::Base
   def render_not_found
     render file: Rails.public_path.join("404.html"), layout: false, status: :not_found
   end
+
+  def disable_in_demo
+    render_not_found if Rails.env.demo?
+  end
 end

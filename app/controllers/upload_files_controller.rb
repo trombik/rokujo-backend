@@ -1,5 +1,7 @@
 # Receive files and pass them to jobs for importing artciles.
 class UploadFilesController < ApplicationController
+  before_action :disable_in_demo
+
   include NotificationHelper
 
   def new

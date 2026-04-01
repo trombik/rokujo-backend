@@ -33,10 +33,10 @@ class Navigation::BarComponent < ViewComponent::Base
       DropDownItemComponent.new(label: "Site Name Correction", path: site_name_corrections_path),
       DropDownDividerComponent.new,
       DropDownHeaderComponent.new(text: "Actions"),
-      DropDownItemComponent.new(label: "Collect Articles", path: collect_articles_path),
-      DropDownItemComponent.new(label: "Analyze Sentence", path: token_analysis_analyzer_path),
-      DropDownItemComponent.new(label: "Manage Jobs", path: mission_control_jobs_path)
-    ]
+      (DropDownItemComponent.new(label: "Collect Articles", path: collect_articles_path) unless Rails.env.demo?),
+      (DropDownItemComponent.new(label: "Analyze Sentence", path: token_analysis_analyzer_path) unless Rails.env.demo?),
+      (DropDownItemComponent.new(label: "Manage Jobs", path: mission_control_jobs_path) unless Rails.env.demo?)
+    ].compact
   end
   # rubocop:enable Metrics/AbcSize
 
