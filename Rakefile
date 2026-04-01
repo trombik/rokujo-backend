@@ -5,8 +5,10 @@ require_relative "config/application"
 
 Rails.application.load_tasks
 
-require "rubocop/rake_task"
-RuboCop::RakeTask.new
+if Rails.env.local?
+  require "rubocop/rake_task"
+  RuboCop::RakeTask.new
+end
 
 def html_files
   Rails.root.glob("app/**/*.html.erb") +
