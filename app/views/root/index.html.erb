@@ -1,5 +1,30 @@
 <%= tag.div class: "d-flex align-items-center justify-content-center", style:"min-height: 80vh;" do %>
   <%= tag.div class: "w-100", style: "max-width: 600px;" do %>
     <%= render SearchForm::GroupComponent.new %>
+    <%= tag.div class: "mt-3" do %>
+      <%= tag.p do %>
+        Hints:
+      <% end %>
+      <%= tag.ul do %>
+        <%= tag.li do %>
+          Regexp: <%= link_to "(である|だった) tag:novel", sentences_index_path(word: "(である|だった) tag:novel") %>
+        <% end %>
+        <%= tag.li do %>
+          Regexp: <%= link_to "\\d+年 site_name:Wikipedia", sentences_index_path(word: "\\d+年 site_name:Wikipedia") %>
+        <% end %>
+        <%= tag.li do %>
+          Collocation: <%= link_to "データ", collocations_nouns_index_path(lemma: "データ") %>
+        <% end %>
+        <%= tag.li do %>
+          Collocation: <%= link_to "地球", collocations_nouns_index_path(lemma: "地球") %>
+        <% end %>
+        <%= tag.li do %>
+          Collocation: <%= link_to "歴史", collocations_nouns_index_path(lemma: "歴史") %>
+        <% end %>
+        <%= tag.li do %>
+          Collocation: <%= link_to "事情", collocations_nouns_index_path(lemma: "事情") %>
+        <% end %>
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>
