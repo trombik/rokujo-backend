@@ -1,8 +1,9 @@
 require "rails_helper"
 
 RSpec.describe Article, type: :model do
-  let(:source) { create(:article, uuid: "uuid-source", url: "url-source") }
-  let(:article) { create(:article, uuid: "uuid-article", url: "url-article") }
+  include_context "with an article"
+
+  let(:source) { create(:article, uuid: "uuid-source", url: "url-source", lang: "en") }
   let(:article_hash) do
     {
       uuid: "uuid",
@@ -27,15 +28,12 @@ RSpec.describe Article, type: :model do
   end
 
   describe "#replace_sentences_with_hash" do
+    let(:sentences) { ["これは文章です。"] }
+    let(:tokens) { sentences.map { |s| TextAnalysisService.call(s) } }
+
     it "replaces sentences" do
       expect do
-        sentence_hash = {
-          text: "Text",
-          meta: {
-            line_number: 1
-          }
-        }
-        article.replace_sentences_with_hash([sentence_hash])
+        article.replace_sentences_with_hash(sentences, tokens)
         article.save!
       end.to change { article.sentences.count }.by(1)
     end
@@ -46,9 +44,9 @@ RSpec.describe Article, type: :model do
         article.save!
 
         expect do
-          article.replace_sentences_with_hash([])
+          article.replace_sentences_with_hash([], [])
           article.save!
-        end.to change { article.sentences.count }.by(-1)
+        end.to change(Sentence, :count).by(-1)
       end
     end
   end
