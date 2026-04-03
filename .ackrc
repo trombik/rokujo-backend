@@ -2,3 +2,4 @@
 --ignore-dir=log
 --ignore-dir=tmp
 --ignore-dir=.venv
+--ignore-dir=storage
