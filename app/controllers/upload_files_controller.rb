@@ -16,7 +16,7 @@ class UploadFilesController < ApplicationController
       return render :create, status: :unprocessable_content
     end
 
-    saved_files(files).each { |f| ImportArticleJob.perform_later(f) }
+    saved_files(files).each { |f| ImportFileJob.perform_later(f) }
     broadcast_toast(title: "File upload", message: "Enqueued ImportFileJob.")
   end
 

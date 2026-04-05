@@ -14,6 +14,6 @@ RSpec.describe "Upload and import files", :js, type: :system do
     expect do
       click_on "Upload"
       expect(page).to have_component(Notification::ToastComponent)
-    end.to have_enqueued_job(ImportArticleJob)
+    end.to have_enqueued_job(ImportFileJob)
   end
 end
