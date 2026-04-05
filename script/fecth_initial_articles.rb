@@ -108,13 +108,7 @@ SPIDERS = [
   SpiderService::Yamadas,
   SpiderService::Slib
 ].freeze
-threads = SPIDERS.map do |spider|
-  Thread.new do
-    spider.call
-  rescue StandardError => e
-    warn e.full_message
-    []
-  end
-end
-threads.each(&:join)
-puts threads.map(&:value).flatten.compact_blank.map(&:to_json)
+
+articles = SPIDERS.map(&:call)
+
+puts articles.flatten.compact_blank.map(&:to_json)
