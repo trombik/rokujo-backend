@@ -35,7 +35,7 @@ class CollectArticlesJob < ApplicationJob
   private
 
   def enqueue_job(file)
-    ImportArticleJob.perform_later(file.to_s)
+    ImportFileJob.perform_later(file.to_s)
   end
 
   def log_and_raise(spider_name, service, arg)

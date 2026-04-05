@@ -27,30 +27,6 @@ RSpec.describe Article, type: :model do
     it { is_expected.to validate_uniqueness_of :uuid }
   end
 
-  describe "#replace_sentences_with_hash" do
-    let(:sentences) { ["これは文章です。"] }
-    let(:tokens) { sentences.map { |s| TextAnalysisService.call(s) } }
-
-    it "replaces sentences" do
-      expect do
-        article.replace_sentences_with_hash(sentences, tokens)
-        article.save!
-      end.to change { article.sentences.count }.by(1)
-    end
-
-    context "when hash is empty" do
-      it "deletes sentences" do
-        article.sentences << create(:sentence, article_uuid: article.uuid)
-        article.save!
-
-        expect do
-          article.replace_sentences_with_hash([], [])
-          article.save!
-        end.to change(Sentence, :count).by(-1)
-      end
-    end
-  end
-
   describe "#replace_sources_from_hash" do
     context "when given hash is empty" do
       it "deletes existing sources" do
@@ -74,7 +50,7 @@ RSpec.describe Article, type: :model do
     end
   end
 
-  describe ".import_from_hash" do
+  describe ".import_from_hash!" do
     it "does not rise" do
       expect do
         described_class.import_from_hash!(article_hash)
@@ -85,6 +61,25 @@ RSpec.describe Article, type: :model do
       expect do
         described_class.import_from_hash!(article_hash)
       end.to change(described_class, :count).by(1)
+    end
+
+    context "when an article with the same UUID exists" do
+      before do
+        another_article = create(:article, uuid: article_hash[:uuid])
+        create(:sentence, article: another_article)
+      end
+
+      it "reused the UUID" do
+        expect do
+          described_class.import_from_hash!(article_hash)
+        end.not_to change(described_class, :count)
+      end
+
+      it "deletes the existing sentences" do
+        expect do
+          described_class.import_from_hash!(article_hash)
+        end.to change(Sentence, :count).by(-1)
+      end
     end
 
     context "when article has a source" do
