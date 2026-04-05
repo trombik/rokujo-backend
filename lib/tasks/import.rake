@@ -1,8 +1,8 @@
 require "json"
 
-namespace :import do
+namespace :import do # rubocop:disable Metrics/BlockLength
   desc "Import articles and sentences from a JSONL file"
-  task :jsonl, [:path] => :environment do |_t, args|
+  task :jsonl, [:path] => :environment do |_t, args| # rubocop:disable Metrics/BlockLength
     path = args[:path]
     if path.nil? || !File.exist?(path)
       puts "Usage: bin/rails \"import:jsonl[path/to/data.jsonl]\""
@@ -10,16 +10,31 @@ namespace :import do
     end
 
     puts "Importing from #{path}..."
+    File.open(path) do |f|
+      f.each_line do |line|
+        article_hash = JSON.parse(line)
+        sentence_texts = article_hash.delete("sentences")
+        token_groups = article_hash.delete("tokens")
 
-    File.open(path, "r") do |file|
-      file.each_line.with_index(1) do |line, index|
-        hash = JSON.parse(line)
-        Article.import_from_hash!(hash)
-        print "." if (index % 100).zero?
+        article = Article.create!(article_hash)
+
+        Article.transaction do
+          sentences = sentence_texts.map.with_index do |text, index|
+            article.sentences.build(line_number: index, text: text)
+          end
+          article.save!
+
+          sentences.each_with_index do |sentence, index|
+            tokens_for_line = token_groups[index]
+            next unless tokens_for_line
+
+            tokens_for_line.each do |token_attr|
+              sentence.token_analyses.build(token_attr)
+            end
+            sentence.save!
+          end
+        end
       end
     end
-
-    puts "\nImport completed. Enqueuing analysis jobs..."
-    EnqueueTokenAnalysisJob.perform_later
   end
 end
