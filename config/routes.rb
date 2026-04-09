@@ -41,6 +41,11 @@ Rails.application.routes.draw do
       get :verbs
       get :adjectives
     end
+
+    scope controller: :verbs, path: :verbs, as: :verbs do
+      get :index, path: "/"
+      get :modifiers
+    end
   end
 
   namespace :stats do

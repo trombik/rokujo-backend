@@ -1,0 +1,14 @@
+<%= form_with url: collocations_verbs_index_path, method: :get, local: true, data: { testid: testid } do |f| %>
+  <% help = Forms::CollapsibleHelpComponent.new("collocation_search_for_verb", help_class: "card card-body shadow-sm") %>
+  <%= tag.div class: "col-auto" do %>
+    <%= tag.div class: "input-group" do %>
+      <%= tag.span class: "input-group-text" do %>
+        <%= t(".name") %>
+        <%= render help.button_component %>
+      <% end %>
+      <%= f.text_field :lemma, value: params[:lemma], class: "form-control", placeholder: t(".placeholder") %>
+      <%= f.submit t("form.button.search"), name: nil, class: "btn btn-primary" %>
+    <% end %>
+  <% end %>
+  <%= render help %>
+<% end %>

@@ -1,0 +1,23 @@
+<%= tag.div id: frame_id, class: "card h-100 border-light-subtle shadow-sm", data: { testid: testid } do %>
+
+  <%= tag.div class: "card-header py-1 px-2 bg-light d-flex justify-content-between align-items-center" do %>
+    <%= tag.strong class: "small text-uppercase text-secondary" do %>
+      <%= header_string %>
+    <% end %>
+    <%= tag.small class: "text-muted", title: "どのように#{verb}" do %>
+      <%= render IconComponent.new("info-circle") %>
+    <% end %>
+  <% end %>
+
+  <%= tag.div class: "card-body p-2" do %>
+    <%= tag.div class: "d-flex flex-wrap gap-1" do %>
+      <% results.each do |word, count| %>
+        <%= render Shared::TokenWithNumberComponent.new(number: count) do %>
+          <%= tag.span word, class: "fw-bold" %>
+          <%= tag.span verb, class: "text-dark ms-1", style: "font-size: 0.85em;" %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+  <% end %>
+<% end %>

@@ -1,0 +1,4 @@
+<% component = Collocations::ModifiersForVerbComponent.new(@lemma, @results) %>
+<%= turbo_frame_tag(component.frame_id) do %>
+  <%= render component %>
+<% end %>

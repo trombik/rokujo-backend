@@ -22,7 +22,8 @@ class Navigation::BarComponent < ViewComponent::Base
     [
       DropDownHeaderComponent.new(text: "Search"),
       DropDownItemComponent.new(label: "Full text search", path: sentences_index_path),
-      DropDownItemComponent.new(label: "Collocation search", path: collocations_nouns_index_path),
+      DropDownItemComponent.new(label: "Collocation (noun)", path: collocations_nouns_index_path),
+      DropDownItemComponent.new(label: "Collocation (verb)", path: collocations_verbs_index_path),
       DropDownDividerComponent.new,
       DropDownHeaderComponent.new(text: "Browse"),
       DropDownItemComponent.new(label: "Sites", path: sites_index_path),

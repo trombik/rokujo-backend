@@ -1,0 +1,4 @@
+<%= render SearchForm::CollocationForVerbComponent.new %>
+<%= turbo_frame_tag(Collocations::ModifiersForVerbComponent.new(@lemma).frame_id, src: collocations_verbs_modifiers_path(lemma: @lemma), loading: :lazy) do %>
+  <%= render SpinnerComponent.new if @lemma.present? %>
+<% end %>
