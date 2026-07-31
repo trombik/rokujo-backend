@@ -18,6 +18,6 @@ RSpec.describe "article_collections/index", type: :view do
   end
 
   it "renders a list of article_collections" do
-    expect(rendered).to have_content("foo").and have_content("bar")
+    expect(rendered).to have_text("foo").and have_text("bar")
   end
 end

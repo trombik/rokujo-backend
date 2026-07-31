@@ -38,7 +38,7 @@ RSpec.describe "/sites/index", :js, type: :system do
       end.to change(SiteNameCorrection, :count).by(1)
 
       # the browser is redirected to the new site_name page
-      expect(page).to have_content("New site name")
+      expect(page).to have_text("New site name")
       expect(page).to have_current_path sites_show_path("New site name")
     end
 

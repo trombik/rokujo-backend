@@ -6,6 +6,6 @@ RSpec.describe Stats::ArticlesWithoutSentenceComponent, type: :component do
   it "renders the unit as `articles`" do
     render_inline described_class.new(100)
 
-    expect(page).to have_content(/100\s+articles/)
+    expect(page).to have_text(/100\s+articles/)
   end
 end

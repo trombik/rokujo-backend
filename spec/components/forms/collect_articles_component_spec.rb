@@ -11,7 +11,7 @@ RSpec.describe Forms::CollectArticlesComponent, type: :component do
   end
 
   it "renders spider name" do
-    expect(page).to have_content(spider)
+    expect(page).to have_text(spider)
   end
 
   it "has a hidden input with the spider name as a value" do

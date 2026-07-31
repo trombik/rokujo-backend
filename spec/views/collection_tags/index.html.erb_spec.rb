@@ -14,6 +14,6 @@ RSpec.describe "collection_tags/index", type: :view do
   end
 
   it "renders a list of collection_tags" do
-    expect(rendered).to have_content("foo").and have_content("bar")
+    expect(rendered).to have_text("foo").and have_text("bar")
   end
 end
