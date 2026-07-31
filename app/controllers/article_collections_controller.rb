@@ -59,7 +59,7 @@ class ArticleCollectionsController < ApplicationController
   end
 
   def articles
-    article_collection = ArticleCollection.find(params[:id])
+    article_collection = ArticleCollection.find(params.expect(:id))
     @pagy, @articles = pagy(:countish,
                             article_collection.articles,
                             items: 20)
