@@ -15,7 +15,7 @@ RSpec.describe Forms::SiteNameCorrectionsComponent, type: :component do
     specify "the content contains `Editing`" do
       render_inline described_class.new(resource)
 
-      expect(rendered_content).to have_content("Editing")
+      expect(rendered_content).to have_text("Editing")
     end
   end
 

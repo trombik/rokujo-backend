@@ -11,6 +11,6 @@ RSpec.describe "article_collections/show", type: :view do
 
   it "renders attributes in <p>" do
     render
-    expect(rendered).to match(/Foo/).and match(/site_name/)
+    expect(rendered).to include("Foo").and include("site_name")
   end
 end

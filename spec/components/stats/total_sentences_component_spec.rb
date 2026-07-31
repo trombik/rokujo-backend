@@ -6,14 +6,14 @@ RSpec.describe Stats::TotalSentencesComponent, type: :component do
   it "renders a comma-delimited number" do
     render_inline described_class.new(1001)
 
-    expect(page).to have_content("1,001")
+    expect(page).to have_text("1,001")
   end
 
   context "when the number is big" do
     it "renders the number for human" do
       render_inline described_class.new(10_000_000_000)
 
-      expect(page).to have_content("10 Billion")
+      expect(page).to have_text("10 Billion")
     end
   end
 
@@ -21,7 +21,7 @@ RSpec.describe Stats::TotalSentencesComponent, type: :component do
     it "renders the negative number" do
       render_inline described_class.new(-1)
 
-      expect(page).to have_content("-1")
+      expect(page).to have_text("-1")
     end
   end
 end

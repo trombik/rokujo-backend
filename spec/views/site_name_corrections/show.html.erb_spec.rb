@@ -10,7 +10,7 @@ RSpec.describe "site_name_corrections/show", type: :view do
 
   it "renders attributes in <p>", :aggregate_failures do
     render
-    expect(rendered).to match(/Domain/)
-    expect(rendered).to match(/Name/)
+    expect(rendered).to include("Domain")
+    expect(rendered).to include("Name")
   end
 end

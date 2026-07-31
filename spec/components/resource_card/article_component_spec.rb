@@ -30,10 +30,10 @@ RSpec.describe ResourceCard::ArticleComponent, type: :component do
   end
 
   it "renders domain" do
-    expect(page).to have_content("example.org")
+    expect(page).to have_text("example.org")
   end
 
   it "renders title" do
-    expect(page).to have_content("Title")
+    expect(page).to have_text("Title")
   end
 end

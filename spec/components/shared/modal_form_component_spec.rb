@@ -18,6 +18,6 @@ RSpec.describe Shared::ModalFormComponent, type: :component do
   end
 
   it "renders given blocks" do
-    expect(page).to have_content("Title").and have_content("Body").and have_content("OK")
+    expect(page).to have_text("Title").and have_text("Body").and have_text("OK")
   end
 end

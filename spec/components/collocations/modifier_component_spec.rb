@@ -15,7 +15,7 @@ RSpec.describe Collocations::ModifierComponent, type: :component do
   end
 
   it "renders 形容詞修飾" do
-    expect(page).to have_content("形容詞修飾")
+    expect(page).to have_text("形容詞修飾")
   end
 
   it "does not render a button to toggle collapsed part" do

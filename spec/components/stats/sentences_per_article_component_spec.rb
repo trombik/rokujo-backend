@@ -6,6 +6,6 @@ RSpec.describe Stats::SentencesPerArticleComponent, type: :component do
   it "renders the unit as `sentences`" do
     render_inline described_class.new(100)
 
-    expect(page).to have_content(/100\s+sentences/)
+    expect(page).to have_text(/100\s+sentences/)
   end
 end

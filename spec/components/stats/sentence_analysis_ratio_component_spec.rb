@@ -6,18 +6,18 @@ RSpec.describe Stats::SentenceAnalysisRatioComponent, type: :component do
   it "renders the unit as `%`" do
     render_inline described_class.new(100)
 
-    expect(page).to have_content(/100\s+%/)
+    expect(page).to have_text(/100\s+%/)
   end
 
   it "rounds up the number" do
     render_inline described_class.new(99.55)
 
-    expect(page).to have_content(/99\.5\s+%/)
+    expect(page).to have_text(/99\.5\s+%/)
   end
 
   it "rounds down the number" do
     render_inline described_class.new(99.54)
 
-    expect(page).to have_content(/99\.5\s+%/)
+    expect(page).to have_text(/99\.5\s+%/)
   end
 end

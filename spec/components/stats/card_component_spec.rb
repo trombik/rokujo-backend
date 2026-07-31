@@ -11,10 +11,10 @@ RSpec.describe Stats::CardComponent, type: :component do
   end
 
   it "renders title" do
-    expect(page).to have_content(/My title/)
+    expect(page).to have_text(/My title/)
   end
 
   it "renders content" do
-    expect(page).to have_content(/My content/)
+    expect(page).to have_text(/My content/)
   end
 end
